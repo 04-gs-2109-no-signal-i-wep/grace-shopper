@@ -1,6 +1,6 @@
 # FS-App-Template
 
-## Setup
+## SETUP
 
 To use this as boilerplate, you'll need to take the following steps:
 
