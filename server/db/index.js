@@ -1,6 +1,7 @@
-const { Sequelize } = require("sequelize/types");
 const db = require("./db");
-const { User, Product, Order } = require("./models");
+const User = require("./models/User");
+const Product = require("./models/Product");
+const Order = require("./models/Order");
 
 User.hasMany(Order);
 Order.belongsTo(User);
