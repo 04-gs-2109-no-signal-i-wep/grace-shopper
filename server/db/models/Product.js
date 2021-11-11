@@ -16,7 +16,7 @@ const Product = db.define('product', {
   },
   color: Sequelize.STRING,
   size: Sequelize.STRING,
-  number_of_items: Sequelize.INTEGER
+  inventory_quantity: Sequelize.INTEGER
 })
 
 module.exports = Product;
