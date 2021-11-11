@@ -61,6 +61,7 @@ User.prototype.correctPassword = function (candidatePwd) {
 };
 
 User.prototype.generateToken = function () {
+  console.log('hitting this');
   return jwt.sign({ id: this.id }, process.env.JWT);
 };
 
@@ -70,7 +71,7 @@ User.prototype.generateToken = function () {
 User.authenticate = async function ({ email_address, password }) {
   const user = await this.findOne({ where: { email_address } });
   if (!user || !(await user.correctPassword(password))) {
-    const error = Error('Incorrect username/password');
+    const error = Error('Incorrect email/password');
     error.status = 401;
     throw error;
   }
