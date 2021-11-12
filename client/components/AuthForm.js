@@ -14,6 +14,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import auth from '../store/auth';
 
 function Copyright(props) {
   return (
@@ -39,7 +40,6 @@ const AuthForm = (props) => {
   const { name, displayName, handleSubmit, error } = props;
 
   return (
-    {displayName === 'Login' ? (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
@@ -55,58 +55,161 @@ const AuthForm = (props) => {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign in
+            {displayName}
           </Typography>
-          <Box
-            component="form"
-            onSubmit={handleSubmit}
-            name={name}
-            noValidate
-            sx={{ mt: 1 }}
-          >
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              id="email_address"
-              label="Email Address"
-              name="email_address"
-              autoComplete="email_address"
-              autoFocus
-              type="email"
-            />
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              // autoComplete="current-password"
-            />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
+          {displayName === 'Login' ? (
+            <Box
+              component="form"
+              onSubmit={handleSubmit}
+              name={name}
+              noValidate
+              sx={{ mt: 1 }}
             >
-              {displayName}
-            </Button>
-            <Grid container>
-              <Grid item>
-                <Link href="signup" variant="body2">
-                  {"Don't have an account? Sign Up"}
-                </Link>
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                id="email_address"
+                label="Email Address"
+                name="email_address"
+                autoComplete="email_address"
+                autoFocus
+                type="email"
+              />
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                name="password"
+                label="Password"
+                type="password"
+                id="password"
+              />
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
+              >
+                {displayName}
+              </Button>
+              <Grid container>
+                <Grid item>
+                  <Link href="signup" variant="body2">
+                    {"Don't have an account? Sign Up"}
+                  </Link>
+                </Grid>
               </Grid>
-            </Grid>
-          </Box>
+            </Box>
+          ) : (
+            <Box
+              component="form"
+              onSubmit={handleSubmit}
+              name={name}
+              noValidate
+              sx={{ mt: 1 }}
+            >
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                id="first_name"
+                label="First Name"
+                name="first_name"
+                autoComplete="first_name"
+                autoFocus
+                type="text"
+              />
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                id="last_name"
+                label="Last Name"
+                name="last_name"
+                autoComplete="last_name"
+                autoFocus
+                type="text"
+              />
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                id="email_address"
+                label="Email Address"
+                name="email_address"
+                autoComplete="email_address"
+                autoFocus
+                type="email"
+              />
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                name="password"
+                label="Password"
+                type="password"
+                id="password"
+              />
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                id="address_line_1"
+                label="Street Address"
+                name="address_line_1"
+                autoComplete="address_line_1"
+                autoFocus
+                type="text"
+              />
+              <TextField
+                margin="normal"
+                fullWidth
+                id="address_line_2"
+                label="Apartment Number"
+                name="address_line_2"
+                autoComplete="address_line_2"
+                autoFocus
+                type="text"
+              />
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                id="city"
+                label="City"
+                name="city"
+                autoComplete="city"
+                autoFocus
+                type="text"
+              />
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                id="country"
+                label="Country"
+                name="country"
+                autoComplete="country"
+                autoFocus
+                type="text"
+              />
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
+              >
+                {displayName}
+              </Button>
+            </Box>
+          )}
         </Box>
         <Copyright sx={{ mt: 8, mb: 4 }} />
         {error && error.response && <div> {error.response.data} </div>}
       </Container>
     </ThemeProvider>
-  )) : (<p>hi</p>)}
+  );
 };
 
 /**
@@ -139,7 +242,31 @@ const mapDispatch = (dispatch) => {
       const formName = evt.target.name;
       const email_address = evt.target.email_address.value;
       const password = evt.target.password.value;
-      dispatch(authenticate(email_address, password, formName));
+
+      if (formName === 'login') {
+        dispatch(authenticate(email_address, password, formName));
+      } else {
+        const first_name = evt.target.first_name.value;
+        const last_name = evt.target.last_name.value;
+        const address_line_1 = evt.target.address_line_1.value;
+        const city = evt.target.city.value;
+        const country = evt.target.country.value;
+        const address_line_2 = evt.target.address_line_2.value;
+
+        dispatch(
+          authenticate(
+            email_address,
+            password,
+            formName,
+            first_name,
+            last_name,
+            address_line_1,
+            city,
+            country,
+            address_line_2
+          )
+        );
+      }
     },
   };
 };

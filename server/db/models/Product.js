@@ -4,19 +4,19 @@ const db = require('../db');
 const Product = db.define('product', {
   name: {
     type: Sequelize.STRING,
-    allowNull: false
+    allowNull: false,
   },
   price: {
     type: Sequelize.INTEGER,
-    allowNull: false
+    allowNull: false,
   },
   description: {
     type: Sequelize.TEXT,
-    allowNull: false
+    allowNull: false,
   },
   color: Sequelize.STRING,
   size: Sequelize.STRING,
-  inventory_quantity: Sequelize.INTEGER
-})
+  inventory_quantity: Sequelize.INTEGER,
+});
 
 module.exports = Product;

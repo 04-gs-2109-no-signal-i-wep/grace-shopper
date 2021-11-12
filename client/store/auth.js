@@ -30,15 +30,41 @@ export const me = () => async (dispatch) => {
 };
 
 export const authenticate =
-  (email_address, password, method) => async (dispatch) => {
+  (
+    email_address,
+    password,
+    method,
+    first_name,
+    last_name,
+    address_line_1,
+    city,
+    country,
+    address_line_2
+  ) =>
+  async (dispatch) => {
     try {
-      const res = await axios.post(`/auth/${method}`, {
-        email_address,
-        password,
-      });
+      let res;
+      if (method === 'login') {
+        res = await axios.post(`/auth/login`, {
+          email_address,
+          password,
+        });
+      } else {
+        res = await axios.post('/auth/signup', {
+          email_address,
+          password,
+          first_name,
+          last_name,
+          address_line_1,
+          city,
+          country,
+          address_line_2,
+        });
+      }
       window.localStorage.setItem(TOKEN, res.data.token);
       dispatch(me());
     } catch (authError) {
+      alert('Incorrect email/password');
       return dispatch(setAuth({ error: authError }));
     }
   };
