@@ -16,7 +16,7 @@ export const fetchProducts = () => {
       const { data } = await axios.get("/api/products");
       dispatch(setProducts(data));
     } catch (error) {
-      console.error("Problem fetching products!", err);
+      console.error("Problem fetching products!", error);
     }
   };
 };
@@ -25,7 +25,7 @@ const initialState = {
   allProducts: [],
 };
 
-const productsReducer = (state = initialState, action) => {
+export default function(state = initialState, action) {
   switch (action.type) {
     case SET_PRODUCTS:
       return {
@@ -37,4 +37,4 @@ const productsReducer = (state = initialState, action) => {
   }
 };
 
-export default productsReducer;
+
