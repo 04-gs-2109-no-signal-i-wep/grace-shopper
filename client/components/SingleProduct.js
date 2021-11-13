@@ -16,27 +16,29 @@ class SingleProduct extends React.Component {
     return (
       <>
         {product ? (
-          <div className="singleView">
-            {this.props.is_admin ? (
-              <div className="adminBar">
-                <button className="adminButton">Edit</button>
-                <button className="adminButton">Delete</button>
-              </div>
-            ) : (
-              ""
-            )}
-            <main className="right">
-              {/* <img src="{product.image_url}" className="featuredProduct" /> */}
-            </main>
-            <main className="left">
-              <h2>{product.name}</h2>
-              <div className="description">{product.description}</div>
-              <div className="price">${product.price}</div>
-              <button className="addToCart">Add To Cart</button>
-              <div className="details"></div>
-            </main>
+          <>
+            <div className="singleView">
+              {this.props.is_admin ? (
+                <div className="adminBar">
+                  <button className="adminButton">Edit</button>
+                  <button className="adminButton">Delete</button>
+                </div>
+              ) : (
+                ""
+              )}
+              <main className="right">
+                {/* <img src="{product.image_url}" className="featuredProduct" /> */}
+              </main>
+              <main className="left">
+                <h2>{product.name}</h2>
+                <div className="description">{product.description}</div>
+                <div className="price">${product.price}</div>
+                <button className="addToCart">Add To Cart</button>
+                <div className="details"></div>
+              </main>
+            </div>
             <button className="back">Back to All Products</button>
-          </div>
+          </>
         ) : (
           "Still Loading..."
         )}
