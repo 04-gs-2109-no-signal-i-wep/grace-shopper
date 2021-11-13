@@ -22,8 +22,8 @@ const _deleteProduct = product => ({
 export const fetchProduct = (id) => {
   return async dispatch => {
     try {
-      const { product } = await axios.get(`/api/products/${id}`);
-      dispatch(_setProduct(product));
+      const { data } = await axios.get(`/api/products/${id}`);
+      dispatch(_setProduct(data));
     } catch (e) {
       console.log('Error in fetching product', e)
     }
@@ -54,7 +54,9 @@ export const deleteProduct = (id, history) => {
   }
 }
 
-export default (state = {}, action) => {
+let initialState = {}
+
+export default (state = initialState, action) => {
   switch (action.type) {
     case SET_PRODUCT:
       return action.product;

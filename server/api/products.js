@@ -12,8 +12,6 @@ router.get('/', async (req, res, next) => {
     next(err);
   }
 });
-<<<<<<< HEAD
-=======
 
 // GET /api/products/:id
 router.get('/:id', async (req, res, next) => {
@@ -25,8 +23,4 @@ router.get('/:id', async (req, res, next) => {
   }
 })
 
-
 module.exports = router;
-
-
->>>>>>> 5c6b39da5071439843eb2e0e9b1f0a47df0b2d26
