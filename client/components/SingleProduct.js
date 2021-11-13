@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { fetchProduct } from "../store/singleProduct";
-import { } from '../store/auth';
+import {} from "../store/auth";
 
 class SingleProduct extends React.Component {
   componentDidMount() {
@@ -9,17 +9,22 @@ class SingleProduct extends React.Component {
   }
 
   render() {
-    console.log(this.props)
+    console.log(this.props);
+    console.log(this.props.is_admin);
     const product = this.props.product;
 
     return (
       <>
         {product ? (
           <div className="singleView">
-            <div className="adminBar">
-              <button className="adminButton">Edit</button>
-              <button className="adminButton">Delete</button>
-            </div>
+            {this.props.is_admin ? (
+              <div className="adminBar">
+                <button className="adminButton">Edit</button>
+                <button className="adminButton">Delete</button>
+              </div>
+            ) : (
+              ""
+            )}
             <main className="right">
               {/* <img src="{product.image_url}" className="featuredProduct" /> */}
             </main>
@@ -42,7 +47,7 @@ class SingleProduct extends React.Component {
 
 const mapState = (state) => ({
   product: state.singleProduct,
-  is_admin: state.auth.is_admin
+  is_admin: state.auth.is_admin,
 });
 
 const mapDispatch = (dispatch, history) => ({
