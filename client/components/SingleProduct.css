@@ -1,0 +1,51 @@
+.singleView {
+  display: flex;
+}
+
+.featuredProduct {
+  max-width: 500px;
+  max-height: 500px;
+}
+
+/* .description {
+} */
+
+.addToCart,
+.back {
+  padding: 10px 25px 10px 25px;
+  border: 0;
+  font-weight: bold;
+  background-color: #000;
+  color: #fff;
+}
+
+/* .details {
+
+} */
+
+h2 {
+  font-size: 36px;
+  font-weight: bold;
+}
+
+left {
+  padding: 30px;
+  text-align: left;
+  font-size: 15px;
+  line-height: 125%;
+}
+
+.adminBar {
+  display: flex;
+  justify-content: space-evenly;
+  padding: 15px;
+  background-color: #bb4430;
+}
+
+.adminButton {
+  padding: 10px 25px 10px 25px;
+  border: 0;
+  font-weight: bold;
+  background-color: #000;
+  color: #fff;
+}
