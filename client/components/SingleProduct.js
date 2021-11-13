@@ -26,6 +26,7 @@ class SingleProduct extends React.Component {
             <main className="left">
               <h2>{product.name}</h2>
               <div className="description">{product.description}</div>
+              <div className="price">${product.price}</div>
               <button className="addToCart">Add To Cart</button>
               <div className="details"></div>
             </main>
@@ -40,7 +41,8 @@ class SingleProduct extends React.Component {
 }
 
 const mapState = (state) => ({
-  product: state.singleProduct
+  product: state.singleProduct,
+  is_admin: state.auth.is_admin
 });
 
 const mapDispatch = (dispatch, history) => ({
