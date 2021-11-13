@@ -7,7 +7,7 @@ import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
-export default function ProductCard({ image, title, description, button }) {
+ export default function ProductCard({ image, title, description, productId}) {
   return (
     <Card sx={{ maxWidth: 345 }}>
       <CardMedia
@@ -25,8 +25,8 @@ export default function ProductCard({ image, title, description, button }) {
         </Typography>
       </CardContent>
       <CardActions>
-        {/* <Link to={`/singleProduct/${id}`}><Button size="small">{button}</Button></Link> */}
-        <Button size="small" variant="outlined">View More</Button>
+        <Link to={`/products/${productId}`}><Button size="small" variant="outlined">View More</Button></Link>
+        {/* <Button size="small" variant="outlined">Add to Cart</Button> */}
       </CardActions>
     </Card>
   );
