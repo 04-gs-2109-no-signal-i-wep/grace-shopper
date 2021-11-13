@@ -22,6 +22,7 @@ export class AllProducts extends React.Component {
                       image={product.image_url}
                       title={product.name}
                       description={product.description}
+                      productId={product.id}
                     />
                   </Grid>
                 );
