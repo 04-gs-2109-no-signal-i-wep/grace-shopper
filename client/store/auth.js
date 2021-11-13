@@ -64,7 +64,7 @@ export const authenticate =
       window.localStorage.setItem(TOKEN, res.data.token);
       dispatch(me());
     } catch (authError) {
-      alert('Incorrect email/password');
+      alert(authError.response.data);
       return dispatch(setAuth({ error: authError }));
     }
   };
