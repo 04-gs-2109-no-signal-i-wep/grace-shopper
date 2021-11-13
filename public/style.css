@@ -1,5 +1,6 @@
 body {
-  font-family: sans-serif;
+  font-family: "Work Sans", sans-serif;
+  font-weight: 300;
 }
 
 a {
@@ -24,29 +25,55 @@ form div {
   margin-top: 50px;
 }
 
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-family: "Prata", serif;
+  margin: 5px 0 5px 0;
+}
+
+h5 {
+  text-transform: uppercase;
+  font-family: "Work Sans", sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+}
+
 /* single product css */
-.singleView {
+main {
   display: flex;
   flex-direction: column;
+}
+
+.singleView {
+  display: flex;
+  flex-direction: row;
   align-items: center;
-  padding: 50px;
+  background-color: #fcfcfc;
+}
+
+left {
+  text-align: left;
+  font-size: 15px;
+  line-height: 125%;
 }
 
 .featuredProduct {
-  max-width: 500px;
-  max-height: 500px;
+  max-width: 400px;
+  max-height: 400px;
+  padding-right: 50px;
 }
 
-/* .description {
-} */
+.description,
+.price {
+  display: block;
+  padding-top: 25px;
+}
 
-.addToCart,
-.back {
-  padding: 10px 25px 10px 25px;
-  border: 0;
-  font-weight: bold;
-  background-color: #000;
-  color: #fff;
+.price {
+  font-weight: 400;
 }
 
 /* .details {
@@ -54,28 +81,32 @@ form div {
 } */
 
 h2 {
-  font-size: 36px;
-  font-weight: bold;
-}
-
-left {
-  padding: 30px;
-  text-align: left;
-  font-size: 15px;
-  line-height: 125%;
+  font-size: 28px;
 }
 
 .adminBar {
   display: flex;
   justify-content: space-evenly;
+  align-items: center;
   padding: 15px;
-  background-color: #bb4430;
+  background-color: #e0f2e9;
 }
 
+.addToCart,
+.back,
 .adminButton {
+  font-family: "Work Sans";
+  font-weight: 300;
   padding: 10px 25px 10px 25px;
   border: 0;
   font-weight: bold;
-  background-color: #000;
+  background-color: #ceb5a7;
+  color: #000;
+  letter-spacing: 0.5px;
+  margin: 15px 0 15px 0;
+}
+
+.adminButton {
+  background-color: #5b7b7a;
   color: #fff;
 }

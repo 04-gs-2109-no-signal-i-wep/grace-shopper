@@ -31,7 +31,7 @@ class Routes extends Component {
               path="/products/:productId"
               component={SingleProduct}
             />
-            {/* <Redirect to="/home" /> */}
+            <Redirect to="/home" />
           </Switch>
         ) : (
           <Switch>

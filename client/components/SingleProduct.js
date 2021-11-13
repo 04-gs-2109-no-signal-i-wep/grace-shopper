@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
+import { Link } from 'react-router-dom';
 import { fetchProduct } from "../store/singleProduct";
-import {} from "../store/auth";
 
 class SingleProduct extends React.Component {
   componentDidMount() {
@@ -9,35 +9,35 @@ class SingleProduct extends React.Component {
   }
 
   render() {
-    console.log(this.props);
-    console.log(this.props.is_admin);
     const product = this.props.product;
-
     return (
       <>
         {product ? (
           <>
-            <div className="singleView">
+            <main>
               {this.props.is_admin ? (
                 <div className="adminBar">
+                  <h5>Admin Control</h5>
                   <button className="adminButton">Edit</button>
                   <button className="adminButton">Delete</button>
                 </div>
               ) : (
                 ""
               )}
-              <main className="right">
-                {/* <img src="{product.image_url}" className="featuredProduct" /> */}
-              </main>
-              <main className="left">
-                <h2>{product.name}</h2>
-                <div className="description">{product.description}</div>
-                <div className="price">${product.price}</div>
-                <button className="addToCart">Add To Cart</button>
-                <div className="details"></div>
-              </main>
-            </div>
-            <button className="back">Back to All Products</button>
+              <div className="singleView">
+                <div className="right">
+                  <img src={product.image_url} className="featuredProduct" alt={product.name} />
+                </div>
+                <div className="left">
+                  <h2>{product.name}</h2>
+                  <div className="description">{product.description}</div>
+                  <div className="price">${product.price}</div>
+                  <button className="addToCart">Add To Cart</button>
+                  <div className="details"></div>
+                </div>
+              </div>
+            </main>
+            <center><Link to={'/products'}><button className="back">Back to All</button></Link></center>
           </>
         ) : (
           "Still Loading..."
