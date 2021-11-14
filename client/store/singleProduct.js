@@ -34,6 +34,7 @@ export const editProduct = (product, history) => {
   return async dispatch => {
     try {
       const { data: updated } = await axios.put(`/api/products/${product.id}`, product);
+      console.log(updated)
       dispatch(_editProduct(updated));
       history.push(`/products/${product.id}`);
     } catch (e) {
@@ -61,7 +62,8 @@ export default (state = initialState, action) => {
     case SET_PRODUCT:
       return action.product;
     case EDIT_PRODUCT:
-      return state.map(product => (product.id === action.product.id ? action.product : product));
+      console.log(state)
+      return action.product;
     case DELETE_PRODUCT:
       return state.filter(product => product.id !== action.product.id)
     default:

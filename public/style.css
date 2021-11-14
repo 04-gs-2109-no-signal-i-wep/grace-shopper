@@ -94,7 +94,8 @@ h2 {
 
 .addToCart,
 .back,
-.adminButton {
+.adminButton,
+.editBtn {
   font-family: "Work Sans";
   font-weight: 300;
   padding: 10px 25px 10px 25px;
@@ -103,10 +104,34 @@ h2 {
   background-color: #ceb5a7;
   color: #000;
   letter-spacing: 0.5px;
-  margin: 15px 0 15px 0;
+  margin: 15px 15px 15px 0;
+  border-radius: 5px;
 }
 
 .adminButton {
   background-color: #5b7b7a;
   color: #fff;
+}
+
+.adminButton a:visited {
+  color: #fff;
+}
+
+.editFormLabel {
+  font-family: "Work Sans";
+  text-transform: uppercase;
+  font-size: 12px;
+  font-weight: 400;
+  padding: 10px 0 10px 0;
+}
+
+.editFormInput {
+  width: 100%;
+  height: 110%;
+  border: 0;
+  background-color: #e0f2e9;
+  font-family: "Work Sans";
+  font-size: 13px;
+  padding: 15px;
+  border-radius: 5px;
 }
