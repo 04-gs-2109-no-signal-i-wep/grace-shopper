@@ -28,15 +28,17 @@ class SingleProduct extends React.Component {
               {this.props.is_admin ? (
                 <div className="adminBar">
                   <h5>Admin Control</h5>
-                  <a href={`/products/${product.id}/edit`}>
-                    <button className="adminButton">Edit</button>
-                  </a>
-                  <button
-                    className="adminButton"
-                    onClick={() => this.props.deleteProduct(product.id)}
-                  >
-                    Delete
-                  </button>
+                  <div className="adminBar">
+                    <a href={`/products/${product.id}/edit`}>
+                      <button className="adminButton">Edit</button>
+                    </a>
+                    <button
+                      className="adminButton"
+                      onClick={() => this.props.deleteProduct(product.id)}
+                    >
+                      Delete
+                    </button>
+                  </div>
                 </div>
               ) : (
                 ""
