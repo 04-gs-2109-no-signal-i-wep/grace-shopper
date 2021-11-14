@@ -27,7 +27,6 @@ const User = db.define('user', {
   },
   last_name: {
     type: Sequelize.STRING,
-    allowNull: false,
   },
   is_admin: {
     type: Sequelize.BOOLEAN,
@@ -35,18 +34,15 @@ const User = db.define('user', {
   },
   address_line_1: {
     type: Sequelize.STRING,
-    allowNull: false,
   },
   address_line_2: {
     type: Sequelize.STRING,
   },
   city: {
     type: Sequelize.STRING,
-    allowNull: false,
   },
   country: {
     type: Sequelize.STRING,
-    allowNull: false,
   },
 });
 

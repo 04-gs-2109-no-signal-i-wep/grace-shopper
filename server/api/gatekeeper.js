@@ -1,6 +1,7 @@
 // stores all the functions that prevents front-end access to database
-const { models: { User } } = require('../db');
-
+const {
+  models: { User },
+} = require("../db");
 
 const requireToken = async (req, res, next) => {
   try {
@@ -9,10 +10,19 @@ const requireToken = async (req, res, next) => {
     req.user = user;
     next();
   } catch (error) {
-    next (error)
+    next(error);
   }
-}
+};
+
+const isAdmin = (req, res, next) => {
+  if (!req.user.is_admin) {
+    return res.status(403).send("You shall not pass!");
+  } else {
+    next();
+  }
+};
 
 module.exports = {
-  requireToken
-}
+  requireToken,
+  isAdmin
+};
