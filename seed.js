@@ -117,7 +117,7 @@ const products = [
   {
     name: "Bohemian Den",
     price: 10000,
-    description: "Super boho furniture",
+    description: "A California dream for those who love warm tones with pops of complementary colors. Rich textiles are mixed with artisanal basketweave patterns.",
     color: "Yellow",
     size: "Large",
     inventory_quantity: 6,

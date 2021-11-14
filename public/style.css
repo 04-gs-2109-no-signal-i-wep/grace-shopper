@@ -83,38 +83,23 @@ h2 {
   font-size: 28px;
 }
 
-.adminBar {
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-  padding: 15px;
-  background-color: #e0f2e9;
-}
-
-.addToCart,
-.back,
-.adminButton,
-.editBtn {
+button {
   font-family: "Work Sans";
   font-weight: 300;
   padding: 10px 25px 10px 25px;
   border: 0;
   font-weight: bold;
-  background-color: #ceb5a7;
-  color: #000;
+  background-color: #5b7b7a;
+  color: #fff;
   letter-spacing: 0.5px;
   margin: 15px 15px 15px 0;
   border-radius: 5px;
+  opacity: 0.8;
 }
 
-.adminButton {
-  background-color: #5b7b7a;
-  color: #fff;
-}
-
-.adminButton a:visited,
-.adminButton:link {
-  color: #fff;
+button:hover {
+  transition: 0.5s;
+  opacity: 1;
 }
 
 .editFormLabel {
@@ -129,9 +114,28 @@ h2 {
   width: 100%;
   height: 110%;
   border: 0;
-  background-color: #e0f2e9;
+  background-color: #efefef;
   font-family: "Work Sans";
   font-size: 13px;
   padding: 15px;
   border-radius: 5px;
+}
+
+.adminBar {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  padding: 10px;
+  background-color: #efefef;
+}
+
+.adminButton {
+  border: 0;
+  background-color: #ceb5a7;
+  color: #000;
+}
+
+.adminButton a:visited,
+.adminButton:link {
+  color: #000;
 }

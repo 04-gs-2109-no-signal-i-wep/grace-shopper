@@ -15,13 +15,11 @@ class SingleProduct extends React.Component {
   }
 
   handleDelete() {
-    console.log(this.props);
     this.props.deleteProduct(this.props.product.id);
   }
 
   render() {
     const product = this.props.product;
-    console.log(this.props)
     return (
       <>
         {product ? (
@@ -30,9 +28,9 @@ class SingleProduct extends React.Component {
               {this.props.is_admin ? (
                 <div className="adminBar">
                   <h5>Admin Control</h5>
-                  <button className="adminButton">
-                    <a href={`/products/${product.id}/edit`}>Edit</a>
-                  </button>
+                  <a href={`/products/${product.id}/edit`}>
+                    <button className="adminButton">Edit</button>
+                  </a>
                   <button
                     className="adminButton"
                     onClick={() => this.props.deleteProduct(product.id)}
@@ -55,14 +53,14 @@ class SingleProduct extends React.Component {
                   <h2>{product.name}</h2>
                   <div className="description">{product.description}</div>
                   <div className="price">${product.price}</div>
-                  <button className="addToCart">Add To Cart</button>
+                  <button>Add To Cart</button>
                   <div className="details"></div>
                 </div>
               </div>
             </main>
             <center>
               <Link to={"/products"}>
-                <button className="back">Back to All</button>
+                <button>Back to All</button>
               </Link>
             </center>
           </>
