@@ -1,10 +1,11 @@
 const router = require('express').Router();
 const Product = require('../db/models/Product');
+const { requireToken } = require('./gatekeeper')
 
 module.exports = router;
 
 // GET /api/products
-router.get('/', async (req, res, next) => {
+router.get('/', requireToken, async (req, res, next) => {
   try {
     const products = await Product.findAll();
     res.json(products);
