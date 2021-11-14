@@ -59,7 +59,7 @@ class EditProduct extends React.Component {
         </div>
         <div className="left">
           <h2>Edit {product.name}</h2>
-          <form className="left" onSubmit={this.handleSubmit}>
+          <form onSubmit={this.handleSubmit}>
             <label htmlFor="name" className="editFormLabel">
               Product Name
             </label>

@@ -54,15 +54,14 @@ main {
   background-color: #fcfcfc;
 }
 
-left {
+.left {
   text-align: left;
   font-size: 15px;
-  line-height: 125%;
+  padding: 25px;
 }
 
 .featuredProduct {
-  max-width: 400px;
-  max-height: 400px;
+  max-width: 500px;
   padding-right: 50px;
 }
 
@@ -113,7 +112,8 @@ h2 {
   color: #fff;
 }
 
-.adminButton a:visited {
+.adminButton a:visited,
+.adminButton:link {
   color: #fff;
 }
 

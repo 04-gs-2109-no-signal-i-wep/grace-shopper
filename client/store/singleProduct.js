@@ -47,8 +47,9 @@ export const deleteProduct = (id, history) => {
   return async dispatch => {
     try {
       const { data: deleted } = await axios.delete(`/api/products/${id}`);
+      console.log(deleted)
       dispatch(_deleteProduct(deleted));
-      history.push(`/products`);
+      history.push(`/products`)
     } catch (e) {
       console.log('Error in deleting product', e)
     }
@@ -65,7 +66,7 @@ export default (state = initialState, action) => {
       console.log(state)
       return action.product;
     case DELETE_PRODUCT:
-      return state.filter(product => product.id !== action.product.id)
+      return action.product;
     default:
       return state;
   }
