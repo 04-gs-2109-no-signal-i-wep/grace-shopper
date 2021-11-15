@@ -2,29 +2,39 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { logout } from '../store';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 const Navbar = ({ handleClick, isLoggedIn }) => (
-  <div className="navbar">
-    <h1 id="homeHeader"> HEARTH</h1>
-    <nav>
+  <nav>
+    <div className="mainNav">
+      <Link to="/home">
+        <h1>hearth</h1>
+      </Link>
+      <Link to="/products">Products</Link>
+    </div>
+    <div className="sideNav">
       {isLoggedIn ? (
         <div>
           {/* The navbar will show these links after you log in */}
-          <Link to="/home">Home</Link>
+          <Link to="/cart">
+            <ShoppingCartIcon fontSize="small" />
+          </Link>
           <a href="#" onClick={handleClick}>
-            Logout
+            Log Out
           </a>
         </div>
       ) : (
         <div>
           {/* The navbar will show these links before you log in */}
-          <Link to="/login">Login</Link>
+          <Link to="/cart">
+            <ShoppingCartIcon fontSize="small" />
+          </Link>
+          <Link to="/login">Log In</Link>
           <Link to="/signup">Sign Up</Link>
         </div>
       )}
-    </nav>
-    <hr />
-  </div>
+    </div>
+  </nav>
 );
 
 /**

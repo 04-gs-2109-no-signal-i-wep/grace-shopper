@@ -6,6 +6,46 @@ const {
 
 const users = [
   {
+    email_address: 'yilla@hearth.com',
+    password: '123',
+    first_name: 'yilla',
+    last_name: 'chen',
+    is_admin: true,
+    address_line_1: '246 Test Street',
+    city: 'Brooklyn',
+    country: 'USA',
+  },
+  {
+    email_address: 'caroline@hearth.com',
+    password: '123',
+    first_name: 'caroline',
+    last_name: 'spiezio',
+    is_admin: true,
+    address_line_1: '246 Test Street',
+    city: 'Brooklyn',
+    country: 'USA',
+  },
+  {
+    email_address: 'maxiel@hearth.com',
+    password: '123',
+    first_name: 'maxiel',
+    last_name: 'mrvaljevic',
+    is_admin: true,
+    address_line_1: '246 Test Street',
+    city: 'Brooklyn',
+    country: 'USA',
+  },
+  {
+    email_address: 'jean@hearth.com',
+    password: '123',
+    first_name: 'jean',
+    last_name: 'chow',
+    is_admin: true,
+    address_line_1: '246 Test Street',
+    city: 'Seattle',
+    country: 'USA',
+  },
+  {
     email_address: 'frankie.muniz@gmail.com',
     password: '123franfran',
     first_name: 'Frankie',
@@ -57,66 +97,66 @@ const users = [
 
 const products = [
   {
-    name: 'Midcentury Modern',
+    name: 'Midcentury Modern Den',
     price: 10000,
     description: 'Super modern but not too modern furniture',
     color: 'Orange',
     size: 'Medium',
     inventory_quantity: 5,
-    image_url:
-      'https://images.unsplash.com/photo-1556912167-f556f1f39fdf?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1181&q=80',
+    image_url: '/images/midcent-modern.jpeg',
   },
   {
-    name: 'Art Deco',
+    name: 'Art Deco Den',
     price: 9000,
     description: 'Super artsy furniture',
     color: 'Red',
     size: 'Small',
     inventory_quantity: 4,
-    featured: true,
-    image_url:
-      'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=958&q=80',
+    image_url: '/images/art-deco.jpeg',
   },
   {
-    name: 'Bohemian',
+    name: 'Bohemian Den',
     price: 10000,
-    description: 'Super boho furniture',
+    description:
+      'A California dream for those who love warm tones with pops of complementary colors. Rich textiles are mixed with artisanal basketweave patterns.',
     color: 'Yellow',
     size: 'Large',
     inventory_quantity: 6,
-    featured: true,
-    image_url:
-      'https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80',
+    image_url: '/images/bohemian.jpeg',
   },
   {
-    name: 'Eclectic',
+    name: 'Eclectic Den',
     price: 10000,
     description: 'Super diverse furniture',
     color: 'Teal',
     size: 'Large',
     inventory_quantity: 7,
-    image_url:
-      'https://images.unsplash.com/photo-1593853963555-013dbf33c060?ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8ZWNsZWN0aWMlMjByb29tfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=60',
+    image_url: '/images/eclectic.jpeg',
   },
   {
-    name: 'Post-Modern',
+    name: 'Post-Modern Den',
     price: 10000,
     description: 'Super futuristic furniture',
     color: 'Black',
     size: 'Small',
     inventory_quantity: 6,
-    image_url:
-      'https://images.unsplash.com/photo-1464075208758-5623fb69e13b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80',
+    image_url: '/images/post-mod.png',
   },
   {
-    name: 'Rustic',
+    name: 'Rustic Den',
     price: 20000,
     description:
       'Want to bring the cabin-in-the-woods vibe to your apartment? This is the set for you. Includes three chairs, one couch, a coffee table and red rug',
     inventory_quantity: 6,
-    featured: true,
-    image_url:
-      'https://images.unsplash.com/photo-1519643381401-22c77e60520e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1173&q=80',
+    image_url: '/images/rustic.jpeg',
+  },
+  {
+    name: 'Organic Modern Den',
+    price: 20000,
+    description:
+      'Minimalistic and contemporary, this collection is for the French art house lovers. Luscious textures contrast subtle pops of color with pastoral organic shapes.',
+    inventory_quantity: 6,
+    image_url: '/images/organic-modern.jpeg',
   },
 ];
 
