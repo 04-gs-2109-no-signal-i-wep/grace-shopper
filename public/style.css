@@ -34,10 +34,6 @@ nav a:hover {
   border-bottom: 1px solid #a17c6b;
 }
 
-h1:hover {
-  color: #000;
-}
-
 .mainNav {
   display: flex;
   align-items: center;
@@ -62,8 +58,12 @@ h5 {
 }
 
 h1 {
-  font-size: 36px;
+  font-size: 30px;
   letter-spacing: 0.5px;
+}
+
+h1:hover {
+  color: #000;
 }
 
 h5 {
