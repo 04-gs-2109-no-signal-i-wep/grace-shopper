@@ -40,10 +40,7 @@ export const addItemToCart = (jwt, product, quantity) => {
       );
       dispatch(_addToCart(itemAdded));
     } catch (error) {
-      console.log(
-        'An error occurred in the addItemToCart thunk: ',
-        console.error
-      );
+      console.log('An error occurred in the addItemToCart thunk: ', error);
     }
   };
 };

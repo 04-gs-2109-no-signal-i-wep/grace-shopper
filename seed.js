@@ -63,7 +63,8 @@ const products = [
     color: 'Orange',
     size: 'Medium',
     inventory_quantity: 5,
-    image_url: 'https://images.unsplash.com/photo-1556912167-f556f1f39fdf?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1181&q=80',
+    image_url:
+      'https://images.unsplash.com/photo-1556912167-f556f1f39fdf?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1181&q=80',
   },
   {
     name: 'Art Deco',
@@ -72,7 +73,9 @@ const products = [
     color: 'Red',
     size: 'Small',
     inventory_quantity: 4,
-    image_url: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=958&q=80',
+    featured: true,
+    image_url:
+      'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=958&q=80',
   },
   {
     name: 'Bohemian',
@@ -81,7 +84,9 @@ const products = [
     color: 'Yellow',
     size: 'Large',
     inventory_quantity: 6,
-    image_url: 'https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80',
+    featured: true,
+    image_url:
+      'https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80',
   },
   {
     name: 'Eclectic',
@@ -90,7 +95,8 @@ const products = [
     color: 'Teal',
     size: 'Large',
     inventory_quantity: 7,
-    image_url: 'https://images.unsplash.com/photo-1593853963555-013dbf33c060?ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8ZWNsZWN0aWMlMjByb29tfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=60',
+    image_url:
+      'https://images.unsplash.com/photo-1593853963555-013dbf33c060?ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8ZWNsZWN0aWMlMjByb29tfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=60',
   },
   {
     name: 'Post-Modern',
@@ -99,7 +105,8 @@ const products = [
     color: 'Black',
     size: 'Small',
     inventory_quantity: 6,
-    image_url: 'https://images.unsplash.com/photo-1464075208758-5623fb69e13b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80',
+    image_url:
+      'https://images.unsplash.com/photo-1464075208758-5623fb69e13b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80',
   },
   {
     name: 'Rustic',
@@ -107,7 +114,9 @@ const products = [
     description:
       'Want to bring the cabin-in-the-woods vibe to your apartment? This is the set for you. Includes three chairs, one couch, a coffee table and red rug',
     inventory_quantity: 6,
-    image_url: 'https://images.unsplash.com/photo-1519643381401-22c77e60520e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1173&q=80',
+    featured: true,
+    image_url:
+      'https://images.unsplash.com/photo-1519643381401-22c77e60520e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1173&q=80',
   },
 ];
 
