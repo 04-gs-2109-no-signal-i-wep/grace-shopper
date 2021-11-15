@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { logout } from "../store";
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 const Navbar = ({ handleClick, isLoggedIn }) => (
   <nav>
@@ -15,16 +16,16 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
       {isLoggedIn ? (
         <div>
           {/* The navbar will show these links after you log in */}
-          <Link to="/cart">Cart</Link>
+          <Link to="/cart"><ShoppingCartIcon fontSize='small' /></Link>
           <a href="#" onClick={handleClick}>
-            Logout
+            Log Out
           </a>
         </div>
       ) : (
         <div>
           {/* The navbar will show these links before you log in */}
-          <Link to="/cart">Cart</Link>
-          <Link to="/login">Login</Link>
+          <Link to="/cart"><ShoppingCartIcon fontSize='small' /></Link>
+          <Link to="/login">Log In</Link>
           <Link to="/signup">Sign Up</Link>
         </div>
       )}
