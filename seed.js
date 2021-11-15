@@ -103,6 +103,7 @@ const products = [
     color: 'Orange',
     size: 'Medium',
     inventory_quantity: 5,
+    featured: true,
     image_url: '/images/midcent-modern.jpeg',
   },
   {
@@ -112,6 +113,7 @@ const products = [
     color: 'Red',
     size: 'Small',
     inventory_quantity: 4,
+    featured: true,
     image_url: '/images/art-deco.jpeg',
   },
   {
@@ -122,6 +124,7 @@ const products = [
     color: 'Yellow',
     size: 'Large',
     inventory_quantity: 6,
+    featured: true,
     image_url: '/images/bohemian.jpeg',
   },
   {
@@ -131,6 +134,7 @@ const products = [
     color: 'Teal',
     size: 'Large',
     inventory_quantity: 7,
+    featured: true,
     image_url: '/images/eclectic.jpeg',
   },
   {
