@@ -5,8 +5,7 @@ const Header = (props) => {
   return (
     <header id="header">
       <div className="heroText">
-        Welcome home.
-        <br />
+        <h2>Welcome home.</h2>
         <Link to="/products">
           <center>
             <button>Shop All</button>
