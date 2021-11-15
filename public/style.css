@@ -83,14 +83,17 @@ main {
 .singleView {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   align-items: center;
   background-color: #fcfcfc;
+  justify-content: center;
 }
 
 .left {
   text-align: left;
   font-size: 15px;
   padding: 25px;
+  max-width: 500px;
 }
 
 .featuredProduct {
