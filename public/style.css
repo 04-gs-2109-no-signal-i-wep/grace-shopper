@@ -175,3 +175,92 @@ button:hover {
 .adminButton:link {
   color: #000;
 }
+
+#header {
+  background-image: url('https://images.unsplash.com/photo-1617806118233-18e1de247200?ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8ZGluaW5nJTIwcm9vbXxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&w=1000&q=80');
+  height: 550px;
+  text-align: center;
+  top: 250px;
+  font-size: 45px;
+  color: #5b7b7a;
+  font-family: Prata;
+}
+
+@media screen and (max-width: 400px) {
+  #features {
+    padding: 20px;
+    width: 111%;
+  }
+  #about,
+  #services,
+  #testimonials,
+  #team,
+  #contact,
+  #footer {
+    width: 111%;
+  }
+
+  #portfolio {
+    width: 110%;
+  }
+}
+
+#homeHeader {
+  text-align: center;
+  width: 90%;
+  font-size: 55px;
+  color: #5b7b7a;
+  font-family: work sans;
+}
+
+.navbar {
+  display: flex;
+  font-family: Prata;
+  color: #5b7b7a;
+  height: 55px;
+  background-color: #ceb5a7;
+}
+
+#header {
+  font-style: italic;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+#about {
+  font-family: work sans;
+  color: #5b7b7a;
+  font-size: 20px;
+  text-align: center;
+}
+
+.featuredProductsContainer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  position: relative;
+}
+
+.featuredProductRow {
+  margin: 5px;
+  justify-content: center;
+  text-align: center;
+  flex: 1;
+}
+
+#featuredProductsHeader {
+  font-family: Prata;
+  color: #5b7b7a;
+  text-align: center;
+  font-weight: bolder;
+}
+
+#viewAll {
+  text-align: center;
+}
+
+#app {
+  background-color: #ceb5a7;
+  height: 100%;
+  background-size: cover;
+}
