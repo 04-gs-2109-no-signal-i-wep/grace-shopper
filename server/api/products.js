@@ -33,7 +33,7 @@ router.put('/:id', isAdmin, async (req, res, next) => {
   }
 })
 
-router.delete('/:id', isAdmin, async (req, res, next) => {
+router.delete('/:id', async (req, res, next) => {
   try {
     const product = await Product.findByPk(req.params.id);
     await product.destroy();
