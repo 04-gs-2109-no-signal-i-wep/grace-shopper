@@ -3,7 +3,6 @@ import axios from 'axios';
 //ACTION TYPES
 const SET_CART = 'SET_CART';
 const ADD_TO_CART = 'ADD_TO_CART';
-const MARK_AS_COMPLETE = 'MARK_AS_COMPLETE';
 //make a delete item from cart
 //need a way to mark a cart as complete -- check JPFP for this
 
