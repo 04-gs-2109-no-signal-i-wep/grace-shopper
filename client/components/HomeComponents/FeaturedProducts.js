@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { fetchFeaturedProducts } from "../../store/featuredProducts";
 import { Link } from "react-router-dom";
-import Button from "@mui/material/Button";
 
 class FeaturedProducts extends Component {
   constructor(props) {
@@ -35,7 +34,6 @@ class FeaturedProducts extends Component {
                 <Link to={`/products/${product.id}`}>
                   <img
                     src={product.image_url}
-                    style={{ width: "300px", height: "300px" }}
                     onClick={() => this.switchToSingleCollection(product.id)}
                     className="featuredImg"
                   />
@@ -48,6 +46,11 @@ class FeaturedProducts extends Component {
             ))}
           </div>
         )}
+        <Link to="/products">
+          <center>
+            <button>View All Products</button>
+          </center>
+        </Link>
       </div>
     );
   }

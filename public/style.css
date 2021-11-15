@@ -112,10 +112,6 @@ main {
   font-weight: 400;
 }
 
-/* .details {
-
-} */
-
 h2 {
   font-size: 28px;
 }
@@ -139,6 +135,12 @@ button {
 button:hover {
   transition: 0.5s;
   opacity: 1;
+}
+
+.back {
+  margin: 15px 0 15px 0;
+  text-transform: uppercase;
+  display: block;
 }
 
 .editFormLabel {
@@ -186,16 +188,16 @@ button:hover {
   background-size: cover;
 }
 
-#header h2 {
+.heroText {
   color: #000;
   font-family: "Prata", serif;
   font-style: normal;
   font-size: 36px;
   text-align: center;
-  top: 50%;
+  top: 40%;
   position: relative;
   background-color: #ffffffe0;
-  padding: 15px 0 15px 0;
+  padding: 25px 0 15px 0;
 }
 
 @media screen and (max-width: 400px) {
@@ -210,6 +212,7 @@ button:hover {
   #contact,
   #footer {
     width: 75%;
+    margin: 25px;
   }
 }
 
@@ -233,14 +236,22 @@ button:hover {
 }
 
 .featuredImg {
+  width: 250px;
+  height: 250px;
   border-radius: 10px 10px 0 0;
+  opacity: 0.75;
+}
+
+.featuredImg:hover {
+  transition: 0.5s;
+  opacity: 1;
 }
 
 .featuredBox {
   margin: 15px;
   border: 1px solid #444;
   border-radius: 10px;
-  width: 300px;
+  width: 250px;
 }
 
 .featuredDesc {
