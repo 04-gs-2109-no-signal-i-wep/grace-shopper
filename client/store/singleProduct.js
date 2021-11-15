@@ -34,6 +34,7 @@ export const editProduct = (product, history) => {
   return async dispatch => {
     try {
       const { data: updated } = await axios.put(`/api/products/${product.id}`, product);
+      console.log(updated)
       dispatch(_editProduct(updated));
       history.push(`/products/${product.id}`);
     } catch (e) {
@@ -46,8 +47,9 @@ export const deleteProduct = (id, history) => {
   return async dispatch => {
     try {
       const { data: deleted } = await axios.delete(`/api/products/${id}`);
+      console.log(deleted)
       dispatch(_deleteProduct(deleted));
-      history.push(`/products`);
+      history.push(`/products`)
     } catch (e) {
       console.log('Error in deleting product', e)
     }
@@ -61,9 +63,10 @@ export default (state = initialState, action) => {
     case SET_PRODUCT:
       return action.product;
     case EDIT_PRODUCT:
-      return state.map(product => (product.id === action.product.id ? action.product : product));
+      console.log(state)
+      return action.product;
     case DELETE_PRODUCT:
-      return state.filter(product => product.id !== action.product.id)
+      return action.product;
     default:
       return state;
   }

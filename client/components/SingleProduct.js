@@ -1,43 +1,70 @@
 import React from "react";
 import { connect } from "react-redux";
-import { fetchProduct } from "../store/singleProduct";
-import {} from "../store/auth";
+import { Link } from "react-router-dom";
+import { fetchProduct, deleteProduct } from "../store/singleProduct";
 
 class SingleProduct extends React.Component {
+  constructor() {
+    super();
+    this.state = {};
+    this.handleDelete = this.handleDelete.bind(this);
+  }
+
   componentDidMount() {
     this.props.fetchProduct(this.props.match.params.productId);
   }
 
-  render() {
-    console.log(this.props);
-    console.log(this.props.is_admin);
-    const product = this.props.product;
+  handleDelete() {
+    this.props.deleteProduct(this.props.product.id);
+  }
 
+  render() {
+    const product = this.props.product;
     return (
       <>
         {product ? (
           <>
-            <div className="singleView">
+            <main>
               {this.props.is_admin ? (
                 <div className="adminBar">
-                  <button className="adminButton">Edit</button>
-                  <button className="adminButton">Delete</button>
+                  <h5>Admin Control</h5>
+                  <div className="adminBar">
+                    <a href={`/products/${product.id}/edit`}>
+                      <button className="adminButton">Edit</button>
+                    </a>
+                    <button
+                      className="adminButton"
+                      onClick={() => this.props.deleteProduct(product.id)}
+                    >
+                      Delete
+                    </button>
+                  </div>
                 </div>
               ) : (
                 ""
               )}
-              <main className="right">
-                {/* <img src="{product.image_url}" className="featuredProduct" /> */}
-              </main>
-              <main className="left">
-                <h2>{product.name}</h2>
-                <div className="description">{product.description}</div>
-                <div className="price">${product.price}</div>
-                <button className="addToCart">Add To Cart</button>
-                <div className="details"></div>
-              </main>
-            </div>
-            <button className="back">Back to All Products</button>
+              <div className="singleView">
+                <div className="right">
+                  <img
+                    src={product.image_url}
+                    className="featuredProduct"
+                    alt={product.name}
+                  />
+                </div>
+                <div className="left">
+                  <h2>{product.name}</h2>
+                  <div className="description">{product.description}</div>
+                  <div className="price">${product.price}</div>
+                  <button>Add To Cart</button>
+                  <div className="details"></div>
+                </div>
+              </div>
+            </main>
+            <center>
+              <Link to={"/products"}>
+                <button>Back to All</button>
+              </Link>
+            </center>
           </>
         ) : (
           "Still Loading..."
@@ -52,7 +79,7 @@ const mapState = (state) => ({
   is_admin: state.auth.is_admin,
 });
 
-const mapDispatch = (dispatch, history) => ({
+const mapDispatch = (dispatch, { history }) => ({
   fetchProduct: (id) => dispatch(fetchProduct(id)),
   deleteProduct: (id) => dispatch(deleteProduct(id, history)),
 });

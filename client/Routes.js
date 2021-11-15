@@ -5,6 +5,7 @@ import { Login, Signup } from "./components/AuthForm";
 import Home from "./components/Home";
 import AllProducts from "./components/AllProducts";
 import SingleProduct from "./components/SingleProduct";
+import EditProduct from './components/EditSingleProduct'
 import { me } from "./store";
 
 /**
@@ -31,7 +32,12 @@ class Routes extends Component {
               path="/products/:productId"
               component={SingleProduct}
             />
-            {/* <Redirect to="/home" /> */}
+            <Route
+              exact
+              path="/products/:productId/edit"
+              component={EditProduct}
+            />
+            <Redirect to="/home" />
           </Switch>
         ) : (
           <Switch>
