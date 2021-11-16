@@ -63,9 +63,10 @@ export const addProduct = (product) => {
   return async (dispatch) => {
     try {
       const { data } = await axios.post('/api/products', product);
+      console.log('HERE IS THE PRODUCT DATA!', data);
       dispatch(_addProduct(data));
     } catch (e) {
-      console.log('Problem adding product!', e);
+      console.log('Error adding product!', e);
     }
   };
 };
@@ -108,7 +109,7 @@ export default (state = initialState, action) => {
     case ADD_PRODUCT:
       return {
         ...state,
-        allProducts: [...state.allProducts, product]
+        allProducts: [...state.allProducts, action.product]
       }
     case DELETE_PRODUCT:
       return action.product;
