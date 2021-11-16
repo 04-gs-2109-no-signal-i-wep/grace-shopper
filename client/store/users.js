@@ -2,6 +2,7 @@ import axios from "axios";
 
 // Action types
 const SET_USERS = "SET_USERS";
+const TOKEN = "token";
 
 // Action creators
 export const setUsers = (users) => ({
@@ -13,8 +14,17 @@ export const setUsers = (users) => ({
 export const fetchUsers = () => {
   return async (dispatch) => {
     try {
-      const { data } = await axios.get("/api/users");
-      dispatch(setUsers(data));
+      const token = window.localStorage.getItem(TOKEN);
+      if (token) {
+        const { data } = await axios.get("/api/users", {
+          headers: {
+            authorization: token,
+          },
+        });
+        dispatch(setUsers(data));
+    } else {
+      console.error("No token!");
+    }
     } catch (error) {
       console.error("Problem fetching user data!", error);
     }
