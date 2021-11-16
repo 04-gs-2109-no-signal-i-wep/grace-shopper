@@ -54,7 +54,7 @@ export const addProduct = (product) => {
       const { data } = await axios.post('/api/products', product);
       dispatch(_addProduct(data));
     } catch (e) {
-      console.log('Problem adding product!', e);
+      console.log('Error adding product!', e);
     }
   };
 };
@@ -86,7 +86,7 @@ export default (state = initialState, action) => {
     case ADD_PRODUCT:
       return {
         ...state,
-        allProducts: [...state.allProducts, product]
+        allProducts: [...state.allProducts, action.product]
       }
     case DELETE_PRODUCT:
       return action.product;
