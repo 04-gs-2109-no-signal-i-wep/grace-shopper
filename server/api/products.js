@@ -2,8 +2,6 @@ const router = require('express').Router();
 const Product = require('../db/models/Product');
 const { requireToken, isAdmin } = require('./gatekeeper')
 
-module.exports = router;
-
 // GET /api/products
 router.get('/', async (req, res, next) => {
   try {
@@ -25,14 +23,13 @@ router.get('/:id', async (req, res, next) => {
 })
 
 router.put('/:id', requireToken, isAdmin, async (req, res, next) => {
-router.put('/:id', async (req, res, next) => {
   try {
     const product = await Product.findByPk(req.params.id);
     res.send(await product.update(req.body))
   } catch (error) {
     next(error)
   }
-})
+});
 
 router.delete('/:id', requireToken, isAdmin, async (req, res, next) => {
   try {
