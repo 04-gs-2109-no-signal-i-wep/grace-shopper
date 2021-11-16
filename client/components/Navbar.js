@@ -5,7 +5,7 @@ import { logout } from "../store";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 
-const Navbar = ({ handleClick, isLoggedIn }) => (
+const Navbar = ({ handleClick, isLoggedIn, isAdmin }) => (
   <nav>
     <div className="mainNav">
       <Link to="/home">
@@ -23,6 +23,7 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
           <a href="#" onClick={handleClick}>
             Log Out
           </a>
+          {isAdmin ? (<Link to = "/users">Users</Link>) : ("")}
         </div>
       ) : (
         <div>
@@ -49,8 +50,9 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
 const mapState = (state) => {
   return {
     isLoggedIn: !!state.auth.id,
-  };
-};
+    isAdmin: state.auth.is_admin
+  }
+}
 
 const mapDispatch = (dispatch) => {
   return {
