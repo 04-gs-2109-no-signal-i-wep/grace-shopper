@@ -20,7 +20,7 @@ export class UserData extends React.Component {
                   <Grid item xs={8} md={4} key={user.id}>
                     {user.id}
                     {user.first_name}
-                    {user.is_admin ? "ADMIN" : "no one important"}
+                    {user.is_admin ? "ADMIN" : "not admin"}
 
                   </Grid>
                 );
