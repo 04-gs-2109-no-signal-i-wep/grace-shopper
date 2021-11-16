@@ -2,50 +2,42 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchFeaturedProducts } from '../../store/featuredProducts';
 import { Link } from 'react-router-dom';
-import Button from '@mui/material/Button';
 
 class FeaturedProducts extends Component {
   constructor(props) {
     super(props);
-    this.switchToSingleCollection = this.switchToSingleCollection.bind(this);
   }
 
   componentDidMount() {
     this.props.fetchFeaturedProducts();
   }
 
-  switchToSingleCollection(id) {
-    this.props.history.push(`/products/${id}`);
-  } //ideally when someone clicks on a featured collection it should take them to that collection/product's page ...
-
   render() {
     return (
       <div className="featuredProducts">
-        <div id="viewAll">
-          <Link to="/products">
-            <Button size="small" variant="outlined">
-              View All Collections
-            </Button>
-          </Link>
-        </div>
-        <h3 id="featuredProductsHeader">Featured Collections:</h3>
+        <h3>Featured Products</h3>
         {this.props.featuredProducts.length === 0 ? (
           <p></p>
         ) : (
           <div className="featuredProductsContainer">
             {this.props.featuredProducts.map((product) => (
-              <div className="featuredProductRow" key={product.id}>
+              <div key={product.id} className="featuredBox">
                 <Link to={`/products/${product.id}`}>
-                  <img
-                    src={product.image_url}
-                    style={{ width: '200px', height: '200px' }}
-                    onClick={() => this.switchToSingleCollection(product.id)}
-                  />
+                  <img src={product.image_url} className="featuredImg" />
+                  <div className="featuredDesc">
+                    <h4>{product.name}</h4>
+                    <p>Starting at ${product.price}</p>
+                  </div>
                 </Link>
               </div>
             ))}
           </div>
         )}
+        <center>
+          <Link to="/products">
+            <button>View All Products</button>
+          </Link>
+        </center>
       </div>
     );
   }

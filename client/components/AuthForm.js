@@ -1,40 +1,23 @@
-import { connect } from 'react-redux';
-import { authenticate } from '../store';
-import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import auth from '../store/auth';
+import { connect } from "react-redux";
+import { authenticate } from "../store";
+import * as React from "react";
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
+import Link from "@mui/material/Link";
+import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import Typography from "@mui/material/Typography";
+import Container from "@mui/material/Container";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import auth from "../store/auth";
 
-function Copyright(props) {
-  return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-      {...props}
-    >
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Hearth
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
-
-const theme = createTheme();
+const theme = createTheme({
+  typography: {
+    fontFamily: ["Work Sans"].join(","),
+  },
+});
 
 const AuthForm = (props) => {
   const { name, displayName, handleSubmit, error } = props;
@@ -42,22 +25,21 @@ const AuthForm = (props) => {
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
-        <CssBaseline />
         <Box
           sx={{
             marginTop: 8,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+          <Avatar sx={{ m: 1, bgcolor: "#ceb5a7" }}>
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
             {displayName}
           </Typography>
-          {displayName === 'Login' ? (
+          {displayName === "Login" ? (
             <Box
               component="form"
               onSubmit={handleSubmit}
@@ -151,6 +133,10 @@ const AuthForm = (props) => {
                 type="password"
                 id="password"
               />
+<<<<<<< HEAD
+=======
+
+>>>>>>> 0147a7bb2d1da7d6be4b23600d52ed4896269b12
               <Button
                 type="submit"
                 fullWidth
@@ -159,10 +145,12 @@ const AuthForm = (props) => {
               >
                 {displayName}
               </Button>
+              <Link href="login" variant="body2">
+                {"Already have an account? Log in."}
+              </Link>
             </Box>
           )}
         </Box>
-        <Copyright sx={{ mt: 8, mb: 4 }} />
         {error && error.response && <div> {error.response.data} </div>}
       </Container>
     </ThemeProvider>
@@ -178,16 +166,16 @@ const AuthForm = (props) => {
  */
 const mapLogin = (state) => {
   return {
-    name: 'login',
-    displayName: 'Login',
+    name: "login",
+    displayName: "Login",
     error: state.auth.error,
   };
 };
 
 const mapSignup = (state) => {
   return {
-    name: 'signup',
-    displayName: 'Sign Up',
+    name: "signup",
+    displayName: "Sign Up",
     error: state.auth.error,
   };
 };
@@ -200,14 +188,24 @@ const mapDispatch = (dispatch) => {
       const email_address = evt.target.email_address.value;
       const password = evt.target.password.value;
 
-      if (formName === 'login') {
+      if (formName === "login") {
         dispatch(authenticate(email_address, password, formName));
       } else {
         const first_name = evt.target.first_name.value;
         const last_name = evt.target.last_name.value;
 
         dispatch(
+<<<<<<< HEAD
           authenticate(email_address, password, formName, first_name, last_name)
+=======
+          authenticate(
+            email_address,
+            password,
+            formName,
+            first_name,
+            last_name,
+          )
+>>>>>>> 0147a7bb2d1da7d6be4b23600d52ed4896269b12
         );
       }
     },

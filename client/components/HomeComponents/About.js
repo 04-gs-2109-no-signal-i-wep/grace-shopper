@@ -1,20 +1,11 @@
-import React from 'react';
+import React from "react";
 
 const About = (props) => {
   return (
     <div id="about">
-      <div className="container">
-        <div className="row">
-          {' '}
-          <div className="about-text">
-            <p>
-              Our design team spent years creating the perfect room for you: now
-              all you need to do is get it shipped. Our collections come as
-              whole packages - tables, chairs and couches. Because home should
-              be easy.{' '}
-            </p>
-          </div>
-        </div>
+      <div className="about-text">
+        <h3>What is Hearth?</h3>
+        Create a home without the furniture-hunting. Choose the style you love, and we'll deliver curated collections straight to your door. We've hand-picked your new room from the perfect sofa to the accent side table. Because home should be easy.
       </div>
     </div>
   );

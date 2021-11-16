@@ -24,7 +24,10 @@ export const me = () => async (dispatch) => {
         authorization: token,
       },
     });
+<<<<<<< HEAD
     console.log('this is res.data', res.data);
+=======
+>>>>>>> 0147a7bb2d1da7d6be4b23600d52ed4896269b12
     return dispatch(setAuth(res.data));
   }
 };
@@ -48,6 +51,7 @@ export const authenticate =
         });
       }
       window.localStorage.setItem(TOKEN, res.data.token);
+      history.push('/products');
       dispatch(me());
       history.push('/products');
     } catch (authError) {
