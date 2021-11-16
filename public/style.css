@@ -175,6 +175,8 @@ button:hover {
   opacity: 1;
 }
 
+.editFormLabel,
+.add-prod-form-label {
 .back {
   margin: 15px 0 15px 0;
   text-transform: uppercase;

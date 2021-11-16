@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import { addProduct } from '../store/singleProduct';
 import { Link } from 'react-router-dom';
 import Container from "@mui/material/Container";
-import Grid from "@mui/material/Grid";
 
 export class AddProduct extends React.Component {
   constructor(props) {
@@ -30,6 +29,8 @@ export class AddProduct extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
+
+    console.log('HERE IS STATE IN HAND:E SUBMIT',{...this.state})
     this.props.addProduct({ ...this.state });
   }
 

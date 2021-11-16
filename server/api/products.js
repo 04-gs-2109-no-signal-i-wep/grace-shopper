@@ -22,6 +22,8 @@ router.get('/:id', async (req, res, next) => {
   }
 });
 
+
+// PUT /api/products
 router.put('/:id', requireToken, isAdmin, async (req, res, next) => {
   try {
     const product = await Product.findByPk(req.params.id);
@@ -41,6 +43,7 @@ router.post('/', async (req, res, next) => {
   }
 });
 
+// DELETE /api/products/:id
 router.delete('/:id', requireToken, isAdmin, async (req, res, next) => {
   try {
     const product = await Product.findByPk(req.params.id);
