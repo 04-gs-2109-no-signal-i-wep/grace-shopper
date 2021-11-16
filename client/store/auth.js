@@ -30,17 +30,7 @@ export const me = () => async (dispatch) => {
 };
 
 export const authenticate =
-  (
-    email_address,
-    password,
-    method,
-    first_name,
-    last_name,
-    address_line_1,
-    city,
-    country,
-    address_line_2
-  ) =>
+  (email_address, password, method, first_name, last_name) =>
   async (dispatch) => {
     try {
       let res;
@@ -55,10 +45,6 @@ export const authenticate =
           password,
           first_name,
           last_name,
-          address_line_1,
-          city,
-          country,
-          address_line_2,
         });
       }
       window.localStorage.setItem(TOKEN, res.data.token);

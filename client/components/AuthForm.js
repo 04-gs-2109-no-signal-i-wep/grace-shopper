@@ -205,23 +205,9 @@ const mapDispatch = (dispatch) => {
       } else {
         const first_name = evt.target.first_name.value;
         const last_name = evt.target.last_name.value;
-        const address_line_1 = evt.target.address_line_1.value;
-        const city = evt.target.city.value;
-        const country = evt.target.country.value;
-        const address_line_2 = evt.target.address_line_2.value;
 
         dispatch(
-          authenticate(
-            email_address,
-            password,
-            formName,
-            first_name,
-            last_name,
-            address_line_1,
-            city,
-            country,
-            address_line_2
-          )
+          authenticate(email_address, password, formName, first_name, last_name)
         );
       }
     },
