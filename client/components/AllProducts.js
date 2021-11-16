@@ -8,7 +8,6 @@ import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
 
 export class AllProducts extends React.Component {
   componentDidMount() {
@@ -23,7 +22,7 @@ export class AllProducts extends React.Component {
         <div className="adminBar">
           <h5>Admin Control</h5>
           <div className="adminBar">
-            <Link to={"/products/addproduct"}>
+            <Link to={"addproduct"}>
               <button className="adminButton"><EditIcon fontSize='12' /> Add a Product</button>
             </Link>
           </div>

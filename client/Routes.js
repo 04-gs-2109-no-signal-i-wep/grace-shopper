@@ -33,12 +33,12 @@ class Routes extends Component {
             <Route exact path="/login" component={Login} />
             <Route exact path="/signup" component={Signup} />
             <Route exact path="/products" component={AllProducts} />
-            <Route path="/products/addproduct" component={AddProduct} />
             <Route
               exact
               path="/products/:productId"
               component={SingleProduct}
             />
+            <Route exact path="/addproduct" component={AddProduct} />
             <Route exact path="/cart" component={Checkout} />
             {/* <Redirect to="/home" /> */}
             {/* users route if user is an admin */}
