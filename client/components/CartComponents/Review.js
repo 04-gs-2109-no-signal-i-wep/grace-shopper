@@ -8,14 +8,17 @@ import { FormControl, InputLabel, NativeSelect } from '@mui/material';
 import { fetchItemsInCart } from '../../store/cart';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import Button from '@mui/material/Button';
+import ButtonGroup from '@mui/material/ButtonGroup';
 
 export class Review extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       loading: true,
-      quantity: 0,
     };
+    // this.handleIncrement = this.handleIncrement.bind(this);
+    // this.handleDecrement = this.handleDecrement.bind(this);
   }
 
   componentDidMount() {
@@ -29,6 +32,20 @@ export class Review extends React.Component {
     this.setState({
       loading: true,
     });
+  }
+
+  handleIncrement(name, quantity, id) {
+    let newQuantity = quantity + 1;
+    // this.setState({
+    //   [name]: { quantity: newQuantity, id },
+    // });
+  }
+
+  handleDecrement(name, quantity, id) {
+    let newQuantity = quantity - 1;
+    // this.setState({
+    //   [name]: { quantity: newQuantity, id },
+    // });
   }
 
   render() {
@@ -62,36 +79,36 @@ export class Review extends React.Component {
                       <ListItemText
                         primary={cart[0].products[index].name}
                         secondary={
-                          <FormControl fullWidth>
-                            <InputLabel
-                              variant="standard"
-                              htmlFor="uncontrolled-native"
+                          <ButtonGroup
+                            size="small"
+                            aria-label="small outlined button group"
+                          >
+                            <Button
+                              onClick={this.handleIncrement(
+                                cart[0].products[index].name,
+                                orderRow.quantity,
+                                orderRow.orderId + orderRow.productId
+                              )}
                             >
-                              Quantity
-                            </InputLabel>
-                            <NativeSelect
-                              defaultValue={orderRow.quantity}
-                              inputProps={{
-                                name: 'quantity',
-                                id: 'uncontrolled-native',
-                              }}
-                            >
-                              <option value={1}>1</option>
-                              <option value={2}>2</option>
-                              <option value={3}>3</option>
-                              <option value={4}>4</option>
-                              <option value={5}>5</option>
-                              <option value={6}>6</option>
-                              <option value={7}>7</option>
-                              <option value={8}>8</option>
-                              <option value={9}>9</option>
-                              <option value={10}>10</option>
-                            </NativeSelect>
-                          </FormControl>
+                              +
+                            </Button>
+                            {<Button disabled>{orderRow.quantity}</Button>}
+                            {
+                              <Button
+                                onClick={this.handleDecrement(
+                                  cart[0].products[index].name,
+                                  orderRow.quantity,
+                                  orderRow.orderId + orderRow.productId
+                                )}
+                              >
+                                -
+                              </Button>
+                            }
+                          </ButtonGroup>
                         }
                       />
                       <Typography variant="body2">
-                        {orderRow.total_price}
+                        ${orderRow.total_price}
                       </Typography>
                     </ListItem>
                   ))}

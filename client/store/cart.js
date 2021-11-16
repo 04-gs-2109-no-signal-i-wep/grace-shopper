@@ -74,10 +74,10 @@ export const updateItemQuantity = (userId, productId, quantity) => {
 export const checkoutCart = (userId) => {
   return async (dispatch) => {
     try {
-      const { data: newOrderHistory } = await axios.put(
+      const { data: newCart } = await axios.put(
         `/api/orders/cart/checkout/${userId}`
       );
-      dispatch(setCart());
+      dispatch(setCart(newCart));
     } catch (error) {
       console.log('An error occurred in the checkoutCart thunk: ', error);
     }
