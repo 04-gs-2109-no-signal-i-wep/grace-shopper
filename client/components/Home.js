@@ -9,7 +9,7 @@ import FeaturedProducts from './HomeComponents/FeaturedProducts';
 export const Home = (props) => {
   return (
     <div id="home">
-      <Header />
+      <Header first_name={props.first_name} />
       <About />
       <FeaturedProducts />
     </div>
@@ -21,7 +21,7 @@ export const Home = (props) => {
  */
 const mapState = (state) => {
   return {
-    first_name: state.auth.first_name,
+    first_name: state.auth.first_name
   };
 };
 
