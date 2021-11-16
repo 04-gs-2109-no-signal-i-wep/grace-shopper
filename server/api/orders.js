@@ -31,14 +31,12 @@ router.put('/addToCart/:userId/:productId', async (req, res, next) => {
   try {
     const userId = req.params.userId;
     const productId = req.params.productId; // is this just equal to the product's ID ? or is this giving us the whole product?
-    let quantity = 1;
-    // req.body;
+    let quantity = req.body;
     // this is the quantity that our user wants WHY ISN"T QUANTITY WORKING HERE ????
 
     //get the user's cart
     let cart = await Order.findCart(userId);
     let product = await Product.findByPk(productId);
-    console.log('PRODUCT!!!!!!', product);
 
     //check if Order_Detail includes a row where userId and cartID match current order
     let matchingOrder = await Order_Detail.findMatchingOrder(
@@ -82,9 +80,12 @@ router.put(
       let product = await Product.findByPk(productId);
 
       //find the row that needs to be updated
-      let matchingOrder = Order_Detail.matchingOrder(productId, cart.id);
+      let matchingOrder = await Order_Detail.findMatchingOrder(
+        productId,
+        cart.id
+      );
       //update the order detail row's price and quantity to reflect new price and quantity
-      matchingOrder.adjustItemOrder(product.price, quantity);
+      await matchingOrder.adjustItemOrder(product.price, quantity);
       await matchingOrder.save();
       res.send(matchingOrder);
     } catch (error) {
