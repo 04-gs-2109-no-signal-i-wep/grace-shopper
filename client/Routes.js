@@ -27,8 +27,13 @@ class Routes extends Component {
           <Switch>
             <Route path="/home" component={Home} />
             <Route exact path="/" component={Home} />
+
+            <Route path="/login" component={Login} />
+            <Route path="/signup" component={Signup} />
+
             <Route exact path="/login" component={Login} />
             <Route exact path="/signup" component={Signup} />
+
             <Route exact path="/products" component={AllProducts} />
             <Route
               exact
@@ -40,7 +45,7 @@ class Routes extends Component {
             {/* users route if user is an admin */}
             {isAdmin ? <Route path="/users" component={UserData} /> : ''}
             <Route
-              exact
+              // exact
               path="/products/:productId/edit"
               component={EditProduct}
             />
