@@ -8,13 +8,13 @@ export class AddProduct extends React.Component {
     super(props);
     this.state = {
       name: "",
-      price: "",
+      price: 0,
       description: "",
       image_url: 'https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1287&q=80',
       featured: false,
       color: "",
       size: "",
-      inventory_quantity: ""
+      inventory_quantity: 0
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
