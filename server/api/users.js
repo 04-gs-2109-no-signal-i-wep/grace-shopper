@@ -16,10 +16,10 @@ router.get('/', requireToken, isAdmin, async (req, res, next) => {
 });
 
 //IN THE MORNING - LINK THIS TO USERS THUNK / STATE
-router.put('/', async (req, res, next) => {
+router.put('/updateShippingInfo/:userId', async (req, res, next) => {
   try {
-    const token = req.headers.authorization;
-    const user = await User.findByToken(token);
+    const userId = req.params.userId;
+    const user = await User.findByPk(userId);
 
     user.address_line_1 = req.body.address_line_1;
     user.address_line_2 = req.body.address_line_2;
