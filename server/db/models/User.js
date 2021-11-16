@@ -41,6 +41,12 @@ const User = db.define('user', {
   city: {
     type: Sequelize.STRING,
   },
+  state: {
+    type: Sequelize.STRING,
+  },
+  zip_code: {
+    type: Sequelize.STRING,
+  },
   country: {
     type: Sequelize.STRING,
   },
