@@ -1,4 +1,6 @@
-# Grace Shopper
+# Hearth
+
+A Grace Shopper Project
 
 ## Get Started
 
@@ -31,5 +33,11 @@ We built an E-commerce app in 10 days! Thank you to the Grace Hopper team at Ful
 <td><a href="https://github.com/chow1111">GitHub</a></td>
 <td><a href="https://github.com/MaxielMrvaljevic">GitHub</a></td>
 <td><a href="https://github.com/yillachen">GitHub</a></td>
+</tr>
+<tr>
+<td><a href="https://www.linkedin.com/in/caroline-spiezio-89652a99/">LinkedIn</a></td>
+<td><a href="https://www.linkedin.com/in/jean-chow/">LinkedIn</a></td>
+<td><a href="https://www.linkedin.com/in/maxielmrvaljevic/">LinkedIn</a></td>
+<td><a href="https://www.linkedin.com/in/yilla-chen/">LinkedIn</a></td>
 </tr>
 </table>
