@@ -31,7 +31,7 @@ router.put('/addToCart/:userId/:productId', async (req, res, next) => {
   try {
     const userId = req.params.userId;
     const productId = req.params.productId; // is this just equal to the product's ID ? or is this giving us the whole product?
-    let quantity = req.body.quantity;
+    let quantity = 1;
     console.log('HERE IS REQ.BODY', req.body);
     // this is the quantity that our user wants WHY ISN"T QUANTITY WORKING HERE ????
 
