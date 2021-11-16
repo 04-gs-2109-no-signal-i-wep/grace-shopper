@@ -27,18 +27,24 @@ router.get('/cart/:userId', async (req, res, next) => {
   }
 });
 
-router.get('/addToCart/:userId/:productId', async (req, res, next) => {
+router.put('/addToCart/:userId/:productId', async (req, res, next) => {
   try {
     const userId = req.params.userId;
     const productId = req.params.productId; // is this just equal to the product's ID ? or is this giving us the whole product?
-    let quantity = req.body.quantity; // this is the quantity that our user wants
+    let quantity = 1;
+    // req.body;
+    // this is the quantity that our user wants WHY ISN"T QUANTITY WORKING HERE ????
 
     //get the user's cart
     let cart = await Order.findCart(userId);
     let product = await Product.findByPk(productId);
+    console.log('PRODUCT!!!!!!', product);
 
     //check if Order_Detail includes a row where userId and cartID match current order
-    let matchingOrder = Order_Detail.matchingOrder(productId, cart.id);
+    let matchingOrder = await Order_Detail.findMatchingOrder(
+      productId,
+      cart.id
+    );
 
     //if we find a matchingOrder, update that row's price and quantity .. but assuming that this is only hit when they hit the 'add to cart' button, quantity should only rise by one
     if (matchingOrder) {
@@ -49,7 +55,7 @@ router.get('/addToCart/:userId/:productId', async (req, res, next) => {
       let total_price = quantity * product.price; // the total price for a NEW row
 
       //make an association that links the cart to the product the user wants, and use magic method to update the quantity and total_price columns at the moment we make the association
-      await cart.add(product, {
+      await cart.addProduct(product, {
         through: {
           quantity,
           total_price,
@@ -57,7 +63,7 @@ router.get('/addToCart/:userId/:productId', async (req, res, next) => {
       });
 
       //find the order we just created using the findMatching method
-      let newOrder = Order_Detail.findMatchingOrder(product.id, cart.id);
+      let newOrder = await Order_Detail.findMatchingOrder(productId, cart.id);
       res.send(newOrder);
     }
   } catch (error) {

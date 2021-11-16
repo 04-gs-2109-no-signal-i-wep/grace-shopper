@@ -45,12 +45,11 @@ export const fetchItemsInCart = (userId) => {
   };
 };
 
-export const addItemToCart = (product, quantity) => {
+export const addItemToCart = (userId, productId, quantity) => {
   return async (dispatch) => {
     try {
-      const { data: itemAdded } = await axios.get(
-        '/api/orders/addToCart',
-        product,
+      const { data: itemAdded } = await axios.put(
+        `/api/orders/addToCart/${userId}/${productId}`,
         quantity
       );
       dispatch(_addToCart(itemAdded));
@@ -60,12 +59,11 @@ export const addItemToCart = (product, quantity) => {
   };
 };
 
-export const updateItemQuantity = (product, quantity) => {
+export const updateItemQuantity = (userId, productId, quantity) => {
   return async (dispatch) => {
     try {
       const { data: itemUpdated } = await axios.put(
-        '/api/orders/cart/updateItemQuantity',
-        product,
+        `/api/orders/cart/updateItemQuantity/${userId}/${productId}`,
         quantity
       );
       dispatch(_updateItemQuantity(itemUpdated));
@@ -75,24 +73,24 @@ export const updateItemQuantity = (product, quantity) => {
   };
 };
 
-export const checkoutCart = () => {
+export const checkoutCart = (userId) => {
   return async (dispatch) => {
     try {
-      const { data: newCart } = await axios.put('/api/orders/cart/checkout');
+      const { data: newCart } = await axios.put(
+        `/api/orders/cart/checkout/${userId}`
+      );
       dispatch(setCart(newCart));
-      alert('Your order is on the way! Thanks for shopping with Hearth.');
     } catch (error) {
       console.log('An error occurred in the checkoutCart thunk: ', error);
     }
   };
 };
 
-export const deleteItemFromCart = (product) => {
+export const deleteItemFromCart = (userId, productId) => {
   return async (dispatch) => {
     try {
       const { data: deletedItem } = await axios.delete(
-        '/cart/deleteItem',
-        product
+        `/cart/deleteItem/${userId}/${productId}`
       );
       dispatch(_deleteItemFromCart(deletedItem));
     } catch (error) {
