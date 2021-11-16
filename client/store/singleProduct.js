@@ -2,6 +2,7 @@ import axios from 'axios';
 
 const SET_PRODUCT = 'SET_PRODUCT';
 const EDIT_PRODUCT = 'EDIT_PRODUCT';
+const ADD_PRODUCT = 'ADD_PRODUCT';
 const DELETE_PRODUCT = 'DELETE_PRODUCT';
 const TOKEN = "token";
 
@@ -13,6 +14,11 @@ const _setProduct = product => ({
 
 const _editProduct = product => ({
   type: EDIT_PRODUCT,
+  product
+})
+
+const _addProduct = product => ({
+  type: ADD_PRODUCT,
   product
 })
 
@@ -53,6 +59,17 @@ export const editProduct = (product, history) => {
   }
 }
 
+export const addProduct = (product) => {
+  return async (dispatch) => {
+    try {
+      const { data } = await axios.post('/api/products', product);
+      dispatch(_addProduct(data));
+    } catch (e) {
+      console.log('Problem adding product!', e);
+    }
+  };
+};
+
 export const deleteProduct = (id, history) => {
   return async dispatch => {
     try {
@@ -78,7 +95,9 @@ export const deleteProduct = (id, history) => {
   }
 }
 
-let initialState = {}
+let initialState = {
+  allProducts: [],
+}
 
 export default (state = initialState, action) => {
   switch (action.type) {
@@ -86,6 +105,11 @@ export default (state = initialState, action) => {
       return action.product;
     case EDIT_PRODUCT:
       return action.product;
+    case ADD_PRODUCT:
+      return {
+        ...state,
+        allProducts: [...state.allProducts, product]
+      }
     case DELETE_PRODUCT:
       return action.product;
     default:

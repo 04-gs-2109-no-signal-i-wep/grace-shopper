@@ -4,7 +4,7 @@ import axios from "axios";
 const SET_PRODUCTS = "SET_PRODUCTS";
 
 // Action creators
-export const setProducts = (products) => ({
+export const _setProducts = (products) => ({
   type: SET_PRODUCTS,
   payload: products,
 });
@@ -14,7 +14,7 @@ export const fetchProducts = () => {
   return async (dispatch) => {
     try {
       const { data } = await axios.get("/api/products");
-      dispatch(setProducts(data));
+      dispatch(_setProducts(data));
     } catch (error) {
       console.error("Problem fetching products!", error);
     }
