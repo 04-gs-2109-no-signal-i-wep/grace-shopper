@@ -6,22 +6,13 @@ import { Link } from "react-router-dom";
 class FeaturedProducts extends Component {
   constructor(props) {
     super(props);
-    console.log("earliest props, ", this.props);
-    this.switchToSingleCollection = this.switchToSingleCollection.bind(this);
   }
 
   componentDidMount() {
     this.props.fetchFeaturedProducts();
-    console.log("earlier this: ", this.props);
   }
 
-  switchToSingleCollection(id) {
-    console.log("this is", this);
-    this.props.history.push(`/products/${id}`);
-  } //ideally when someone clicks on a featured collection it should take them to that collection/product's page ...
-
   render() {
-    console.log(this.props.featuredProducts);
     return (
       <div className="featuredProducts">
         <h3>Featured Products</h3>
@@ -32,11 +23,7 @@ class FeaturedProducts extends Component {
             {this.props.featuredProducts.map((product) => (
               <div key={product.id} className="featuredBox">
                 <Link to={`/products/${product.id}`}>
-                  <img
-                    src={product.image_url}
-                    onClick={() => this.switchToSingleCollection(product.id)}
-                    className="featuredImg"
-                  />
+                  <img src={product.image_url} className="featuredImg" />
                   <div className="featuredDesc">
                     <h4>{product.name}</h4>
                     <p>Starting at ${product.price}</p>
@@ -46,18 +33,18 @@ class FeaturedProducts extends Component {
             ))}
           </div>
         )}
-        <Link to="/products">
-          <center>
+        <center>
+          <Link to="/products">
             <button>View All Products</button>
-          </center>
-        </Link>
+          </Link>
+        </center>
       </div>
     );
   }
 }
 
 const mapState = (state) => ({
-  featuredProducts: state.featuredProducts,
+  featuredProducts: state.featuredProducts
 });
 
 const mapDispatch = (dispatch) => ({

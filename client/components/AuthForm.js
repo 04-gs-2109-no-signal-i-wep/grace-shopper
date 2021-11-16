@@ -3,10 +3,7 @@ import { authenticate } from '../store';
 import * as React from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
@@ -34,7 +31,13 @@ function Copyright(props) {
   );
 }
 
-const theme = createTheme();
+const theme = createTheme({
+  typography: {
+    fontFamily: [
+      'Work Sans',
+    ].join(','),
+  }
+});
 
 const AuthForm = (props) => {
   const { name, displayName, handleSubmit, error } = props;
@@ -42,7 +45,6 @@ const AuthForm = (props) => {
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
-        <CssBaseline />
         <Box
           sx={{
             marginTop: 8,
@@ -51,7 +53,7 @@ const AuthForm = (props) => {
             alignItems: 'center',
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+          <Avatar sx={{ m: 1, bgcolor: '#ceb5a7' }}>
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
@@ -151,49 +153,7 @@ const AuthForm = (props) => {
                 type="password"
                 id="password"
               />
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                id="address_line_1"
-                label="Street Address"
-                name="address_line_1"
-                autoComplete="address_line_1"
-                autoFocus
-                type="text"
-              />
-              <TextField
-                margin="normal"
-                fullWidth
-                id="address_line_2"
-                label="Apartment Number"
-                name="address_line_2"
-                autoComplete="address_line_2"
-                autoFocus
-                type="text"
-              />
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                id="city"
-                label="City"
-                name="city"
-                autoComplete="city"
-                autoFocus
-                type="text"
-              />
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                id="country"
-                label="Country"
-                name="country"
-                autoComplete="country"
-                autoFocus
-                type="text"
-              />
+
               <Button
                 type="submit"
                 fullWidth
