@@ -1,35 +1,24 @@
-import * as React from 'react';
-import CssBaseline from '@mui/material/CssBaseline';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Container from '@mui/material/Container';
-import Toolbar from '@mui/material/Toolbar';
-import Paper from '@mui/material/Paper';
-import Stepper from '@mui/material/Stepper';
-import Step from '@mui/material/Step';
-import StepLabel from '@mui/material/StepLabel';
-import Button from '@mui/material/Button';
-import Link from '@mui/material/Link';
-import Typography from '@mui/material/Typography';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import AddressForm from './AddressForm';
-import PaymentForm from './PaymentForm';
-import Review from './Review';
+import * as React from "react";
+import CssBaseline from "@mui/material/CssBaseline";
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import Container from "@mui/material/Container";
+import Toolbar from "@mui/material/Toolbar";
+import Paper from "@mui/material/Paper";
+import Stepper from "@mui/material/Stepper";
+import Step from "@mui/material/Step";
+import StepLabel from "@mui/material/StepLabel";
+import Button from "@mui/material/Button";
+import Link from "@mui/material/Link";
+import Typography from "@mui/material/Typography";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import AddressForm from "./AddressForm";
+import PaymentForm from "./PaymentForm";
+import Review from "./Review";
+import { connect } from 'react-redux';
+import { checkoutCart } from '../../store/cart';
 
-function Copyright() {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
-
-const steps = ['Review your order', 'Shipping address', 'Payment details'];
+const steps = ["Review your order", "Shipping address", "Payment details"];
 
 function getStepContent(step) {
   switch (step) {
@@ -40,13 +29,18 @@ function getStepContent(step) {
     case 2:
       return <PaymentForm />;
     default:
-      throw new Error('Unknown step');
+      throw new Error("Unknown step");
   }
 }
 
-const theme = createTheme();
+const theme = createTheme({
+  typography: {
+    fontFamily: ['Work Sans'].join(','),
+  },
+});
 
-export default function Checkout() {
+
+function Checkout(props) {
   const [activeStep, setActiveStep] = React.useState(0);
 
   const handleNext = () => {
@@ -57,6 +51,11 @@ export default function Checkout() {
     setActiveStep(activeStep - 1);
   };
 
+  const handleSubmit = (id) => {
+    props.checkoutCart(props.user.id);
+    // props.history.push('/products');
+  };
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
@@ -65,7 +64,7 @@ export default function Checkout() {
         color="default"
         elevation={0}
         sx={{
-          position: 'relative',
+          position: "relative",
           borderBottom: (t) => `1px solid ${t.palette.divider}`,
         }}
       ></AppBar>
@@ -99,27 +98,46 @@ export default function Checkout() {
             ) : (
               <React.Fragment>
                 {getStepContent(activeStep)}
-                <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+                <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
                   {activeStep !== 0 && (
                     <Button onClick={handleBack} sx={{ mt: 3, ml: 1 }}>
                       Back
                     </Button>
                   )}
 
-                  <Button
-                    variant="contained"
-                    onClick={handleNext}
-                    sx={{ mt: 3, ml: 1 }}
-                  >
-                    {activeStep === steps.length - 1 ? 'Place order' : 'Next'}
-                  </Button>
+                  {activeStep === steps.length - 1 ? (
+                    <Button
+                      variant="contained"
+                      onClick={handleSubmit}
+                      sx={{ mt: 3, ml: 1 }}
+                    >
+                      Complete Order
+                    </Button>
+                  ) : (
+                    <Button
+                      variant="contained"
+                      onClick={handleNext}
+                      sx={{ mt: 3, ml: 1 }}
+                    >
+                      Next
+                    </Button>
+                  )}
                 </Box>
               </React.Fragment>
             )}
           </React.Fragment>
         </Paper>
-        <Copyright />
       </Container>
     </ThemeProvider>
   );
 }
+
+const mapState = state => ({
+  user: state.auth
+})
+
+const mapDispatch = dispatch => ({
+  checkoutCart: (userId) => dispatch(checkoutCart(userId))
+})
+
+export default connect(mapState, mapDispatch)(Checkout);

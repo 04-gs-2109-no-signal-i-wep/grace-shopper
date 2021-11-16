@@ -9,7 +9,6 @@ import { connect } from 'react-redux';
 
 export class Review extends React.Component {
   componentDidMount() {
-    console.log(this.props);
     this.props.fetchItemsInCart(this.props.auth.id);
   }
 

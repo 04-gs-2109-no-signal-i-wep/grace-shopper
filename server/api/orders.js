@@ -1,45 +1,49 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const Order = require('../db/models/Order');
-const User = require('../db/models/User');
-const Order_Detail = require('../db/models/Order_Detail');
-const { token } = require('morgan');
-const Product = require('../db/models/Product');
+const Order = require("../db/models/Order");
+const User = require("../db/models/User");
+const Order_Detail = require("../db/models/Order_Detail");
+const { token } = require("morgan");
+const Product = require("../db/models/Product");
 
 module.exports = router;
 
-router.get('/cart/:userId', async (req, res, next) => {
+router.get("/cart/:userId", async (req, res, next) => {
   try {
     const userId = req.params.userId;
     //find their open Order using a method
-    let cart = await Order.findOrCreateCart(userId);
+    let cart = await Order.findCart(userId);
     //find the contents of that cart
     let cartContents = await Order.findCartContents(cart.dataValues.id);
     let order_total = cart.findTotalPrice(
       cartContents[0].dataValues.order_details
     );
+    let total_quantity = cart.findTotalQuantity(
+      cartContents[0].dataValues.order_details
+    );
     //set order total in cart contents
     cartContents[0].dataValues.order_total = order_total;
-
+    cartContents[0].dataValues.total_quantity = total_quantity;
+    cart.save();
     res.send(cartContents);
   } catch (error) {
     next(error);
   }
 });
 
-router.put('/addToCart/:userId/:productId', async (req, res, next) => {
+router.put("/addToCart/:userId/:productId", async (req, res, next) => {
   try {
     const userId = req.params.userId;
     const productId = req.params.productId; // is this just equal to the product's ID ? or is this giving us the whole product?
     let quantity = 1;
-    console.log('HERE IS REQ.BODY', req.body);
+    console.log("HERE IS REQ.BODY", req.body);
     // this is the quantity that our user wants WHY ISN"T QUANTITY WORKING HERE ????
 
     //get the user's cart
-    let cart = await Order.findOrCreateCart(userId);
+    let cart = await Order.findCart(userId);
     let product = await Product.findByPk(productId);
 
-    console.log('THIS IS CART', cart);
+    console.log("THIS IS CART", cart);
 
     //check if Order_Detail includes a row where userId and cartID match current order
     let matchingOrder = await Order_Detail.findMatchingOrder(
@@ -73,13 +77,13 @@ router.put('/addToCart/:userId/:productId', async (req, res, next) => {
 });
 
 router.put(
-  '/cart/updateItemQuantity/:userId/:productId',
+  "/cart/updateItemQuantity/:userId/:productId",
   async (req, res, next) => {
     try {
       const userId = req.params.userId;
       let productId = req.params.productId;
       let quantity = req.body;
-      let cart = await Order.findOrCreateCart(userId);
+      let cart = await Order.findCart(userId);
       let product = await Product.findByPk(productId);
 
       //find the row that needs to be updated
@@ -97,23 +101,30 @@ router.put(
   }
 );
 
-router.put('/cart/checkout/:userId', async (req, res, next) => {
+router.put("/cart/checkout/:userId", async (req, res, next) => {
   try {
     const userId = req.params.userId;
-    let cart = await Order.findOrCreateCart(userId);
+    let cart = await Order.findCart(userId);
+
+    // cart.total_quantity = 0
+    // cart.order_total = 0
     cart.is_completed = true;
-    await cart.save();
-    res.send(cart);
+    cart.save();
+
+    // Create new order
+    const user = await User.findOne({ where: { id: userId } });
+    await Order.createCart(userId, user);
+    res.json(cart);
   } catch (error) {
     next(error);
   }
 });
 
-router.delete('/cart/deleteItem/:userId/:productId', async (req, res, next) => {
+router.delete("/cart/deleteItem/:userId/:productId", async (req, res, next) => {
   try {
     const userId = req.params.userId;
     const productId = req.params.productId;
-    let cart = await Order.findOrCreateCart(userId);
+    let cart = await Order.findCart(userId);
     const deleted = await Order_Detail.findMatchingOrder(productId, cart.id);
     //destroy the cart that matches the specified row
     await deleted.destroy();

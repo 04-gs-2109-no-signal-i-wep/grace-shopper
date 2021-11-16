@@ -34,7 +34,7 @@ router.get('/me', async (req, res, next) => {
   try {
     let user = await User.findByToken(req.headers.authorization);
     //once this user is logged in, check if they have an open cart
-    let cart = Order.findOrCreateCart(user.id);
+    let cart = Order.findCart(user.id);
     //if not, make a cart (aka an incomplete order)
     if (!cart) {
       cart = await Order.create({ userId: user.id });
