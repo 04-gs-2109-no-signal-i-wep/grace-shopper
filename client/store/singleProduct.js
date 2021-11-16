@@ -69,6 +69,9 @@ export const deleteProduct = (id, history) => {
       } else {
         console.error("No token!");
       }
+      const { data: deleted } = await axios.delete(`/api/products/${id}`);
+      dispatch(_deleteProduct(deleted));
+      history.push(`/products`)
     } catch (e) {
       console.log('Error in deleting product', e)
     }
@@ -82,7 +85,6 @@ export default (state = initialState, action) => {
     case SET_PRODUCT:
       return action.product;
     case EDIT_PRODUCT:
-      console.log(state)
       return action.product;
     case DELETE_PRODUCT:
       return action.product;

@@ -8,7 +8,8 @@ import SingleProduct from "./components/SingleProduct";
 import UserData from "./components/UserData";
 import { me } from "./store";
 import EditProduct from './components/EditSingleProduct';
-
+import EditProduct from "./components/EditSingleProduct";
+import { me } from "./store";
 
 /**
  * COMPONENT
@@ -25,9 +26,9 @@ class Routes extends Component {
         {isLoggedIn ? (
           <Switch>
             <Route path="/home" component={Home} />
-            <Route path="/" exact component={Home} />
-            <Route path="/login" component={Login} />
-            <Route path="/signup" component={Signup} />
+            <Route exact path="/" component={Home} />
+            <Route exact path="/login" component={Login} />
+            <Route exact path="/signup" component={Signup} />
             <Route exact path="/products" component={AllProducts} />
             <Route
               exact
@@ -42,13 +43,13 @@ class Routes extends Component {
               path="/products/:productId/edit"
               component={EditProduct}
             />
-            <Redirect to="/home" />
           </Switch>
         ) : (
           <Switch>
-            <Route path="/" exact component={Login} />
-            <Route path="/login" component={Login} />
-            <Route path="/signup" component={Signup} />
+            <Route path="/home" component={Home} />
+            <Route exact path="/" component={Home} />
+            <Route exact path="/login" component={Login} />
+            <Route exact path="/signup" component={Signup} />
             <Route exact path="/products" component={AllProducts} />
             <Route
               exact
