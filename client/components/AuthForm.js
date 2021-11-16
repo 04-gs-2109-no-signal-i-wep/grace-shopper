@@ -195,9 +195,6 @@ const mapDispatch = (dispatch) => {
         const last_name = evt.target.last_name.value;
 
         dispatch(
-<<<<<<< HEAD
-          authenticate(email_address, password, formName, first_name, last_name)
-=======
           authenticate(
             email_address,
             password,
@@ -205,7 +202,6 @@ const mapDispatch = (dispatch) => {
             first_name,
             last_name,
           )
->>>>>>> 0147a7bb2d1da7d6be4b23600d52ed4896269b12
         );
       }
     },

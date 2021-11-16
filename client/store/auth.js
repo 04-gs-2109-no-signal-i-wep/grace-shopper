@@ -24,10 +24,6 @@ export const me = () => async (dispatch) => {
         authorization: token,
       },
     });
-<<<<<<< HEAD
-    console.log('this is res.data', res.data);
-=======
->>>>>>> 0147a7bb2d1da7d6be4b23600d52ed4896269b12
     return dispatch(setAuth(res.data));
   }
 };
