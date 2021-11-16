@@ -23,7 +23,7 @@ export default function ProductModal() {
   const handleClose = () => setOpen(false);
 
   return (
-    <div>
+    <>
       <Button onClick={handleOpen}>Add a Product</Button>
       <Modal
         open={open}
@@ -33,6 +33,6 @@ export default function ProductModal() {
           <AddProduct />
         </Box>
       </Modal>
-    </div>
+    </>
   );
 }

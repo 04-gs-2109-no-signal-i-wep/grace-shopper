@@ -43,8 +43,6 @@ export class AddProduct extends React.Component {
     inventory_quantity
     } = this.state;
 
-    console.log(this.state);
-
     const { handleSubmit, handleChange } = this;
 
     return (
