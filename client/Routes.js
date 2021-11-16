@@ -7,6 +7,8 @@ import AllProducts from './components/AllProducts';
 import SingleProduct from './components/SingleProduct';
 import EditProduct from './components/EditSingleProduct';
 import { me } from './store';
+import Checkout from './components/CartComponents/CartComplete';
+import AddressForm from './components/CartComponents/AddressForm';
 
 /**
  * COMPONENT
@@ -32,6 +34,7 @@ class Routes extends Component {
               path="/products/:productId"
               component={SingleProduct}
             />
+            <Route exact path="/cart" component={Checkout} />
             <Route
               exact
               path="/products/:productId/edit"
@@ -50,6 +53,7 @@ class Routes extends Component {
               path="/products/:productId"
               component={SingleProduct}
             />
+            <Route exact path="/cart" component={Checkout} />
           </Switch>
         )}
       </div>
