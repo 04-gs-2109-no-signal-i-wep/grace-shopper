@@ -1,8 +1,9 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { logout } from '../store';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import React from "react";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
+import { logout } from "../store";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import AccountBoxIcon from '@mui/icons-material/AccountBox';
 
 const Navbar = ({ handleClick, isLoggedIn }) => (
   <nav>
@@ -29,8 +30,13 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
           <Link to="/cart">
             <ShoppingCartIcon fontSize="small" />
           </Link>
-          <Link to="/login">Log In</Link>
-          <Link to="/signup">Sign Up</Link>
+          <div className="dropdown">
+            <AccountBoxIcon fontSize='small' />
+            <div className="dropdown-content">
+              <Link to="/login">Log In</Link>
+              <Link to="/signup">Sign Up</Link>
+            </div>
+          </div>
         </div>
       )}
     </div>

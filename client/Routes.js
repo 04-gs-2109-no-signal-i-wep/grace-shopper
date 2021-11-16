@@ -37,7 +37,6 @@ class Routes extends Component {
               path="/products/:productId/edit"
               component={EditProduct}
             />
-            {/* <Redirect to="/home" /> */}
           </Switch>
         ) : (
           <Switch>
