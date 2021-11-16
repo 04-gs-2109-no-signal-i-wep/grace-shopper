@@ -7,22 +7,18 @@ import Button from '@mui/material/Button';
 class FeaturedProducts extends Component {
   constructor(props) {
     super(props);
-    console.log('earliest props, ', this.props);
     this.switchToSingleCollection = this.switchToSingleCollection.bind(this);
   }
 
   componentDidMount() {
     this.props.fetchFeaturedProducts();
-    console.log('earlier this: ', this.props);
   }
 
   switchToSingleCollection(id) {
-    console.log('this is', this);
     this.props.history.push(`/products/${id}`);
   } //ideally when someone clicks on a featured collection it should take them to that collection/product's page ...
 
   render() {
-    console.log(this.props.featuredProducts);
     return (
       <div className="featuredProducts">
         <div id="viewAll">

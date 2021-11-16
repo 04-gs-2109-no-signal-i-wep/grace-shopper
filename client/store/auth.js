@@ -25,7 +25,6 @@ export const me = () => async (dispatch) => {
       },
     });
     console.log('this is res.data', res.data);
-    history.push('/home');
     return dispatch(setAuth(res.data));
   }
 };
@@ -64,6 +63,7 @@ export const authenticate =
       }
       window.localStorage.setItem(TOKEN, res.data.token);
       dispatch(me());
+      history.push('/products');
     } catch (authError) {
       alert(authError.response.data);
       return dispatch(setAuth({ error: authError }));

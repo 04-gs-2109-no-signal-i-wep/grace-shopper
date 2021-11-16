@@ -3,6 +3,8 @@ import axios from 'axios';
 //ACTION TYPES
 const SET_CART = 'SET_CART';
 const ADD_TO_CART = 'ADD_TO_CART';
+const UPDATE_ITEM_QUANTITY = 'UPDATE_ITEM_QUANTITY';
+const DELETE_ITEM
 //make a delete item from cart
 //need a way to mark a cart as complete -- check JPFP for this
 
@@ -14,9 +16,15 @@ export const setCart = (itemsInCart) => ({
 const _addToCart = (itemAdded) => ({
   type: ADD_TO_CART,
   itemAdded,
-}); //this will just update the cart and send us back a line that says what was added
+});
+const _updateItemQuantity = (itemAdjusted) => ({
+  type: UPDATE_ITEM_QUANTITY,
+  itemAdjusted,
+});
 
 //THUNKS
+
+//make an edge case where the cart is empty
 export const fetchItemsInCart = (jwt) => {
   return async (dispatch) => {
     try {
@@ -44,6 +52,37 @@ export const addItemToCart = (jwt, product, quantity) => {
   };
 };
 
+export const updateItemQuantity = (jwt, product, quantity) => {
+  return async (dispatch) => {
+    try {
+      const { data: itemUpdated } = await axios.put(
+        '/api/orders/cart/updateItemQuantity',
+        jwt,
+        product,
+        quantity
+      );
+      dispatch(_updateItemQuantity(itemUpdated));
+    } catch (error) {
+      console.log('An error occurred in the updateItemQuantity thunk: ', error);
+    }
+  };
+};
+
+export const checkoutCart = (jwt) => {
+  return async (dispatch) => {
+    try {
+      const { data: newCart } = await axios.put(
+        '/api/orders/cart/checkout',
+        jwt
+      );
+      dispatch(setCart(newCart));
+      alert('Your order is on the way! Thanks for shopping with Hearth.');
+    } catch (error) {
+      console.log('An error occurred in the checkoutCart thunk: ', error);
+    }
+  };
+};
+
 //SUBREDUCER
 export default function (state = [], action) {
   switch (action.type) {
@@ -51,6 +90,10 @@ export default function (state = [], action) {
       return action.itemsInCart;
     case ADD_TO_CART:
       return [...state, action.itemAdded];
+    case UPDATE_ITEM_QUANTITY:
+      return state.map((item) =>
+        item.id === action.itemAdjusted.id ? action.itemAdjusted : item
+      );
     ///DELETE FROM CART
     default:
       return state;

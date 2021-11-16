@@ -12,4 +12,20 @@ const Order = db.define('order', {
   date_shipped: Sequelize.DATEONLY,
 });
 
+//this method will find a cart - the open order associated with a userId passed into the method
+Order.findCart = async function (userId) {
+  try {
+    const cart = Order.findOne({
+      where: {
+        userId: userId,
+        is_completed: false,
+      },
+    });
+    return cart;
+  } catch (ex) {
+    const error = Error('Error finding cart');
+    throw error;
+  }
+};
+
 module.exports = Order;
