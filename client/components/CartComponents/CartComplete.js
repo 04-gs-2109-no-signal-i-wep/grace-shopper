@@ -15,6 +15,8 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import AddressForm from './AddressForm';
 import PaymentForm from './PaymentForm';
 import Review from './Review';
+import { connect } from 'react-redux';
+import { checkoutCart } from '../../store/cart';
 
 function Copyright() {
   return (
@@ -44,9 +46,13 @@ function getStepContent(step) {
   }
 }
 
-const theme = createTheme();
+const theme = createTheme({
+  typography: {
+    fontFamily: ['Work Sans'].join(','),
+  },
+});
 
-export default function Checkout() {
+function Checkout(props) {
   const [activeStep, setActiveStep] = React.useState(0);
 
   const handleNext = () => {
@@ -55,6 +61,11 @@ export default function Checkout() {
 
   const handleBack = () => {
     setActiveStep(activeStep - 1);
+  };
+
+  const handleSubmit = (id) => {
+    props.checkoutCart(props.user.id);
+    // props.history.push('/products');
   };
 
   return (
@@ -106,20 +117,39 @@ export default function Checkout() {
                     </Button>
                   )}
 
-                  <Button
-                    variant="contained"
-                    onClick={handleNext}
-                    sx={{ mt: 3, ml: 1 }}
-                  >
-                    {activeStep === steps.length - 1 ? 'Place order' : 'Next'}
-                  </Button>
+                  {activeStep === steps.length - 1 ? (
+                    <Button
+                      variant="contained"
+                      onClick={handleSubmit}
+                      sx={{ mt: 3, ml: 1 }}
+                    >
+                      Complete Order
+                    </Button>
+                  ) : (
+                    <Button
+                      variant="contained"
+                      onClick={handleNext}
+                      sx={{ mt: 3, ml: 1 }}
+                    >
+                      Next
+                    </Button>
+                  )}
                 </Box>
               </React.Fragment>
             )}
           </React.Fragment>
         </Paper>
-        <Copyright />
       </Container>
     </ThemeProvider>
   );
 }
+
+const mapState = (state) => ({
+  user: state.auth,
+});
+
+const mapDispatch = (dispatch) => ({
+  checkoutCart: (userId) => dispatch(checkoutCart(userId)),
+});
+
+export default connect(mapState, mapDispatch)(Checkout);
