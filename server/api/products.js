@@ -33,7 +33,6 @@ router.put('/:id', requireToken, isAdmin, async (req, res, next) => {
   }
 });
 
-
 // POST /api/products
 router.post('/', async (req, res, next) => {
   try {

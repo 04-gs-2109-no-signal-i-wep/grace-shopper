@@ -63,6 +63,7 @@ export const addProduct = (product) => {
   return async (dispatch) => {
     try {
       const { data } = await axios.post('/api/products', product);
+      console.log('HERE IS THE PRODUCT DATA!', data);
       dispatch(_addProduct(data));
     } catch (e) {
       console.log('Error adding product!', e);

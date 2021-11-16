@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { addProduct } from '../store/singleProduct';
 import { Link } from 'react-router-dom';
+import Container from "@mui/material/Container";
 
 export class AddProduct extends React.Component {
   constructor(props) {
@@ -28,6 +29,7 @@ export class AddProduct extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
+
     console.log('HERE IS STATE IN HAND:E SUBMIT',{...this.state})
     this.props.addProduct({ ...this.state });
   }
@@ -44,94 +46,94 @@ export class AddProduct extends React.Component {
     inventory_quantity
     } = this.state;
 
-    console.log(this.state);
-
     const { handleSubmit, handleChange } = this;
 
     return (
-      <div className="left">
-        <h2>Add Product</h2>
-        <form onSubmit={handleSubmit}>
-          <label htmlFor="name" className="add-prod-form-label">
-            Product Name
-          </label>
-          <input
-            name="name"
-            value={name}
-            onChange={handleChange}
-            className="add-prod-form-input"
-          />
-          <label htmlFor="name" className="add-prod-form-label">
-            Price
-          </label>
-          <input
-            name="price"
-            value={price}
-            onChange={handleChange}
-            className="add-prod-form-input"
-          />
-          <label htmlFor="name" className="add-prod-form-label">
-            Description
-          </label>
-          <textarea
-            name="description"
-            value={description}
-            onChange={handleChange}
-            className="add-prod-form-input"
-          />
-          <label htmlFor="image-url" className="add-prod-form-label">
-            Image Url
-          </label>
-          <input
-            name="image-url"
-            value={image_url}
-            onChange={handleChange}
-            className="add-prod-form-input"
-          />
-          <label htmlFor="image-url" className="add-prod-form-label">
-            Featured
-          </label>
-          <input
-            name="featured"
-            value={featured}
-            onChange={handleChange}
-            className="add-prod-form-input"
-          />
-          <label htmlFor="name" className="add-prod-form-label">
-            Color
-          </label>
-          <input
-            name="color"
-            value={color}
-            onChange={handleChange}
-            className="add-prod-form-input"
-          />
-          <label htmlFor="name" className="add-prod-form-label">
-            Size
-          </label>
-          <input
-            name="size"
-            value={size}
-            onChange={handleChange}
-            className="add-prod-form-input"
-          />
-          <label htmlFor="name" className="add-prod-form-label">
-            Inventory Quantity
-          </label>
-          <input
-            name="inventory_quantity"
-            value={inventory_quantity}
-            onChange={handleChange}
-            className="add-prod-form-input"
-          />
-          <button type="submit">
-            Add Product
-          </button>
-          <Link to={'/products'}>
-            <button type="button">Cancel</button>
-          </Link>
-        </form>
-      </div>
+      <Container maxWidth="sm" className="left">
+          <h2>Add a Product</h2>
+          <form onSubmit={handleSubmit}>
+            <label htmlFor="name" className="add-prod-form-label">
+              Product Name
+            </label>
+            <input
+              name="name"
+              value={name}
+              onChange={handleChange}
+              className="add-prod-form-input"
+            />
+            <label htmlFor="name" className="add-prod-form-label">
+              Price
+            </label>
+            <input
+              name="price"
+              value={price}
+              onChange={handleChange}
+              className="add-prod-form-input"
+            />
+            <label htmlFor="name" className="add-prod-form-label">
+              Description
+            </label>
+            <textarea
+              name="description"
+              value={description}
+              onChange={handleChange}
+              className="add-prod-form-input"
+            />
+            <label htmlFor="image-url" className="add-prod-form-label">
+              Image Url
+            </label>
+            <input
+              name="image-url"
+              value={image_url}
+              onChange={handleChange}
+              className="add-prod-form-input"
+            />
+            <label htmlFor="image-url" className="add-prod-form-label">
+              Featured
+            </label>
+            <input
+              name="featured"
+              value={featured}
+              onChange={handleChange}
+              className="add-prod-form-input"
+            />
+            <label htmlFor="name" className="add-prod-form-label">
+              Color
+            </label>
+            <input
+              name="color"
+              value={color}
+              onChange={handleChange}
+              className="add-prod-form-input"
+            />
+            <label htmlFor="name" className="add-prod-form-label">
+              Size
+            </label>
+            <input
+              name="size"
+              value={size}
+              onChange={handleChange}
+              className="add-prod-form-input"
+            />
+            <label htmlFor="name" className="add-prod-form-label">
+              Inventory Quantity
+            </label>
+            <input
+              name="inventory_quantity"
+              value={inventory_quantity}
+              onChange={handleChange}
+              className="add-prod-form-input"
+            />
+            <Link to={'/products'}>
+              <button type="submit">
+                Add Product
+              </button>
+            </Link>
+            <Link to={'/products'}>
+              <button type="button">Cancel</button>
+            </Link>
+          </form>
+      </Container>
     )
   }
 }
