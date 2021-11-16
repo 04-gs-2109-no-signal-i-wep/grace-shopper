@@ -9,8 +9,8 @@ router.get('/', async (req, res, next) => {
   try {
     const products = await Product.findAll();
     res.json(products);
-  } catch (err) {
-    next(err);
+  } catch (error) {
+    next(error);
   }
 });
 
@@ -22,8 +22,9 @@ router.get('/:id', async (req, res, next) => {
   } catch (error) {
     next(error);
   }
-})
+});
 
+// PUT /api/products
 router.put('/:id', isAdmin, async (req, res, next) => {
   try {
     const product = await Product.findByPk(req.params.id);
@@ -31,8 +32,19 @@ router.put('/:id', isAdmin, async (req, res, next) => {
   } catch (error) {
     next(error)
   }
-})
+});
 
+// POST /api/products
+router.post('/', async (req, res, next) => {
+  try {
+    const product = await Product.create(req.body);
+    res.json(product);
+  } catch(error) {
+    next(error);
+  }
+});
+
+// DELETE /api/products/:id
 router.delete('/:id', async (req, res, next) => {
   try {
     const product = await Product.findByPk(req.params.id);

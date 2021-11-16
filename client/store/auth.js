@@ -25,7 +25,7 @@ export const me = () => async (dispatch) => {
       },
     });
     console.log('this is res.data', res.data);
-    history.push('/home');
+    // history.push('/home');
     return dispatch(setAuth(res.data));
   }
 };

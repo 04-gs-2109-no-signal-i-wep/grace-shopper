@@ -7,13 +7,16 @@ import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
+
 export default function ProductCard({ image, title, description, productId }) {
   return (
     <Card sx={{ maxWidth: 345 }}>
       <CardMedia component="img" height="240" image={image} alt={title} />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
-          {title}
+        {title.length >= 16
+            ? title.slice(0, 16) + '...'
+            : title}
         </Typography>
         <Typography variant="body2" color="text.secondary">
           {description.length >= 30
