@@ -53,4 +53,18 @@ Order.findCartContents = async function (orderId) {
   }
 };
 
+Order.prototype.findTotalPrice = function (itemPrices) {
+  try {
+    let sum = 0;
+    itemPrices.forEach((item) => {
+      sum += item.dataValues.total_price;
+    });
+    this.order_total = sum;
+    return sum;
+  } catch (ex) {
+    const error = Error('Error finding total cost');
+    throw error;
+  }
+};
+
 module.exports = Order;

@@ -25,13 +25,13 @@ export class Review extends React.Component {
               Order summary
             </Typography>
             <List disablePadding>
-              {cart[0].order_details.map((orderRow) => (
+              {cart[0].order_details.map((orderRow, index) => (
                 <ListItem
                   key={orderRow.orderId + orderRow.productId}
                   sx={{ py: 1, px: 0 }}
                 >
                   <ListItemText
-                    primary={cart[0].products[0].name} //NEED TO FIX THIS
+                    primary={cart[0].products[index].name}
                     secondary={orderRow.quantity}
                   />
                   <Typography variant="body2">
@@ -43,7 +43,7 @@ export class Review extends React.Component {
               <ListItem sx={{ py: 1, px: 0 }}>
                 <ListItemText primary="Total" />
                 <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>
-                  $34.06
+                  {cart[0].order_total}
                 </Typography>
               </ListItem>
             </List>

@@ -10,13 +10,15 @@ module.exports = router;
 router.get('/cart/:userId', async (req, res, next) => {
   try {
     const userId = req.params.userId;
-    // let currentUser = await User.findByPk(userId);
-    //find the user who is logged in
     //find their open Order using a method
     let cart = await Order.findCart(userId);
-    console.log('THIS IS THE MATCHING ORDER', cart);
     //find the contents of that cart
     let cartContents = await Order.findCartContents(cart.dataValues.id);
+    let order_total = cart.findTotalPrice(
+      cartContents[0].dataValues.order_details
+    );
+    //set order total in cart contents
+    cartContents[0].dataValues.order_total = order_total;
 
     res.send(cartContents);
   } catch (error) {
@@ -24,16 +26,14 @@ router.get('/cart/:userId', async (req, res, next) => {
   }
 });
 
-router.get('/addToCart', async (req, res, next) => {
+router.get('/addToCart/:userId', async (req, res, next) => {
   try {
+    const userId = req.params.userId;
     let product = req.body.product; // is this just equal to the product's ID ? or is this giving us the whole product?
     let quantity = req.body.quantity; // this is the quantity that our user wants
 
-    const token = req.headers.authorization;
-    let currentUser = await User.findByToken(token); // use the JWT to find the current User
-
     //get the user's cart
-    let cart = await Order.findCart(currentUser.id);
+    let cart = await Order.findCart(userId);
 
     //check if Order_Detail includes a row where userId and cartID match current order
     let matchingOrder = Order_Detail.matchingOrder(product.id, cart.id);
@@ -63,13 +63,12 @@ router.get('/addToCart', async (req, res, next) => {
   }
 });
 
-router.put('/cart/updateItemQuantity', async (req, res, next) => {
+router.put('/cart/updateItemQuantity/:userId', async (req, res, next) => {
   try {
+    const userId = req.params.userId;
     let product = req.body.product;
     let quantity = req.body.quantity;
-    const token = req.headers.authorization;
-    let currentUser = await User.findByToken(token);
-    let cart = await Order.findCart(currentUser.id);
+    let cart = await Order.findCart(userId);
 
     //find the row that needs to be updated
     let matchingOrder = Order_Detail.matchingOrder(product.id, cart.id);
@@ -82,11 +81,10 @@ router.put('/cart/updateItemQuantity', async (req, res, next) => {
   }
 });
 
-router.put('/cart/checkout', async (req, res, next) => {
+router.put('/cart/checkout/:userId', async (req, res, next) => {
   try {
-    const token = req.headers.authorization;
-    let user = await User.findByToken(token);
-    let cart = await Order.findCart(user.id);
+    const userId = req.params.userId;
+    let cart = await Order.findCart(userId);
     cart.is_completed = true;
     await cart.save();
     //create a new cart in case they want to start shopping again right away ... we will set this as state
