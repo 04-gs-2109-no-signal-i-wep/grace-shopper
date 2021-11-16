@@ -15,14 +15,19 @@ const Order = db.define('order', {
 });
 
 //this method will find a cart - the open order associated with a userId passed into the method
-Order.findCart = async function (userId) {
+Order.findOrCreateCart = async function (userId) {
   try {
-    const cart = this.findOne({
+    let cart = await this.findOne({
       where: {
         userId: userId,
         is_completed: false,
       },
     });
+
+    if (!cart) {
+      cart = await Order.create({ userId: userId });
+    }
+
     return cart;
   } catch (ex) {
     const error = Error('Error finding cart');
