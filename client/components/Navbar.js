@@ -1,10 +1,11 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { logout } from '../store';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import React from "react";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
+import { logout } from "../store";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import AccountBoxIcon from '@mui/icons-material/AccountBox';
 
-const Navbar = ({ handleClick, isLoggedIn }) => (
+const Navbar = ({ handleClick, isLoggedIn, isAdmin }) => (
   <nav>
     <div className="mainNav">
       <Link to="/home">
@@ -22,15 +23,21 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
           <a href="#" onClick={handleClick}>
             Log Out
           </a>
+          {isAdmin ? (<Link to = "/users">Users</Link>) : ("")}
         </div>
       ) : (
         <div>
           {/* The navbar will show these links before you log in */}
           <Link to="/cart">
-            <ShoppingCartIcon fontSize="small" />
+            <ShoppingCartIcon fontSize="medium" />
           </Link>
-          <Link to="/login">Log In</Link>
-          <Link to="/signup">Sign Up</Link>
+          <div className="dropdown">
+            <AccountBoxIcon fontSize='medium' />
+            <div className="dropdown-content">
+              <Link to="/login">Log In</Link>
+              <Link to="/signup">Sign Up</Link>
+            </div>
+          </div>
         </div>
       )}
     </div>
@@ -43,8 +50,9 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
 const mapState = (state) => {
   return {
     isLoggedIn: !!state.auth.id,
-  };
-};
+    isAdmin: state.auth.is_admin
+  }
+}
 
 const mapDispatch = (dispatch) => {
   return {

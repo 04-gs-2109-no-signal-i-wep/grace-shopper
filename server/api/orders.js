@@ -1,178 +1,135 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const Order = require('../db/models/Order');
-const User = require('../db/models/User');
-const Order_Detail = require('../db/models/Order_Detail');
+const Order = require("../db/models/Order");
+const User = require("../db/models/User");
+const Order_Detail = require("../db/models/Order_Detail");
+const { token } = require("morgan");
+const Product = require("../db/models/Product");
 
 module.exports = router;
 
-router.get('/cart', async (req, res, next) => {
+router.get("/cart/:userId", async (req, res, next) => {
   try {
-    let currentUser = await User.findByToken(req.body.jwt); // check if this is how we grab the JWT
-
-    //check if this user has an open cart
-    let cart = Order.findOne({
-      where: {
-        userId: currentUser.id,
-        is_completed: false,
-      },
-    });
-
-    if (!cart) {
-      res.send("You haven't started shopping yet! Add a product to view cart.");
-    } else {
-      res.send(cart);
-    }
+    const userId = req.params.userId;
+    //find their open Order using a method
+    let cart = await Order.findCart(userId);
+    //find the contents of that cart
+    let cartContents = await Order.findCartContents(cart.dataValues.id);
+    let order_total = cart.findTotalPrice(
+      cartContents[0].dataValues.order_details
+    );
+    let total_quantity = cart.findTotalQuantity(
+      cartContents[0].dataValues.order_details
+    );
+    //set order total in cart contents
+    cartContents[0].dataValues.order_total = order_total;
+    cartContents[0].dataValues.total_quantity = total_quantity;
+    cart.save();
+    res.send(cartContents);
   } catch (error) {
     next(error);
   }
 });
 
-router.get('/addToCart', async (req, res, next) => {
+router.put("/addToCart/:userId/:productId", async (req, res, next) => {
   try {
-    let product = req.body.product; // is this just equal to the product's ID ? or is this giving us the whole product?
-    let quantity = req.body.quantity; // this is the quantity that our user wants
+    const userId = req.params.userId;
+    const productId = req.params.productId; // is this just equal to the product's ID ? or is this giving us the whole product?
+    let quantity = 1;
+    console.log("HERE IS REQ.BODY", req.body);
+    // this is the quantity that our user wants WHY ISN"T QUANTITY WORKING HERE ????
 
-    let currentUser = await User.findByToken(req.body.jwt); // check if this is how we grab the JWT
+    //get the user's cart
+    let cart = await Order.findCart(userId);
+    let product = await Product.findByPk(productId);
 
-    //check if this user has an open cart
-    let cart = Order.findOne({
-      where: {
-        userId: currentUser.id,
-        is_completed: false,
-      },
-    });
+    console.log("THIS IS CART", cart);
 
     //check if Order_Detail includes a row where userId and cartID match current order
-    let matchingOrder = Order_Detail.findOne({
-      where: {
-        productId: product.id,
-        orderId: cart.id,
-      },
-    });
+    let matchingOrder = await Order_Detail.findMatchingOrder(
+      productId,
+      cart.id
+    );
 
-    //if we find a matchingOrder, grab its current quantity so we can calculate the new quantity and total price
+    //if we find a matchingOrder, update that row's price and quantity .. but assuming that this is only hit when they hit the 'add to cart' button, quantity should only rise by one
     if (matchingOrder) {
-      let newQuantity = matchingOrder.quantity + quantity;
-      let newTotalPrice = newQuantity * product.price;
-
-      //then, change the values in the matching order row
-      matchingOrder.quantity = newQuantity;
-      matchingOrder.total_price = newTotalPrice;
-
-      //save the row with its updates
+      matchingOrder.adjustItemOrder(product.price, matchingOrder.quantity + 1);
       await matchingOrder.save();
-
-      //then send back the updated order line , could say in the thunk something like ... ${qty} ${product}(s) added to cart?
       res.send(matchingOrder);
     } else {
-      let total_price = quantity * product.price; // the total price for a NEW row - simpler equation than if a row already exists because we only have to consider the quantity the user just selected
+      let total_price = quantity * product.price; // the total price for a NEW row
 
-      //but first: if the cart wasn't found in the previous routes, then create a new Order (aka a new cart) with the info on the current user
-      if (!cart) {
-        cart = await Order.create(currentUser.id);
-      }
-
-      //whether or not a cart was open when we started this bloc, it should be open now. make an association that links the cart to the product the user wants, and use magic method to update the quantity and total_price columns at the moment we make the association
-      await cart.add(product, {
+      //make an association that links the cart to the product the user wants, and use magic method to update the quantity and total_price columns at the moment we make the association
+      await cart.addProduct(product, {
         through: {
           quantity,
           total_price,
         },
       });
 
-      //find the order we just created - is there a simpler way to do this ??
-      let newOrder = Order_Detail.findOne({
-        where: {
-          productId: product.id,
-          orderId: cart.id,
-        },
-      });
-
+      //find the order we just created using the findMatching method
+      let newOrder = await Order_Detail.findMatchingOrder(productId, cart.id);
       res.send(newOrder);
     }
   } catch (error) {
-    console.log('an error occurred in the addToCart get route');
     next(error);
   }
 });
 
-//OLD CODE
-// router.put('/addToCart', async (req, res, next) => {
-//   try {
-//     console.log('hitting the check matching order phase');
-//     let cart = req.body.cart;
-//     let currentUser = req.body.currentUser;
-//     let product = req.body.product;
-//     let quantity = req.body.quantity;
+router.put(
+  "/cart/updateItemQuantity/:userId/:productId",
+  async (req, res, next) => {
+    try {
+      const userId = req.params.userId;
+      let productId = req.params.productId;
+      let quantity = req.body;
+      let cart = await Order.findCart(userId);
+      let product = await Product.findByPk(productId);
 
-//     //check if Order_Detail includes a row where userId and cartID match current order
-//     // let matchingOrder = Order_Detail.findOne({
-//     //   where: {
-//     //     productId: product.id,
-//     //     orderId: cart.id,
-//     //   },
-//     // });
+      //find the row that needs to be updated
+      let matchingOrder = await Order_Detail.findMatchingOrder(
+        productId,
+        cart.id
+      );
+      //update the order detail row's price and quantity to reflect new price and quantity
+      await matchingOrder.adjustItemOrder(product.price, quantity);
+      await matchingOrder.save();
+      res.send(matchingOrder);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
 
-//     //if we find a matchingOrder, grab its current quantity so we can calculate the new quantity and total price
-//     if (matchingOrder) {
-//       let newQuantity = matchingOrder.quantity + quantity;
-//       let newTotalPrice = newQuantity * product.price;
+router.put("/cart/checkout/:userId", async (req, res, next) => {
+  try {
+    const userId = req.params.userId;
+    let cart = await Order.findCart(userId);
 
-//       //then, change the values in the matching order row
-//       matchingOrder.quantity = newQuantity;
-//       matchingOrder.total_price = newTotalPrice;
+    // cart.total_quantity = 0
+    // cart.order_total = 0
+    cart.is_completed = true;
+    cart.save();
 
-//       //save the row with its updates
-//       await matchingOrder.save();
+    // Create new order
+    const user = await User.findOne({ where: { id: userId } });
+    await Order.createCart(userId, user);
+    res.json(cart);
+  } catch (error) {
+    next(error);
+  }
+});
 
-//       //then send back the updated order line , could say in the thunk something like ... ${qty} ${product}(s) added to cart?
-//       res.send(matchingOrder);
-//     } else {
-//       //we have to check cases where there was no cart/open order or if there was a cart, but this product wasn't in it yet -->
-//       next(cart, currentUser, product, quantity);
-//     }
-//   } catch (error) {
-//     console.log('An error hit the matching order phase');
-//     next(error);
-//   }
-// });
-
-// router.post('/addToCart', async (req, res, next) => {
-//   try {
-//     console.log('hitting the if cart does not exist phase');
-//     let cart = req.body.cart;
-//     let currentUser = req.body.currentUser;
-//     let product = req.body.product;
-//     let quantity = req.body.quantity;
-
-//     let total_price = req.body.quantity * req.body.product.price; // the total price for a NEW row - simpler equation than if a row already exists because we only have to consider the quantity the user just selected
-
-//     //but first: if the cart wasn't found in the previous routes, then create a new Order (aka a new cart) with the info on the current user
-//     if (!cart) {
-//       cart = await Order.create(currentUser.id);
-//     }
-
-//     //whether or not a cart was open when we started this bloc, it should be open now. make an association that links the cart to the product the user wants, and use magic method to update the quantity and total_price columns at the moment we make the association
-//     await cart.add(product, {
-//       through: {
-//         quantity,
-//         total_price,
-//       },
-//     });
-
-//     //find that new addition
-//     let newOrder = await Order_Detail.findOne({
-//       where: {
-//         orderId: cart.id,
-//         productId: product.id,
-//       },
-//     });
-
-//     //then send back the updated info on the product in cart eg: 2 carrots added to cart
-//     res.send(newOrder);
-//   } catch (error) {
-//     console.log('An error hit the no cart yet phase');
-//     next(error);
-//   }
-// });
+router.delete("/cart/deleteItem/:userId/:productId", async (req, res, next) => {
+  try {
+    const userId = req.params.userId;
+    const productId = req.params.productId;
+    let cart = await Order.findCart(userId);
+    const deleted = await Order_Detail.findMatchingOrder(productId, cart.id);
+    //destroy the cart that matches the specified row
+    await deleted.destroy();
+    res.send(deleted);
+  } catch (error) {
+    next(error);
+  }
+});
