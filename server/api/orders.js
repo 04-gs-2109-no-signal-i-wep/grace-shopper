@@ -12,7 +12,7 @@ router.get('/cart/:userId', async (req, res, next) => {
   try {
     const userId = req.params.userId;
     //find their open Order using a method
-    let cart = await Order.findCart(userId);
+    let cart = await Order.findOrCreateCart(userId);
     //find the contents of that cart
     let cartContents = await Order.findCartContents(cart.dataValues.id);
     let order_total = cart.findTotalPrice(
@@ -31,13 +31,15 @@ router.put('/addToCart/:userId/:productId', async (req, res, next) => {
   try {
     const userId = req.params.userId;
     const productId = req.params.productId; // is this just equal to the product's ID ? or is this giving us the whole product?
-    console.log(req.body);
-    let quantity = req.body;
+    let quantity = req.body.quantity;
+    console.log('HERE IS REQ.BODY', req.body);
     // this is the quantity that our user wants WHY ISN"T QUANTITY WORKING HERE ????
 
     //get the user's cart
-    let cart = await Order.findCart(userId);
+    let cart = await Order.findOrCreateCart(userId);
     let product = await Product.findByPk(productId);
+
+    console.log('THIS IS CART', cart);
 
     //check if Order_Detail includes a row where userId and cartID match current order
     let matchingOrder = await Order_Detail.findMatchingOrder(
@@ -77,7 +79,7 @@ router.put(
       const userId = req.params.userId;
       let productId = req.params.productId;
       let quantity = req.body;
-      let cart = await Order.findCart(userId);
+      let cart = await Order.findOrCreateCart(userId);
       let product = await Product.findByPk(productId);
 
       //find the row that needs to be updated
@@ -98,13 +100,9 @@ router.put(
 router.put('/cart/checkout/:userId', async (req, res, next) => {
   try {
     const userId = req.params.userId;
-    let cart = await Order.findCart(userId);
-    console.log('THIS IS CART', cart);
+    let cart = await Order.findOrCreateCart(userId);
     cart.is_completed = true;
     await cart.save();
-    // create a new cart in case they want to start shopping again right away ... we will set this as state
-    // let newCart = await Order.create({ userId: userId });
-    // console.log(newCart);
     res.send(cart);
   } catch (error) {
     next(error);
@@ -115,7 +113,7 @@ router.delete('/cart/deleteItem/:userId/:productId', async (req, res, next) => {
   try {
     const userId = req.params.userId;
     const productId = req.params.productId;
-    let cart = await Order.findCart(userId);
+    let cart = await Order.findOrCreateCart(userId);
     const deleted = await Order_Detail.findMatchingOrder(productId, cart.id);
     //destroy the cart that matches the specified row
     await deleted.destroy();

@@ -31,7 +31,6 @@ const _deleteItemFromCart = (itemDeleted) => ({
 
 //make an edge case where the cart is empty
 export const fetchItemsInCart = (userId) => {
-  console.log('USERID', userId);
   return async (dispatch) => {
     try {
       const { data: itemsInCart } = await axios.get(

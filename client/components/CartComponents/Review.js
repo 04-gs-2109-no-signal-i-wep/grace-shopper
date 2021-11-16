@@ -9,12 +9,12 @@ import { connect } from 'react-redux';
 
 export class Review extends React.Component {
   componentDidMount() {
+    console.log(this.props);
     this.props.fetchItemsInCart(this.props.auth.id);
   }
 
   render() {
     const { cart } = this.props;
-    console.log(cart);
     return (
       <div className="cartReviewDiv">
         {cart.length === 0 ? (
