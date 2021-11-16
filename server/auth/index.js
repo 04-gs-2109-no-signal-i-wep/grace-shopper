@@ -33,18 +33,12 @@ router.post('/signup', async (req, res, next) => {
 router.get('/me', async (req, res, next) => {
   try {
     let user = await User.findByToken(req.headers.authorization);
-
-    let cart = await Order.findOne({
-      where: {
-        userId: user.id,
-        is_completed: false,
-      },
-    }); //once this user is logged in, check if they have an open cart
-
+    //once this user is logged in, check if they have an open cart
+    let cart = Order.findCart(user.id);
+    //if not, make a cart (aka an incomplete order)
     if (!cart) {
       cart = await Order.create({ userId: user.id });
-    } //if not, make a cart (aka an incomplete order)
-
+    }
     res.send(user);
   } catch (ex) {
     next(ex);

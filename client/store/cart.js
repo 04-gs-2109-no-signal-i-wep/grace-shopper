@@ -30,10 +30,10 @@ const _deleteItemFromCart = (itemDeleted) => ({
 //THUNKS
 
 //make an edge case where the cart is empty
-export const fetchItemsInCart = (jwt) => {
+export const fetchItemsInCart = () => {
   return async (dispatch) => {
     try {
-      const { data: itemsInCart } = await axios.get('/api/orders/cart', jwt);
+      const { data: itemsInCart } = await axios.get('/api/orders/cart');
       dispatch(setCart(itemsInCart));
     } catch (error) {
       console.log('An error occurred in the fetchItemsInCart thunk');
@@ -41,12 +41,11 @@ export const fetchItemsInCart = (jwt) => {
   };
 };
 
-export const addItemToCart = (jwt, product, quantity) => {
+export const addItemToCart = (product, quantity) => {
   return async (dispatch) => {
     try {
       const { data: itemAdded } = await axios.get(
         '/api/orders/addToCart',
-        jwt,
         product,
         quantity
       );
@@ -57,12 +56,11 @@ export const addItemToCart = (jwt, product, quantity) => {
   };
 };
 
-export const updateItemQuantity = (jwt, product, quantity) => {
+export const updateItemQuantity = (product, quantity) => {
   return async (dispatch) => {
     try {
       const { data: itemUpdated } = await axios.put(
         '/api/orders/cart/updateItemQuantity',
-        jwt,
         product,
         quantity
       );
@@ -73,13 +71,10 @@ export const updateItemQuantity = (jwt, product, quantity) => {
   };
 };
 
-export const checkoutCart = (jwt) => {
+export const checkoutCart = () => {
   return async (dispatch) => {
     try {
-      const { data: newCart } = await axios.put(
-        '/api/orders/cart/checkout',
-        jwt
-      );
+      const { data: newCart } = await axios.put('/api/orders/cart/checkout');
       dispatch(setCart(newCart));
       alert('Your order is on the way! Thanks for shopping with Hearth.');
     } catch (error) {
@@ -88,12 +83,11 @@ export const checkoutCart = (jwt) => {
   };
 };
 
-export const deleteItemFromCart = (jwt, product) => {
+export const deleteItemFromCart = (product) => {
   return async (dispatch) => {
     try {
       const { data: deletedItem } = await axios.delete(
         '/cart/deleteItem',
-        jwt,
         product
       );
       dispatch(_deleteItemFromCart(deletedItem));

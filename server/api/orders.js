@@ -3,12 +3,14 @@ const router = express.Router();
 const Order = require('../db/models/Order');
 const User = require('../db/models/User');
 const Order_Detail = require('../db/models/Order_Detail');
+const { token } = require('morgan');
 
 module.exports = router;
 
 router.get('/cart', async (req, res, next) => {
   try {
-    let currentUser = await User.findByToken(req.body.jwt);
+    const token = req.headers.authorization;
+    let currentUser = await User.findByToken(token);
     //find the user who is logged in
     //find their open Order using a method and send its data back
     let cart = await Order.findCart(currentUser.id);
@@ -23,7 +25,8 @@ router.get('/addToCart', async (req, res, next) => {
     let product = req.body.product; // is this just equal to the product's ID ? or is this giving us the whole product?
     let quantity = req.body.quantity; // this is the quantity that our user wants
 
-    let currentUser = await User.findByToken(req.body.jwt); // use the JWT to find the current User
+    const token = req.headers.authorization;
+    let currentUser = await User.findByToken(token); // use the JWT to find the current User
 
     //get the user's cart
     let cart = await Order.findCart(currentUser.id);
@@ -60,7 +63,8 @@ router.put('/cart/updateItemQuantity', async (req, res, next) => {
   try {
     let product = req.body.product;
     let quantity = req.body.quantity;
-    let currentUser = await User.findByToken(req.body.jwt);
+    const token = req.headers.authorization;
+    let currentUser = await User.findByToken(token);
     let cart = await Order.findCart(currentUser.id);
 
     //find the row that needs to be updated
@@ -76,7 +80,8 @@ router.put('/cart/updateItemQuantity', async (req, res, next) => {
 
 router.put('/cart/checkout', async (req, res, next) => {
   try {
-    let user = await User.findByToken(req.body.jwt);
+    const token = req.headers.authorization;
+    let user = await User.findByToken(token);
     let cart = await Order.findCart(user.id);
     cart.is_completed = true;
     await cart.save();
@@ -91,7 +96,8 @@ router.put('/cart/checkout', async (req, res, next) => {
 router.delete('/cart/deleteItem', async (req, res, next) => {
   try {
     let product = req.body.product;
-    let user = await User.findByToken(req.body.jwt);
+    const token = req.headers.authorization;
+    let user = await User.findByToken(token);
     let cart = await Order.findCart(user.id);
     const deleted = await Order_Detail.matchingOrder(product.id, cart.id);
     //destroy the cart that matches the specified row
