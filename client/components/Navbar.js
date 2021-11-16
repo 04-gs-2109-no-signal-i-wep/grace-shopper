@@ -28,10 +28,10 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
         <div>
           {/* The navbar will show these links before you log in */}
           <Link to="/cart">
-            <ShoppingCartIcon fontSize="small" />
+            <ShoppingCartIcon fontSize="medium" />
           </Link>
           <div className="dropdown">
-            <AccountBoxIcon fontSize='small' />
+            <AccountBoxIcon fontSize='medium' />
             <div className="dropdown-content">
               <Link to="/login">Log In</Link>
               <Link to="/signup">Sign Up</Link>

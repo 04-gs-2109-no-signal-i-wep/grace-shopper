@@ -6,16 +6,26 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { addItemToCart } from "../store/cart";
 
 class SingleProduct extends React.Component {
   constructor() {
     super();
     this.state = {};
+    this.addToCart = this.addToCart.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
   }
 
   componentDidMount() {
     this.props.fetchProduct(this.props.match.params.productId);
+  }
+
+  addToCart(productId) {
+    console.log(this.props);
+    const user = this.props.user;
+    if (user.id) {
+      this.props.addItemToCart(user.id, productId, '1');
+    }
   }
 
   handleDelete() {
@@ -66,7 +76,11 @@ class SingleProduct extends React.Component {
                   <h2>{product.name}</h2>
                   <div className="description">{product.description}</div>
                   <div className="price">${product.price}</div>
-                  <button>
+                  <button
+                    onClick={() => {
+                      return this.addToCart(product.id);
+                    }}
+                  >
                     <ShoppingCartIcon fontSize="25" /> Add To Cart
                   </button>
                   <div className="details"></div>
@@ -85,11 +99,14 @@ class SingleProduct extends React.Component {
 const mapState = (state) => ({
   product: state.singleProduct,
   is_admin: state.auth.is_admin,
+  user: state.auth,
 });
 
 const mapDispatch = (dispatch, { history }) => ({
   fetchProduct: (id) => dispatch(fetchProduct(id)),
   deleteProduct: (id) => dispatch(deleteProduct(id, history)),
+  addItemToCart: (jwt, product, quantity) =>
+    dispatch(addItemToCart(jwt, product, quantity)),
 });
 
 export default connect(mapState, mapDispatch)(SingleProduct);
