@@ -31,6 +31,7 @@ router.put('/addToCart/:userId/:productId', async (req, res, next) => {
   try {
     const userId = req.params.userId;
     const productId = req.params.productId; // is this just equal to the product's ID ? or is this giving us the whole product?
+    console.log(req.body);
     let quantity = req.body;
     // this is the quantity that our user wants WHY ISN"T QUANTITY WORKING HERE ????
 
@@ -98,11 +99,13 @@ router.put('/cart/checkout/:userId', async (req, res, next) => {
   try {
     const userId = req.params.userId;
     let cart = await Order.findCart(userId);
+    console.log('THIS IS CART', cart);
     cart.is_completed = true;
     await cart.save();
-    //create a new cart in case they want to start shopping again right away ... we will set this as state
-    let newCart = await Order.create({ userId: userId });
-    res.send(newCart);
+    // create a new cart in case they want to start shopping again right away ... we will set this as state
+    // let newCart = await Order.create({ userId: userId });
+    // console.log(newCart);
+    res.send(cart);
   } catch (error) {
     next(error);
   }
