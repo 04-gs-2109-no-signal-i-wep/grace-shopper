@@ -36,16 +36,16 @@ export class Review extends React.Component {
 
   handleIncrement(name, quantity, id) {
     let newQuantity = quantity + 1;
-    // this.setState({
-    //   [name]: { quantity: newQuantity, id },
-    // });
+    this.setState({
+      [name]: { quantity: newQuantity, id },
+    });
   }
 
   handleDecrement(name, quantity, id) {
     let newQuantity = quantity - 1;
-    // this.setState({
-    //   [name]: { quantity: newQuantity, id },
-    // });
+    this.setState({
+      [name]: { quantity: newQuantity, id },
+    });
   }
 
   render() {
@@ -84,22 +84,26 @@ export class Review extends React.Component {
                             aria-label="small outlined button group"
                           >
                             <Button
-                              onClick={this.handleIncrement(
-                                cart[0].products[index].name,
-                                orderRow.quantity,
-                                orderRow.orderId + orderRow.productId
-                              )}
+                              onClick={() =>
+                                this.handleIncrement(
+                                  cart[0].products[index].name,
+                                  orderRow.quantity,
+                                  orderRow.orderId + orderRow.productId
+                                )
+                              }
                             >
                               +
                             </Button>
                             {<Button disabled>{orderRow.quantity}</Button>}
                             {
                               <Button
-                                onClick={this.handleDecrement(
-                                  cart[0].products[index].name,
-                                  orderRow.quantity,
-                                  orderRow.orderId + orderRow.productId
-                                )}
+                                onClick={() =>
+                                  this.handleDecrement(
+                                    cart[0].products[index].name,
+                                    orderRow.quantity,
+                                    orderRow.orderId + orderRow.productId
+                                  )
+                                }
                               >
                                 -
                               </Button>
