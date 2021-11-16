@@ -4,8 +4,10 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import Grid from '@mui/material/Grid';
+import { FormControl, InputLabel, NativeSelect } from '@mui/material';
 import { fetchItemsInCart } from '../../store/cart';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 export class Review extends React.Component {
   componentDidMount() {
@@ -18,7 +20,12 @@ export class Review extends React.Component {
     return (
       <div className="cartReviewDiv">
         {cart.length === 0 ? (
-          <p></p>
+          <Typography variant="h6" gutterBottom>
+            <Link to="/products">
+              Your cart is empty. Check out our Products page to find your
+              perfect room!
+            </Link>
+          </Typography>
         ) : (
           <React.Fragment>
             <Typography variant="h6" gutterBottom>
@@ -32,7 +39,34 @@ export class Review extends React.Component {
                 >
                   <ListItemText
                     primary={cart[0].products[index].name}
-                    secondary={orderRow.quantity}
+                    secondary={
+                      <FormControl fullWidth>
+                        <InputLabel
+                          variant="standard"
+                          htmlFor="uncontrolled-native"
+                        >
+                          Quantity
+                        </InputLabel>
+                        <NativeSelect
+                          defaultValue={orderRow.quantity}
+                          inputProps={{
+                            name: 'quantity',
+                            id: 'uncontrolled-native',
+                          }}
+                        >
+                          <option value={1}>1</option>
+                          <option value={2}>2</option>
+                          <option value={3}>3</option>
+                          <option value={4}>4</option>
+                          <option value={5}>5</option>
+                          <option value={6}>6</option>
+                          <option value={7}>7</option>
+                          <option value={8}>8</option>
+                          <option value={9}>9</option>
+                          <option value={10}>10</option>
+                        </NativeSelect>
+                      </FormControl>
+                    }
                   />
                   <Typography variant="body2">
                     {orderRow.total_price}
