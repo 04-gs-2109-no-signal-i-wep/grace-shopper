@@ -89,7 +89,7 @@ class SingleProduct extends React.Component {
             </main>
           </>
         ) : (
-          "Still Loading..."
+          'Loading products...'
         )}
       </>
     );
