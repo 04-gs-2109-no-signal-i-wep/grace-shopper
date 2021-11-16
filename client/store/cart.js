@@ -4,7 +4,7 @@ import axios from 'axios';
 const SET_CART = 'SET_CART';
 const ADD_TO_CART = 'ADD_TO_CART';
 const UPDATE_ITEM_QUANTITY = 'UPDATE_ITEM_QUANTITY';
-const DELETE_ITEM
+const DELETE_ITEM_FROM_CART = 'DELETE_ITEM';
 //make a delete item from cart
 //need a way to mark a cart as complete -- check JPFP for this
 
@@ -20,6 +20,11 @@ const _addToCart = (itemAdded) => ({
 const _updateItemQuantity = (itemAdjusted) => ({
   type: UPDATE_ITEM_QUANTITY,
   itemAdjusted,
+});
+
+const _deleteItemFromCart = (itemDeleted) => ({
+  type: DELETE_ITEM_FROM_CART,
+  itemDeleted,
 });
 
 //THUNKS
@@ -83,6 +88,21 @@ export const checkoutCart = (jwt) => {
   };
 };
 
+export const deleteItemFromCart = (jwt, product) => {
+  return async (dispatch) => {
+    try {
+      const { data: deletedItem } = await axios.delete(
+        '/cart/deleteItem',
+        jwt,
+        product
+      );
+      dispatch(_deleteItemFromCart(deletedItem));
+    } catch (error) {
+      console.log('An error occurred in the deleteItemFromCart thunk: ', error);
+    }
+  };
+};
+
 //SUBREDUCER
 export default function (state = [], action) {
   switch (action.type) {
@@ -94,7 +114,8 @@ export default function (state = [], action) {
       return state.map((item) =>
         item.id === action.itemAdjusted.id ? action.itemAdjusted : item
       );
-    ///DELETE FROM CART
+    case DELETE_ITEM_FROM_CART:
+      return state.filter((item) => item.id !== action.item.id);
     default:
       return state;
   }
