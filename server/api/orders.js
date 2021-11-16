@@ -7,14 +7,18 @@ const { token } = require('morgan');
 
 module.exports = router;
 
-router.get('/cart', async (req, res, next) => {
+router.get('/cart/:userId', async (req, res, next) => {
   try {
-    const token = req.headers.authorization;
-    let currentUser = await User.findByToken(token);
+    const userId = req.params.userId;
+    // let currentUser = await User.findByPk(userId);
     //find the user who is logged in
-    //find their open Order using a method and send its data back
-    let cart = await Order.findCart(currentUser.id);
-    res.send(cart);
+    //find their open Order using a method
+    let cart = await Order.findCart(userId);
+    console.log('THIS IS THE MATCHING ORDER', cart);
+    //find the contents of that cart
+    let cartContents = await Order.findCartContents(cart.dataValues.id);
+
+    res.send(cartContents);
   } catch (error) {
     next(error);
   }

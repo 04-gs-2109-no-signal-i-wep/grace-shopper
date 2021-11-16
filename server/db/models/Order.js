@@ -1,5 +1,6 @@
 const Sequelize = require('sequelize');
 const db = require('../db');
+const Product = require('../models/Product');
 
 const Order = db.define('order', {
   order_total: Sequelize.INTEGER,
@@ -15,7 +16,7 @@ const Order = db.define('order', {
 //this method will find a cart - the open order associated with a userId passed into the method
 Order.findCart = async function (userId) {
   try {
-    const cart = Order.findOne({
+    const cart = this.findOne({
       where: {
         userId: userId,
         is_completed: false,
@@ -24,6 +25,26 @@ Order.findCart = async function (userId) {
     return cart;
   } catch (ex) {
     const error = Error('Error finding cart');
+    throw error;
+  }
+};
+
+//find the contents of a cart , aka an order that matches the orderId passed in ... and include details on the related products
+Order.findCartContents = async function (orderId) {
+  try {
+    const cartContents = this.findAll({
+      where: {
+        id: orderId,
+      },
+      include: [
+        {
+          model: Product,
+        },
+      ],
+    });
+    return cartContents;
+  } catch (ex) {
+    const error = Error('Error finding cart contents');
     throw error;
   }
 };

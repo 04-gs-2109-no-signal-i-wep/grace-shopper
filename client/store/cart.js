@@ -30,10 +30,13 @@ const _deleteItemFromCart = (itemDeleted) => ({
 //THUNKS
 
 //make an edge case where the cart is empty
-export const fetchItemsInCart = () => {
+export const fetchItemsInCart = (userId) => {
+  console.log('USERID', userId);
   return async (dispatch) => {
     try {
-      const { data: itemsInCart } = await axios.get('/api/orders/cart');
+      const { data: itemsInCart } = await axios.get(
+        `/api/orders/cart/${userId}`
+      );
       dispatch(setCart(itemsInCart));
     } catch (error) {
       console.log('An error occurred in the fetchItemsInCart thunk');

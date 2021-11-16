@@ -15,8 +15,8 @@ export default function AddressForm() {
         <Grid item xs={12}>
           <TextField
             required
-            id="address1"
-            name="address1"
+            id="address_line_1"
+            name="address_line_1"
             label="Address line 1"
             fullWidth
             autoComplete="shipping address-line1"
@@ -25,8 +25,8 @@ export default function AddressForm() {
         </Grid>
         <Grid item xs={12}>
           <TextField
-            id="address2"
-            name="address2"
+            id="address_line_2"
+            name="address_line_2"
             label="Address line 2"
             fullWidth
             autoComplete="shipping address-line2"
@@ -56,8 +56,8 @@ export default function AddressForm() {
         <Grid item xs={12} sm={6}>
           <TextField
             required
-            id="zip"
-            name="zip"
+            id="zip_code"
+            name="zip_code"
             label="Zip / Postal code"
             fullWidth
             autoComplete="shipping postal-code"
