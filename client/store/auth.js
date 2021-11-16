@@ -63,6 +63,7 @@ export const authenticate =
         });
       }
       window.localStorage.setItem(TOKEN, res.data.token);
+      history.push('/products');
       dispatch(me());
     } catch (authError) {
       alert(authError.response.data);
