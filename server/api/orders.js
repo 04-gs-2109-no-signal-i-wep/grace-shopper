@@ -4,6 +4,7 @@ const Order = require('../db/models/Order');
 const User = require('../db/models/User');
 const Order_Detail = require('../db/models/Order_Detail');
 const { token } = require('morgan');
+const Product = require('../db/models/Product');
 
 module.exports = router;
 
@@ -26,17 +27,18 @@ router.get('/cart/:userId', async (req, res, next) => {
   }
 });
 
-router.get('/addToCart/:userId', async (req, res, next) => {
+router.get('/addToCart/:userId/:productId', async (req, res, next) => {
   try {
     const userId = req.params.userId;
-    let product = req.body.product; // is this just equal to the product's ID ? or is this giving us the whole product?
+    const productId = req.params.productId; // is this just equal to the product's ID ? or is this giving us the whole product?
     let quantity = req.body.quantity; // this is the quantity that our user wants
 
     //get the user's cart
     let cart = await Order.findCart(userId);
+    let product = await Product.findByPk(productId);
 
     //check if Order_Detail includes a row where userId and cartID match current order
-    let matchingOrder = Order_Detail.matchingOrder(product.id, cart.id);
+    let matchingOrder = Order_Detail.matchingOrder(productId, cart.id);
 
     //if we find a matchingOrder, update that row's price and quantity .. but assuming that this is only hit when they hit the 'add to cart' button, quantity should only rise by one
     if (matchingOrder) {
@@ -63,23 +65,27 @@ router.get('/addToCart/:userId', async (req, res, next) => {
   }
 });
 
-router.put('/cart/updateItemQuantity/:userId', async (req, res, next) => {
-  try {
-    const userId = req.params.userId;
-    let product = req.body.product;
-    let quantity = req.body.quantity;
-    let cart = await Order.findCart(userId);
+router.put(
+  '/cart/updateItemQuantity/:userId/:productId',
+  async (req, res, next) => {
+    try {
+      const userId = req.params.userId;
+      let productId = req.params.productId;
+      let quantity = req.body;
+      let cart = await Order.findCart(userId);
+      let product = await Product.findByPk(productId);
 
-    //find the row that needs to be updated
-    let matchingOrder = Order_Detail.matchingOrder(product.id, cart.id);
-    //update the order detail row's price and quantity to reflect new price and quantity
-    matchingOrder.adjustItemOrder(product.price, quantity);
-    await matchingOrder.save();
-    res.send(matchingOrder);
-  } catch (error) {
-    next(error);
+      //find the row that needs to be updated
+      let matchingOrder = Order_Detail.matchingOrder(productId, cart.id);
+      //update the order detail row's price and quantity to reflect new price and quantity
+      matchingOrder.adjustItemOrder(product.price, quantity);
+      await matchingOrder.save();
+      res.send(matchingOrder);
+    } catch (error) {
+      next(error);
+    }
   }
-});
+);
 
 router.put('/cart/checkout/:userId', async (req, res, next) => {
   try {
@@ -88,20 +94,19 @@ router.put('/cart/checkout/:userId', async (req, res, next) => {
     cart.is_completed = true;
     await cart.save();
     //create a new cart in case they want to start shopping again right away ... we will set this as state
-    let newCart = await Order.create({ userId: user.id });
+    let newCart = await Order.create({ userId: userId });
     res.send(newCart);
   } catch (error) {
     next(error);
   }
 });
 
-router.delete('/cart/deleteItem', async (req, res, next) => {
+router.delete('/cart/deleteItem/:userId/:productId', async (req, res, next) => {
   try {
-    let product = req.body.product;
-    const token = req.headers.authorization;
-    let user = await User.findByToken(token);
-    let cart = await Order.findCart(user.id);
-    const deleted = await Order_Detail.matchingOrder(product.id, cart.id);
+    const userId = req.params.userId;
+    const productId = req.params.productId;
+    let cart = await Order.findCart(userId);
+    const deleted = await Order_Detail.matchingOrder(productId, cart.id);
     //destroy the cart that matches the specified row
     await deleted.destroy();
     res.send(deleted);
