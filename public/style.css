@@ -9,7 +9,7 @@ nav {
   background-color: #fff;
   display: flex;
   justify-content: space-between;
-  height: 7vh;
+  height: 8vh;
   margin: 0 15px 0 15px;
 }
 
@@ -18,11 +18,11 @@ a:visited {
   display: inline-block;
   margin: 1em;
   color: #000;
+  line-height: 200%;
 }
 
 nav a:hover {
   color: #ceb5a7;
-  border-bottom: 1px solid #a17c6b;
 }
 
 .mainNav {
@@ -175,6 +175,8 @@ button:hover {
   opacity: 1;
 }
 
+.editFormLabel,
+.add-prod-form-label {
 .back {
   margin: 15px 0 15px 0;
   text-transform: uppercase;
@@ -190,7 +192,8 @@ button:hover {
   padding: 10px 0 10px 0;
 }
 
-.editFormInput {
+.editFormInput,
+.add-prod-form-input {
   width: 100%;
   height: 110%;
   border: 0;
