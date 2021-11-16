@@ -151,49 +151,6 @@ const AuthForm = (props) => {
                 type="password"
                 id="password"
               />
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                id="address_line_1"
-                label="Street Address"
-                name="address_line_1"
-                autoComplete="address_line_1"
-                autoFocus
-                type="text"
-              />
-              <TextField
-                margin="normal"
-                fullWidth
-                id="address_line_2"
-                label="Apartment Number"
-                name="address_line_2"
-                autoComplete="address_line_2"
-                autoFocus
-                type="text"
-              />
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                id="city"
-                label="City"
-                name="city"
-                autoComplete="city"
-                autoFocus
-                type="text"
-              />
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                id="country"
-                label="Country"
-                name="country"
-                autoComplete="country"
-                autoFocus
-                type="text"
-              />
               <Button
                 type="submit"
                 fullWidth
