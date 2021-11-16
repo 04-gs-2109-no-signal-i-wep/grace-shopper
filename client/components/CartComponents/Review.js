@@ -13,56 +13,69 @@ export class Review extends React.Component {
   }
 
   render() {
-    console.log(this.props.auth.id);
-
+    const { cart } = this.props;
+    console.log(cart);
     return (
-      <p>hi</p>
-      // <React.Fragment>
-      //   <Typography variant="h6" gutterBottom>
-      //     Order summary
-      //   </Typography>
-      //   <List disablePadding>
-      //     {cart.map((product) => (
-      //       <ListItem key={product.id} sx={{ py: 1, px: 0 }}>
-      //         <ListItemText primary={product.name} secondary={product.desc} />
-      //         <Typography variant="body2">{product.price}</Typography>
-      //       </ListItem>
-      //     ))}
+      <div className="cartReviewDiv">
+        {cart.length === 0 ? (
+          <p></p>
+        ) : (
+          <React.Fragment>
+            <Typography variant="h6" gutterBottom>
+              Order summary
+            </Typography>
+            <List disablePadding>
+              {cart[0].order_details.map((orderRow) => (
+                <ListItem
+                  key={orderRow.orderId + orderRow.productId}
+                  sx={{ py: 1, px: 0 }}
+                >
+                  <ListItemText
+                    primary={cart[0].products[0].name} //NEED TO FIX THIS
+                    secondary={orderRow.quantity}
+                  />
+                  <Typography variant="body2">
+                    {orderRow.total_price}
+                  </Typography>
+                </ListItem>
+              ))}
 
-      //     <ListItem sx={{ py: 1, px: 0 }}>
-      //       <ListItemText primary="Total" />
-      //       <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>
-      //         $34.06
-      //       </Typography>
-      //     </ListItem>
-      //   </List>
-      //   <Grid container spacing={2}>
-      //     <Grid item xs={12} sm={6}>
-      //       <Typography variant="h6" gutterBottom sx={{ mt: 2 }}>
-      //         Shipping
-      //       </Typography>
-      //       <Typography gutterBottom>John Smith</Typography>
-      //       <Typography gutterBottom>{addresses.join(', ')}</Typography>
-      //     </Grid>
-      //     <Grid item container direction="column" xs={12} sm={6}>
-      //       <Typography variant="h6" gutterBottom sx={{ mt: 2 }}>
-      //         Payment details
-      //       </Typography>
-      //       <Grid container>
-      //         {payments.map((payment) => (
-      //           <React.Fragment key={payment.name}>
-      //             <Grid item xs={6}>
-      //               <Typography gutterBottom>{payment.name}</Typography>
-      //             </Grid>
-      //             <Grid item xs={6}>
-      //               <Typography gutterBottom>{payment.detail}</Typography>
-      //             </Grid>
-      //           </React.Fragment>
-      //         ))}
-      //       </Grid>
-      //     </Grid>
-      //   </Grid>
-      // </React.Fragment>
+              <ListItem sx={{ py: 1, px: 0 }}>
+                <ListItemText primary="Total" />
+                <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>
+                  $34.06
+                </Typography>
+              </ListItem>
+            </List>
+            <Grid container spacing={2}>
+              <Grid item xs={12} sm={6}>
+                <Typography variant="h6" gutterBottom sx={{ mt: 2 }}>
+                  Shipping
+                </Typography>
+                <Typography gutterBottom>John Smith</Typography>
+                {/* <Typography gutterBottom>{addresses.join(', ')}</Typography> */}
+              </Grid>
+              <Grid item container direction="column" xs={12} sm={6}>
+                <Typography variant="h6" gutterBottom sx={{ mt: 2 }}>
+                  Payment details
+                </Typography>
+                {/* <Grid container>
+                  {payments.map((payment) => (
+                    <React.Fragment key={payment.name}>
+                      <Grid item xs={6}>
+                        <Typography gutterBottom>{payment.name}</Typography>
+                      </Grid>
+                      <Grid item xs={6}>
+                        <Typography gutterBottom>{payment.detail}</Typography>
+                      </Grid>
+                    </React.Fragment>
+                  ))}
+                </Grid> */}
+              </Grid>
+            </Grid>
+          </React.Fragment>
+        )}
+      </div>
     );
   }
 }

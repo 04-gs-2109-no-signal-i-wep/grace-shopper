@@ -1,6 +1,7 @@
 const Sequelize = require('sequelize');
 const db = require('../db');
 const Product = require('../models/Product');
+const Order_Detail = require('../models/Order_Detail');
 
 const Order = db.define('order', {
   order_total: Sequelize.INTEGER,
@@ -39,6 +40,9 @@ Order.findCartContents = async function (orderId) {
       include: [
         {
           model: Product,
+        },
+        {
+          model: Order_Detail,
         },
       ],
     });
