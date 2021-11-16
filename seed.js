@@ -107,9 +107,9 @@ const products = [
     image_url: '/images/midcent-modern.jpeg',
   },
   {
-    name: 'Art Deco Den',
+    name: 'Art Deco Dining Room',
     price: 9000,
-    description: 'Super artsy furniture',
+    description: 'Bold contrasting geometric patterns, textiles and jewel-toned colors for the Roaring 20s lover. This dining room set includes a plush velvet dining bench, accent chairs, gold & brass dining table for ultimate entertaining.',
     color: 'Red',
     size: 'Small',
     inventory_quantity: 4,

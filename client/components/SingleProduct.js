@@ -21,10 +21,9 @@ class SingleProduct extends React.Component {
   }
 
   addToCart(productId) {
-    console.log(this.props);
     const user = this.props.user;
-    if (user.id) {
-      this.props.addItemToCart(user.id, productId, '1');
+    if (user.id) { // handles logged in status & id
+      this.props.addItemToCart(user.id, productId, this.state.quantity);
     }
   }
 
@@ -89,7 +88,7 @@ class SingleProduct extends React.Component {
             </main>
           </>
         ) : (
-          "Still Loading..."
+          'Loading products...'
         )}
       </>
     );
@@ -105,8 +104,8 @@ const mapState = (state) => ({
 const mapDispatch = (dispatch, { history }) => ({
   fetchProduct: (id) => dispatch(fetchProduct(id)),
   deleteProduct: (id) => dispatch(deleteProduct(id, history)),
-  addItemToCart: (jwt, product, quantity) =>
-    dispatch(addItemToCart(jwt, product, quantity)),
+  addItemToCart: (userId, productId, quantity) =>
+    dispatch(addItemToCart(userId, productId, quantity)),
 });
 
 export default connect(mapState, mapDispatch)(SingleProduct);
