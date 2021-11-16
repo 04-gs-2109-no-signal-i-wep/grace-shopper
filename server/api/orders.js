@@ -113,7 +113,7 @@ router.delete('/cart/deleteItem/:userId/:productId', async (req, res, next) => {
     const userId = req.params.userId;
     const productId = req.params.productId;
     let cart = await Order.findCart(userId);
-    const deleted = await Order_Detail.matchingOrder(productId, cart.id);
+    const deleted = await Order_Detail.findMatchingOrder(productId, cart.id);
     //destroy the cart that matches the specified row
     await deleted.destroy();
     res.send(deleted);
