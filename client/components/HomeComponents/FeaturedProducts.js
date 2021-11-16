@@ -1,7 +1,7 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { fetchFeaturedProducts } from "../../store/featuredProducts";
-import { Link } from "react-router-dom";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { fetchFeaturedProducts } from '../../store/featuredProducts';
+import { Link } from 'react-router-dom';
 
 class FeaturedProducts extends Component {
   constructor(props) {
@@ -44,7 +44,7 @@ class FeaturedProducts extends Component {
 }
 
 const mapState = (state) => ({
-  featuredProducts: state.featuredProducts
+  featuredProducts: state.featuredProducts,
 });
 
 const mapDispatch = (dispatch) => ({
