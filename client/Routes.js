@@ -8,8 +8,6 @@ import SingleProduct from "./components/SingleProduct";
 import UserData from "./components/UserData";
 import { me } from "./store";
 import EditProduct from './components/EditSingleProduct';
-import EditProduct from "./components/EditSingleProduct";
-import { me } from "./store";
 
 /**
  * COMPONENT
