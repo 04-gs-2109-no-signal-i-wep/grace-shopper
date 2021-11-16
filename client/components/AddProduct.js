@@ -29,6 +29,7 @@ export class AddProduct extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
     this.props.addProduct({ ...this.state });
+    console.log('HERE IS STATE IN HANDLE SUBMIT!!!', this.state)
   }
 
   render() {
@@ -43,11 +44,13 @@ export class AddProduct extends React.Component {
     inventory_quantity
     } = this.state;
 
+    console.log('HERE IS STATE!!!', this.state)
+
     const { handleSubmit, handleChange } = this;
 
     return (
       <div className="left">
-        <h2>Add Product</h2>
+        <h2>Add a Product</h2>
         <form onSubmit={handleSubmit}>
           <label htmlFor="name" className="add-prod-form-label">
             Product Name

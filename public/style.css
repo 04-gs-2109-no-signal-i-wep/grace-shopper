@@ -9,7 +9,7 @@ nav {
   background-color: #fff;
   display: flex;
   justify-content: space-between;
-  height: 7vh;
+  height: 8vh;
   margin: 0 15px 0 15px;
 }
 
@@ -18,11 +18,11 @@ a:visited {
   display: inline-block;
   margin: 1em;
   color: #000;
+  line-height: 200%;
 }
 
 nav a:hover {
   color: #ceb5a7;
-  border-bottom: 1px solid #a17c6b;
 }
 
 .mainNav {

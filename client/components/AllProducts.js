@@ -24,14 +24,8 @@ export class AllProducts extends React.Component {
           <h5>Admin Control</h5>
           <div className="adminBar">
             <Link to={"/products/addproduct"}>
-              <button className="adminButton"><EditIcon fontSize='12' /> Edit</button>
+              <button className="adminButton"><EditIcon fontSize='12' /> Add a Product</button>
             </Link>
-            <button
-              className="adminButton"
-              onClick={() => addProduct(product.id)}
-            >
-              <DeleteIcon fontSize='12' /> Delete
-            </button>
           </div>
         </div>
           : ""}

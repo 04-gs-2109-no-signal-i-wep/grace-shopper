@@ -6,6 +6,7 @@ import Home from './components/Home';
 import AllProducts from './components/AllProducts';
 import SingleProduct from './components/SingleProduct';
 import EditProduct from './components/EditSingleProduct';
+import AddProduct from './components/AddProduct';
 import { me } from './store';
 import Checkout from './components/CartComponents/CartComplete';
 import AddressForm from './components/CartComponents/AddressForm';
@@ -32,6 +33,7 @@ class Routes extends Component {
             <Route exact path="/login" component={Login} />
             <Route exact path="/signup" component={Signup} />
             <Route exact path="/products" component={AllProducts} />
+            <Route path="/products/addproduct" component={AddProduct} />
             <Route
               exact
               path="/products/:productId"
@@ -46,7 +48,6 @@ class Routes extends Component {
               path="/products/:productId/edit"
               component={EditProduct}
             />
-            <Route path="/products/addproduct" component={AddProduct} />
             <Redirect to="/home" />
           </Switch>
         ) : (
