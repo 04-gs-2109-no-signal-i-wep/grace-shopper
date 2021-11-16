@@ -304,6 +304,12 @@ button:hover {
   padding: 10px;
 }
 
+.featuredDesc a,
+a:link,
+a:visited {
+  color: #000;
+}
+
 .featuredDesc h4 {
   font-family: "Work Sans", sans-serif;
   font-weight: 400;
