@@ -8,7 +8,7 @@ import ProductCarousel from "./ProductCarousel";
 import Container from "@mui/material/Container";
 import Box from '@mui/material/Box';
 import Grid from "@mui/material/Grid";
-import EditIcon from "@mui/icons-material/Edit";
+
 export class AllProducts extends React.Component {
   constructor(props) {
     super(props);
