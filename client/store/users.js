@@ -3,12 +3,18 @@ import axios from "axios";
 // Action types
 const SET_USERS = "SET_USERS";
 const TOKEN = "token";
+const DELETE_USER = 'DELETE_USER';
 
 // Action creators
-export const setUsers = (users) => ({
+const _setUsers = (users) => ({
   type: SET_USERS,
   payload: users,
 });
+
+const _deleteUser = user => ({
+  type: DELETE_USER,
+  user
+})
 
 // Thunk creators
 export const fetchUsers = () => {
@@ -21,7 +27,7 @@ export const fetchUsers = () => {
             authorization: token,
           },
         });
-        dispatch(setUsers(data));
+        dispatch(_setUsers(data));
     } else {
       console.error("No token!");
     }
@@ -30,6 +36,19 @@ export const fetchUsers = () => {
     }
   };
 };
+
+export const deleteUser = (id, history) => {
+  return async dispatch => {
+    try {
+      const {data: deleted} = await axios.delete(`/api/users/${id}`);
+      console.log('adfdfdsfdf' + deleted)
+      dispatch(_deleteUser(deleted));
+      history.push(`/users`)
+    } catch (e) {
+      console.log('Error deleting user from database', e)
+    }
+  }
+}
 
 const initialState = {
   allUsers: [],
@@ -41,6 +60,11 @@ export default function(state = initialState, action) {
       return {
         ...state,
         allUsers: action.payload,
+      };
+    case DELETE_USER:
+      return {
+        ...state,
+        allUsers: state.allUsers.filter((user) => user.id !== action.user.id),
       };
     default:
       return state;
