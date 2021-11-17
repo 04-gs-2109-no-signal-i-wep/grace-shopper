@@ -8,6 +8,9 @@ import ProductCarousel from "./ProductCarousel";
 import Container from "@mui/material/Container";
 import Box from '@mui/material/Box';
 import Grid from "@mui/material/Grid";
+import { Pagination } from "@mui/material";
+import { Typography } from "@mui/material";
+import { Stack } from "@mui/material";
 
 export class AllProducts extends React.Component {
   constructor(props) {
@@ -25,7 +28,6 @@ export class AllProducts extends React.Component {
     const trimStart = (this.state.page-1)*numberPerPage;
     const trimEnd = trimStart + numberPerPage;
     const pageProducts = this.props.allProducts.slice(trimStart, trimEnd);
-    console.log(this.page, trimStart, trimEnd, pageProducts)
     return pageProducts;
   }
 
@@ -36,7 +38,6 @@ export class AllProducts extends React.Component {
     };
     const pageProducts = this.fetchPageProducts();
     const numPages = Math.ceil(allProducts.length/9);
-    console.log('ASDFASDFSDF' + numPages);
 
     return (
       <>
