@@ -11,8 +11,8 @@ export class AddProduct extends React.Component {
       name: "",
       price: "",
       description: "",
-      image_url: 'https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1287&q=80',
-      featured: false,
+      image_url: "",
+      featured: "",
       color: "",
       size: "",
       inventory_quantity: ""
