@@ -9,14 +9,6 @@ import Container from "@mui/material/Container";
 import Box from '@mui/material/Box';
 import Grid from "@mui/material/Grid";
 import EditIcon from "@mui/icons-material/Edit";
-<<<<<<< HEAD
-=======
-import { Pagination } from "@mui/material";
-import { Typography } from "@mui/material";
-import { Stack } from "@mui/material";
-
-
->>>>>>> d14e17e29a64618fb0bf47cc7019d5b118a6c1e8
 export class AllProducts extends React.Component {
   constructor(props) {
     super(props);
