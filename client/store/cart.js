@@ -95,8 +95,9 @@ export const deleteItemFromCart = (orderId, productId) => {
     try {
       console.log('ORDERID', orderId, 'PRODUCTID', productId);
       const { data: deletedItem } = await axios.delete(
-        `/cart/deleteItem/${orderId}/${productId}`
+        `api/orders/cart/deleteItem/${orderId}/${productId}`
       );
+      console.log('DELETED ITEM', deletedItem);
       dispatch(_deleteItemFromCart(deletedItem));
     } catch (error) {
       console.log('An error occurred in the deleteItemFromCart thunk: ', error);
@@ -110,7 +111,12 @@ export default function (state = [], action) {
     case SET_CART:
       return action.itemsInCart;
     case ADD_TO_CART:
-      return [...state, action.itemAdded];
+      return [
+        {
+          ...state[0],
+          order_details: [state[0].order_details, ...action.itemAdded],
+        },
+      ];
     case UPDATE_ITEM_QUANTITY:
       return [
         {

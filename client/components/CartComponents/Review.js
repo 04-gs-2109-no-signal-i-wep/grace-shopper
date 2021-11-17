@@ -23,6 +23,7 @@ export class Review extends React.Component {
     };
     this.handleIncrement = this.handleIncrement.bind(this);
     this.handleDecrement = this.handleDecrement.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
   }
 
   componentDidMount() {}
@@ -52,10 +53,8 @@ export class Review extends React.Component {
     this.props.updateItemQuantity(orderId, productId, newQuantity);
   }
 
-  handleDelete(orderId) {
-    console.log('SHOW YOURSELF', orderId);
-    // console.log('ORDERID', orderId, 'PRODUCT', productId);
-    // this.props.deleteItemFromCart(orderId, productId);
+  handleDelete(order) {
+    this.props.deleteItemFromCart(order.orderId, order.productId);
   }
 
   render() {
