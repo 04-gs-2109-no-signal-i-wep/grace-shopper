@@ -35,12 +35,13 @@ export class AllProducts extends React.Component {
   }
 
   render() {
-    const { addProduct, is_admin } = this.props;
+    const { allProducts, addProduct, is_admin } = this.props;
     const handleChange = (event, value) => {
       this.setState({page: value});
     };
     const pageProducts = this.fetchPageProducts();
-    console.log('ASFSDFSFSF' + pageProducts);
+    const numPages = allProducts.length/9;
+    console.log('ASDFASDFSDF' + numPages);
 
     return (
       <>
@@ -85,7 +86,7 @@ export class AllProducts extends React.Component {
           {/* //Pagination */}
           <Stack spacing={2}>
             <Typography>Page: {this.state.page} </Typography>
-            <Pagination count={10} page={this.state.page} onChange={handleChange} />
+            <Pagination count={numPages} page={this.state.page} onChange={handleChange} />
           </Stack>
 
         </Container>
