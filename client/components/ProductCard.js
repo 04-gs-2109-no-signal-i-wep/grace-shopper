@@ -26,6 +26,7 @@ export default function ProductCard({ image, title, description, productId }) {
               : description}
           </Typography>
         </CardContent>
+        </CardActionArea>
         <CardActions>
           <Link to={`/products/${productId}`}>
             <Button size="small" variant="outlined">
@@ -34,7 +35,6 @@ export default function ProductCard({ image, title, description, productId }) {
           </Link>
           {/* <Button size="small" variant="outlined">Add to Cart</Button> */}
         </CardActions>
-        </CardActionArea>
     </Card>
   );
 }

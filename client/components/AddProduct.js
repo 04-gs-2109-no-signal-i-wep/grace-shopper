@@ -29,8 +29,6 @@ export class AddProduct extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-
-    console.log('HERE IS STATE IN HAND:E SUBMIT',{...this.state})
     this.props.addProduct({ ...this.state });
   }
 
