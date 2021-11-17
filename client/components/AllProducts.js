@@ -8,7 +8,7 @@ import ProductCarousel from "./ProductCarousel";
 import Container from "@mui/material/Container";
 import Box from '@mui/material/Box';
 import Grid from "@mui/material/Grid";
-import EditIcon from "@mui/icons-material/Edit";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
 import CircularLoading from './CircularLoading';
 export class AllProducts extends React.Component {
   constructor(props) {
@@ -42,7 +42,6 @@ export class AllProducts extends React.Component {
             </div>
           </div>
         ) : (
-          
         <>
           <ProductCarousel />
           <Container maxWidth="md" className="product-container">
