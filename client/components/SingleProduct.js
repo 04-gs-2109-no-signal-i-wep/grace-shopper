@@ -78,7 +78,6 @@ class SingleProduct extends React.Component {
                   <div className="price">${product.price}</div>
                   <button
                     onClick={() => {
-                      notify();
                       return this.addToCart(product.id);
                     }}
                   >

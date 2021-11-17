@@ -20,7 +20,7 @@ export class AddProduct extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
-  
+
   handleChange(event) {
     this.setState({
       [event.target.name]: event.target.value,
@@ -35,10 +35,10 @@ export class AddProduct extends React.Component {
   }
 
   render() {
-    const { 
-    name, 
-    price, 
-    description, 
+    const {
+    name,
+    price,
+    description,
     image_url,
     featured,
     color,
@@ -125,12 +125,12 @@ export class AddProduct extends React.Component {
               className="add-prod-form-input"
             />
             <Link to={'/products'}>
-              <button type="submit">
+              <button type="submit" className="editBtn">
                 Add Product
               </button>
             </Link>
             <Link to={'/products'}>
-              <button type="button">Cancel</button>
+              <button type="button" className="editBtn">Cancel</button>
             </Link>
           </form>
       </Container>

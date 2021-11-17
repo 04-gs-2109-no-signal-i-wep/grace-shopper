@@ -37,7 +37,6 @@ export const fetchItemsInCart = (userId) => {
         `/api/orders/cart/${userId}`
       );
       dispatch(setCart(itemsInCart));
-      console.log('ITEMS IN CART', itemsInCart);
     } catch (error) {
       console.log('An error occurred in the fetchItemsInCart thunk');
     }
