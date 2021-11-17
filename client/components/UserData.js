@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { fetchUsers } from "../store/users";
+import { fetchUsers, deleteUser } from "../store/users";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import List from "@mui/material/List";
@@ -16,6 +16,7 @@ export class UserData extends React.Component {
     this.props.fetchUsers();
   }
 
+
   render() {
     const { allUsers } = this.props;
 
@@ -25,8 +26,15 @@ export class UserData extends React.Component {
       { field: 'col3', headerName: 'Last Name', width: 150 },
       { field: 'col4', headerName: 'Email', width: 200 },
       { field: 'col5', headerName: 'Admin Status', width: 150 },
-      { field: 'col6', headerName: '', width: 100, renderCell: () => {return <Button variant="outlined" size="small">Edit</Button>}},
-      { field: 'col7', headerName: '', width: 80, renderCell: () => {return <IconButton aria-label="delete"><DeleteIcon /></IconButton>}}
+
+      { field: 'col6', headerName: '', width: 100, renderCell: (userId) => {return <Button variant="outlined" size="small" onClick={() => {
+        alert("Edit user " + userId.value);
+      }}>Edit</Button>}},
+
+      { field: 'col7', headerName: '', width: 80, renderCell: (userId) => {return <IconButton aria-label="delete" onClick={() => {
+        this.props.deleteUser(userId.value);
+        alert("Delete user " + userId.value);
+      }}><DeleteIcon /></IconButton>}}
 
     ];
 
@@ -37,7 +45,9 @@ export class UserData extends React.Component {
       col2: user.first_name,
       col3: user.last_name,
       col4: user.email_address,
-      col5: user.is_admin? "Admin":"Not Admin"
+      col5: user.is_admin? "Admin":"Not Admin",
+      col6: user.id,
+      col7: user.id
     }));
 
 
@@ -56,6 +66,7 @@ const mapState = (state) => ({
 
 const mapDispatch = (dispatch) => ({
   fetchUsers: () => dispatch(fetchUsers()),
+  deleteUser: (id) => dispatch(deleteUser(id, history))
 });
 
 export default connect(mapState, mapDispatch)(UserData);
