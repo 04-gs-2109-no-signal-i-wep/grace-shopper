@@ -65,6 +65,7 @@ function Checkout(props) {
 
   const handleSubmit = (id) => {
     props.checkoutCart(props.user.id);
+    handleNext();
     // props.history.push('/products');
   };
 
