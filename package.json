@@ -25,6 +25,7 @@
     "@mui/icons-material": "^5.1.0",
     "@mui/material": "^5.1.0",
     "@mui/styles": "^5.1.0",
+    "@mui/x-data-grid": "^5.0.0",
     "axios": "^0.21.1",
     "bcrypt": "^5.0.0",
     "compression": "^1.7.3",
