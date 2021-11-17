@@ -8,7 +8,6 @@ import ProductCarousel from "./ProductCarousel";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import AddCircleIcon from '@mui/icons-material/AddCircle';
-import Grid from "@mui/material/Grid";
 import { Pagination } from "@mui/material";
 import { Typography } from "@mui/material";
 import { Stack } from "@mui/material";
