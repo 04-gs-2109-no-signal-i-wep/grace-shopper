@@ -8,7 +8,7 @@ import ProductCarousel from './ProductCarousel';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
-import EditIcon from '@mui/icons-material/Edit';
+import AddCircleIcon from "@mui/icons-material/AddCircle";
 import CircularLoading from './CircularLoading';
 export class AllProducts extends React.Component {
   constructor(props) {
@@ -69,6 +69,33 @@ export class AllProducts extends React.Component {
               </Grid>
             </Container>
           </>
+        <>
+          <ProductCarousel />
+          <Container maxWidth="md" className="product-container">
+            <Grid
+              container
+              spacing={2}
+              justifyContent="center"
+              alignItems="center"
+              direction="row"
+            >
+              {allProducts &&
+                allProducts.map((product) => {
+                  return (
+                    <Grid item xs={8} md={4} key={product.id}>
+                      <ProductCard
+                        image={product.image_url}
+                        title={product.name}
+                        description={product.description}
+                        productId={product.id}
+                      />
+                    </Grid>
+                  );
+                })}
+            </Grid>
+          </Container>
+        </>
+        )
         )}
       </>
     );
