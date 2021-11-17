@@ -101,6 +101,23 @@ router.put(
   }
 );
 
+router.get('/cart/updateTotals/:cartId', async (req, res, next) => {
+  let cartId = req.params.cartId;
+  let cart = await Order.findByPk(cartId);
+  let cartContents = await Order.findCartContents(cartId);
+  let order_total = cart.findTotalPrice(
+    cartContents[0].dataValues.order_details
+  );
+  // let total_quantity = cart.findTotalQuantity(
+  //   cartContents[0].dataValues.order_details
+  // );
+  cartContents[0].dataValues.order_total = order_total;
+  // cartContents[0].dataValues.total_quantity = total_quantity;
+  cart.save();
+  console.log('THIS IS ORDER TOTAL', order_total);
+  res.send({ order_total });
+});
+
 router.put('/cart/checkout/:userId', async (req, res, next) => {
   try {
     const userId = req.params.userId;

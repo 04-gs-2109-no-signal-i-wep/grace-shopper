@@ -64,8 +64,6 @@ export class Review extends React.Component {
     this.props.deleteItemFromCart(order.orderId, order.productId);
   }
 
-  findProductId() {}
-
   render() {
     const { cart } = this.props;
     let productNameMap = {};
@@ -75,7 +73,7 @@ export class Review extends React.Component {
       });
     }
 
-    console.log('CARTATTACK', cart);
+    console.log('CART', cart);
     console.log(productNameMap);
     // const CART = {
     //   KEY: 'CART',
@@ -125,10 +123,11 @@ export class Review extends React.Component {
           <div className="cartReviewDiv">
             {cart.length === 0 ? (
               <Typography variant="h6" gutterBottom>
-                <Link to="/products">
+                <p></p>
+                {/* <Link to="/products">
                   Your cart is empty. Check out our Products page to find your
                   perfect room!
-                </Link>
+                </Link> */}
               </Typography>
             ) : (
               <React.Fragment>

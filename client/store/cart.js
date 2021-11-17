@@ -17,10 +17,14 @@ const _addToCart = (itemAdded) => ({
   type: ADD_TO_CART,
   itemAdded,
 });
-const _updateItemQuantity = (itemAdjusted) => {
+const _updateItemQuantity = (itemAdjusted, totalPriceUpdated) => {
+  console.log('THIS IS ITEM ADJUSTED', itemAdjusted);
+  console.log('THIS IS WITH NEW TOTAL', totalPriceUpdated['order_total']);
+  let order_total = totalPriceUpdated['order_total'];
   return {
     type: UPDATE_ITEM_QUANTITY,
     itemAdjusted,
+    order_total,
   };
 };
 
@@ -70,7 +74,10 @@ export const updateItemQuantity = (cartId, productId, quantity) => {
         `/api/orders/cart/updateItemQuantity/${cartId}/${productId}`,
         { quantity }
       );
-      dispatch(_updateItemQuantity(itemUpdated));
+      const { data: totalPriceUpdated } = await axios.get(
+        `api/orders/cart/updateTotals/${cartId}`
+      );
+      dispatch(_updateItemQuantity(itemUpdated, totalPriceUpdated));
     } catch (error) {
       console.log('An error occurred in the updateItemQuantity thunk: ', error);
     }
@@ -107,6 +114,7 @@ export const deleteItemFromCart = (orderId, productId) => {
 
 //SUBREDUCER
 export default function (state = [], action) {
+  console.log('ACTION', action);
   switch (action.type) {
     case SET_CART:
       return action.itemsInCart;
@@ -121,6 +129,7 @@ export default function (state = [], action) {
       return [
         {
           ...state[0],
+          order_total: action.order_total,
           order_details: state[0].order_details.map((item) =>
             item.productId === action.itemAdjusted.productId &&
             item.orderId === action.itemAdjusted.orderId
