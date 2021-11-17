@@ -40,7 +40,7 @@ export class AllProducts extends React.Component {
       this.setState({page: value});
     };
     const pageProducts = this.fetchPageProducts();
-    const numPages = allProducts.length/9;
+    const numPages = Math.ceil(allProducts.length/9);
     console.log('ASDFASDFSDF' + numPages);
 
     return (
