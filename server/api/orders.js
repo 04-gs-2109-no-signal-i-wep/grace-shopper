@@ -43,9 +43,8 @@ router.put('/addToCart/:userId/:productId', async (req, res, next) => {
 
     //get the user's cart
     let cart = await Order.findCart(userId);
-    let product = await Product.findByPk(productId);
 
-    console.log('THIS IS CART', cart);
+    let product = await Product.findByPk(productId);
 
     //check if Order_Detail includes a row where userId and cartID match current order
     let matchingOrder = await Order_Detail.findMatchingOrder(
