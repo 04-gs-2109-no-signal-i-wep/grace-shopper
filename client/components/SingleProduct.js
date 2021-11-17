@@ -22,7 +22,8 @@ class SingleProduct extends React.Component {
 
   addToCart(productId) {
     const user = this.props.user;
-    if (user.id) { // handles logged in status & id
+    if (user.id) {
+      // handles logged in status & id
       this.props.addItemToCart(user.id, productId, this.state.quantity);
     }
   }
@@ -77,18 +78,18 @@ class SingleProduct extends React.Component {
                   <div className="price">${product.price}</div>
                   <button
                     onClick={() => {
+                      notify();
                       return this.addToCart(product.id);
                     }}
                   >
                     <ShoppingCartIcon fontSize="25" /> Add To Cart
                   </button>
-                  <div className="details"></div>
                 </div>
               </div>
             </main>
           </>
         ) : (
-          'Loading products...'
+          "Loading products..."
         )}
       </>
     );
