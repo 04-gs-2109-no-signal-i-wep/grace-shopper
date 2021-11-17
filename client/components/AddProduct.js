@@ -9,10 +9,10 @@ export class AddProduct extends React.Component {
     super(props);
     this.state = {
       name: "",
-      price: "",
+      price: 0,
       description: "",
       image_url: "",
-      featured: "",
+      featured: false,
       color: "",
       size: "",
       inventory_quantity: ""
@@ -30,6 +30,7 @@ export class AddProduct extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
     this.props.addProduct({ ...this.state });
+    this.props.history.push('/products');
   }
 
   render() {
@@ -48,7 +49,7 @@ export class AddProduct extends React.Component {
 
     return (
       <Container maxWidth="sm" className="left">
-          <h2>Add a Product</h2>
+          <h2>Add A Product</h2>
           <form onSubmit={handleSubmit}>
             <label htmlFor="name" className="add-prod-form-label">
               Product Name
@@ -122,11 +123,9 @@ export class AddProduct extends React.Component {
               onChange={handleChange}
               className="add-prod-form-input"
             />
-            <Link to={'/products'}>
               <button type="submit">
                 Add Product
               </button>
-            </Link>
             <Link to={'/products'}>
               <button type="button">Cancel</button>
             </Link>
@@ -136,7 +135,7 @@ export class AddProduct extends React.Component {
   }
 }
 
-const mapDispatch = (dispatch) => ({
+const mapDispatch = (dispatch, history) => ({
   addProduct: (product) => dispatch(addProduct(product)),
 });
 

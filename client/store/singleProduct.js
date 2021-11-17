@@ -59,7 +59,7 @@ export const editProduct = (product, history) => {
   }
 }
 
-export const addProduct = (product) => {
+export const addProduct = (product, history) => {
   return async (dispatch) => {
     try {
       const { data } = await axios.post('/api/products', product);
