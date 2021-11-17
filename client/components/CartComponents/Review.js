@@ -5,7 +5,11 @@ import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import Grid from '@mui/material/Grid';
 import { FormControl, InputLabel, NativeSelect } from '@mui/material';
-import { fetchItemsInCart } from '../../store/cart';
+import {
+  deleteItemFromCart,
+  fetchItemsInCart,
+  updateItemQuantity,
+} from '../../store/cart';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Button from '@mui/material/Button';
@@ -17,16 +21,11 @@ export class Review extends React.Component {
     this.state = {
       loading: true,
     };
-    // this.handleIncrement = this.handleIncrement.bind(this);
-    // this.handleDecrement = this.handleDecrement.bind(this);
+    this.handleIncrement = this.handleIncrement.bind(this);
+    this.handleDecrement = this.handleDecrement.bind(this);
   }
 
-  componentDidMount() {
-    this.props.fetchItemsInCart(this.props.auth.id);
-    this.setState({
-      loading: false,
-    });
-  }
+  componentDidMount() {}
 
   componentWillUnmount() {
     this.setState({
@@ -34,22 +33,72 @@ export class Review extends React.Component {
     });
   }
 
-  handleIncrement(name, quantity, id) {
-    let newQuantity = quantity + 1;
-    this.setState({
-      [name]: { quantity: newQuantity, id },
-    });
+  componentDidUpdate(prevProps) {
+    if (prevProps.auth.id !== this.props.auth.id) {
+      this.props.fetchItemsInCart(this.props.auth.id);
+      this.setState({
+        loading: false,
+      });
+    }
   }
 
-  handleDecrement(name, quantity, id) {
+  handleIncrement(orderId, productId, quantity) {
+    let newQuantity = quantity + 1;
+    this.props.updateItemQuantity(orderId, productId, newQuantity);
+  }
+
+  handleDecrement(orderId, productId, quantity) {
     let newQuantity = quantity - 1;
-    this.setState({
-      [name]: { quantity: newQuantity, id },
-    });
+    this.props.updateItemQuantity(orderId, productId, newQuantity);
+  }
+
+  handleDelete(orderId) {
+    console.log('SHOW YOURSELF', orderId);
+    // console.log('ORDERID', orderId, 'PRODUCT', productId);
+    // this.props.deleteItemFromCart(orderId, productId);
   }
 
   render() {
     const { cart } = this.props;
+
+    const CART = {
+      KEY: 'CART',
+      contents: [],
+      init() {
+        let _contents = localStorage.getItem(CART.KEY);
+        if (_contents) {
+          CART.contents = JSON.parse(_contents);
+          CART.sync();
+        } else if (cart.length > 1) {
+          CART.contents = cart[0].order_details;
+          console.log('CONTENT', CART.contents);
+          CART.sync();
+        } else {
+          CART.contents = [];
+          CART.sync();
+        }
+      },
+      async sync() {
+        let _cart = JSON.stringify(CART.contents);
+        await localStorage.setItem(CART.KEY, _cart);
+      },
+      increase(orderId, productId) {
+        CART.contents = CART.contents.map((item) => {
+          if (item.orderId === orderId && +item.productId === productId) {
+            item.quantity = item.quantity + 1;
+            return item;
+          }
+        });
+      },
+      decrease(orderId, productId) {
+        CART.contents = CART.contents.map((item) => {
+          if (item.orderId === orderId && +item.productId === productId) {
+            item.quantity = item.quantity - 1;
+            return item;
+          }
+        });
+      },
+    };
 
     return (
       <div className="loadingDiv">
@@ -86,9 +135,9 @@ export class Review extends React.Component {
                             <Button
                               onClick={() =>
                                 this.handleIncrement(
-                                  cart[0].products[index].name,
-                                  orderRow.quantity,
-                                  orderRow.orderId + orderRow.productId
+                                  orderRow.orderId,
+                                  orderRow.productId,
+                                  orderRow.quantity
                                 )
                               }
                             >
@@ -99,15 +148,18 @@ export class Review extends React.Component {
                               <Button
                                 onClick={() =>
                                   this.handleDecrement(
-                                    cart[0].products[index].name,
-                                    orderRow.quantity,
-                                    orderRow.orderId + orderRow.productId
+                                    orderRow.orderId,
+                                    orderRow.productId,
+                                    orderRow.quantity
                                   )
                                 }
                               >
                                 -
                               </Button>
                             }
+                            <Button onClick={() => this.handleDelete(orderRow)}>
+                              Delete
+                            </Button>
                           </ButtonGroup>
                         }
                       />
@@ -170,6 +222,11 @@ const mapState = (state) => {
 
 const mapDispatch = (dispatch) => ({
   fetchItemsInCart: (userId) => dispatch(fetchItemsInCart(userId)),
+  updateItemQuantity: (orderId, productId, quantity) => {
+    dispatch(updateItemQuantity(orderId, productId, quantity));
+  },
+  deleteItemFromCart: (userId, productId) =>
+    dispatch(deleteItemFromCart(userId, productId)),
 });
 
 export default connect(mapState, mapDispatch)(Review);
