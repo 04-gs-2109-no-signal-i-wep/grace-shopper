@@ -1,14 +1,14 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-const Order = require("../db/models/Order");
-const User = require("../db/models/User");
-const Order_Detail = require("../db/models/Order_Detail");
-const { token } = require("morgan");
-const Product = require("../db/models/Product");
+const Order = require('../db/models/Order');
+const User = require('../db/models/User');
+const Order_Detail = require('../db/models/Order_Detail');
+const { token } = require('morgan');
+const Product = require('../db/models/Product');
 
 module.exports = router;
 
-router.get("/cart/:userId", async (req, res, next) => {
+router.get('/cart/:userId', async (req, res, next) => {
   try {
     const userId = req.params.userId;
     //find their open Order using a method
@@ -31,19 +31,19 @@ router.get("/cart/:userId", async (req, res, next) => {
   }
 });
 
-router.put("/addToCart/:userId/:productId", async (req, res, next) => {
+router.put('/addToCart/:userId/:productId', async (req, res, next) => {
   try {
     const userId = req.params.userId;
     const productId = req.params.productId; // is this just equal to the product's ID ? or is this giving us the whole product?
     let quantity = 1;
-    console.log("HERE IS REQ.BODY", req.body);
+    console.log('HERE IS REQ.BODY', req.body);
     // this is the quantity that our user wants WHY ISN"T QUANTITY WORKING HERE ????
 
     //get the user's cart
     let cart = await Order.findCart(userId);
     let product = await Product.findByPk(productId);
 
-    console.log("THIS IS CART", cart);
+    console.log('THIS IS CART', cart);
 
     //check if Order_Detail includes a row where userId and cartID match current order
     let matchingOrder = await Order_Detail.findMatchingOrder(
@@ -77,20 +77,20 @@ router.put("/addToCart/:userId/:productId", async (req, res, next) => {
 });
 
 router.put(
-  "/cart/updateItemQuantity/:userId/:productId",
+  '/cart/updateItemQuantity/:cartId/:productId',
   async (req, res, next) => {
     try {
-      const userId = req.params.userId;
+      const cartId = req.params.cartId;
       let productId = req.params.productId;
-      let quantity = req.body;
-      let cart = await Order.findCart(userId);
+      let quantity = req.body.quantity;
       let product = await Product.findByPk(productId);
 
       //find the row that needs to be updated
       let matchingOrder = await Order_Detail.findMatchingOrder(
         productId,
-        cart.id
+        cartId
       );
+
       //update the order detail row's price and quantity to reflect new price and quantity
       await matchingOrder.adjustItemOrder(product.price, quantity);
       await matchingOrder.save();
@@ -101,7 +101,24 @@ router.put(
   }
 );
 
-router.put("/cart/checkout/:userId", async (req, res, next) => {
+router.get('/cart/updateTotals/:cartId', async (req, res, next) => {
+  let cartId = req.params.cartId;
+  let cart = await Order.findByPk(cartId);
+  let cartContents = await Order.findCartContents(cartId);
+  let order_total = cart.findTotalPrice(
+    cartContents[0].dataValues.order_details
+  );
+  // let total_quantity = cart.findTotalQuantity(
+  //   cartContents[0].dataValues.order_details
+  // );
+  cartContents[0].dataValues.order_total = order_total;
+  // cartContents[0].dataValues.total_quantity = total_quantity;
+  cart.save();
+  console.log('THIS IS ORDER TOTAL', order_total);
+  res.send({ order_total });
+});
+
+router.put('/cart/checkout/:userId', async (req, res, next) => {
   try {
     const userId = req.params.userId;
     let cart = await Order.findCart(userId);
@@ -120,16 +137,19 @@ router.put("/cart/checkout/:userId", async (req, res, next) => {
   }
 });
 
-router.delete("/cart/deleteItem/:userId/:productId", async (req, res, next) => {
-  try {
-    const userId = req.params.userId;
-    const productId = req.params.productId;
-    let cart = await Order.findCart(userId);
-    const deleted = await Order_Detail.findMatchingOrder(productId, cart.id);
-    //destroy the cart that matches the specified row
-    await deleted.destroy();
-    res.send(deleted);
-  } catch (error) {
-    next(error);
+router.delete(
+  '/cart/deleteItem/:orderId/:productId',
+  async (req, res, next) => {
+    try {
+      const orderId = req.params.orderId;
+      const productId = req.params.productId;
+      const deleted = await Order_Detail.findMatchingOrder(productId, orderId);
+      console.log('DELETED', deleted);
+      //destroy the cart that matches the specified row
+      await deleted.destroy();
+      res.send(deleted);
+    } catch (error) {
+      next(error);
+    }
   }
-});
+);

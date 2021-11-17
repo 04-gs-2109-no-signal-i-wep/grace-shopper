@@ -17,15 +17,24 @@ const _addToCart = (itemAdded) => ({
   type: ADD_TO_CART,
   itemAdded,
 });
-const _updateItemQuantity = (itemAdjusted) => ({
-  type: UPDATE_ITEM_QUANTITY,
-  itemAdjusted,
-});
+const _updateItemQuantity = (itemAdjusted, totalPriceUpdated) => {
+  console.log('THIS IS ITEM ADJUSTED', itemAdjusted);
+  console.log('THIS IS WITH NEW TOTAL', totalPriceUpdated['order_total']);
+  let order_total = totalPriceUpdated['order_total'];
+  return {
+    type: UPDATE_ITEM_QUANTITY,
+    itemAdjusted,
+    order_total,
+  };
+};
 
-const _deleteItemFromCart = (itemDeleted) => ({
-  type: DELETE_ITEM_FROM_CART,
-  itemDeleted,
-});
+const _deleteItemFromCart = (itemDeleted) => {
+  console.log('ITEMDELETED', itemDeleted);
+  return {
+    type: DELETE_ITEM_FROM_CART,
+    itemDeleted,
+  };
+};
 
 //THUNKS
 
@@ -37,7 +46,8 @@ export const fetchItemsInCart = (userId) => {
         `/api/orders/cart/${userId}`
       );
       dispatch(setCart(itemsInCart));
-      console.log('ITEMS IN CART', itemsInCart);
+
+      //IF USER IS LOGGED IN GET DATA FROM BACKEND IF NOT GET IT FROM LOCAL STORAGE
     } catch (error) {
       console.log('An error occurred in the fetchItemsInCart thunk');
     }
@@ -57,14 +67,17 @@ export const addItemToCart = (userId, productId) => {
   };
 };
 
-export const updateItemQuantity = (userId, productId, quantity) => {
+export const updateItemQuantity = (cartId, productId, quantity) => {
   return async (dispatch) => {
     try {
       const { data: itemUpdated } = await axios.put(
-        `/api/orders/cart/updateItemQuantity/${userId}/${productId}`,
-        quantity
+        `/api/orders/cart/updateItemQuantity/${cartId}/${productId}`,
+        { quantity }
       );
-      dispatch(_updateItemQuantity(itemUpdated));
+      const { data: totalPriceUpdated } = await axios.get(
+        `api/orders/cart/updateTotals/${cartId}`
+      );
+      dispatch(_updateItemQuantity(itemUpdated, totalPriceUpdated));
     } catch (error) {
       console.log('An error occurred in the updateItemQuantity thunk: ', error);
     }
@@ -84,12 +97,14 @@ export const checkoutCart = (userId) => {
   };
 };
 
-export const deleteItemFromCart = (userId, productId) => {
+export const deleteItemFromCart = (orderId, productId) => {
   return async (dispatch) => {
     try {
+      console.log('ORDERID', orderId, 'PRODUCTID', productId);
       const { data: deletedItem } = await axios.delete(
-        `/cart/deleteItem/${userId}/${productId}`
+        `api/orders/cart/deleteItem/${orderId}/${productId}`
       );
+      console.log('DELETED ITEM', deletedItem);
       dispatch(_deleteItemFromCart(deletedItem));
     } catch (error) {
       console.log('An error occurred in the deleteItemFromCart thunk: ', error);
@@ -99,17 +114,40 @@ export const deleteItemFromCart = (userId, productId) => {
 
 //SUBREDUCER
 export default function (state = [], action) {
+  console.log('ACTION', action);
   switch (action.type) {
     case SET_CART:
       return action.itemsInCart;
     case ADD_TO_CART:
-      return [...state, action.itemAdded];
+      return [
+        {
+          ...state[0],
+          order_details: [...state[0].order_details, action.itemAdded],
+        },
+      ];
     case UPDATE_ITEM_QUANTITY:
-      return state.map((item) =>
-        item.id === action.itemAdjusted.id ? action.itemAdjusted : item
-      );
+      return [
+        {
+          ...state[0],
+          order_total: action.order_total,
+          order_details: state[0].order_details.map((item) =>
+            item.productId === action.itemAdjusted.productId &&
+            item.orderId === action.itemAdjusted.orderId
+              ? action.itemAdjusted
+              : item
+          ),
+        },
+      ];
     case DELETE_ITEM_FROM_CART:
-      return state.filter((item) => item.id !== action.item.id);
+      console.log('STATE', state[0].order_details);
+      return [
+        {
+          ...state[0],
+          order_details: state[0].order_details.filter(
+            (item) => item.productId !== action.itemDeleted.productId
+          ),
+        },
+      ];
     default:
       return state;
   }

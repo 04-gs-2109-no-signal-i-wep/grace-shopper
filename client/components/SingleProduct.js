@@ -1,12 +1,12 @@
-import React from "react";
-import { connect } from "react-redux";
-import { Link } from "react-router-dom";
-import { fetchProduct, deleteProduct } from "../store/singleProduct";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import { addItemToCart } from "../store/cart";
+import React from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { fetchProduct, deleteProduct } from '../store/singleProduct';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { addItemToCart } from '../store/cart';
 
 class SingleProduct extends React.Component {
   constructor() {
@@ -22,7 +22,8 @@ class SingleProduct extends React.Component {
 
   addToCart(productId) {
     const user = this.props.user;
-    if (user.id) { // handles logged in status & id
+    if (user.id) {
+      // handles logged in status & id
       this.props.addItemToCart(user.id, productId, this.state.quantity);
     }
   }
@@ -56,12 +57,12 @@ class SingleProduct extends React.Component {
                   </div>
                 </div>
               ) : (
-                ""
+                ''
               )}
               <div className="singleView">
                 <div>
                   <div className="back">
-                    <Link to={"/products"}>
+                    <Link to={'/products'}>
                       <ArrowBackIcon fontSize="12" /> Back to All
                     </Link>
                   </div>
