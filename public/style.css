@@ -84,8 +84,9 @@ nav a:hover {
 .dropdown:hover .dropdown-content {
   display: block;
   /* To be revisited by Maxiel */
-  /* position: fixed;
-  z-index: 100; */
+  position: fixed;
+  z-index: 100;
+  margin-right: 8px;
 }
 
 a {
@@ -348,7 +349,6 @@ a:visited {
   transform: translate(-50%, -50%);
   color: #ffffffc7;
   text-align: center;
-  font-weight: bolder;
 }
 
 h3 {
