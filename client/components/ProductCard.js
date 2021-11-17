@@ -7,7 +7,15 @@ import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { CardActionArea } from '@mui/material';
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: "#5b7b7a",
+    },
+  },
+});
 
 export default function ProductCard({ image, title, description, productId }) {
   return (
@@ -29,9 +37,11 @@ export default function ProductCard({ image, title, description, productId }) {
         </CardActionArea>
         <CardActions>
           <Link to={`/products/${productId}`}>
-            <Button size="small" variant="outlined">
-              View More
-            </Button>
+            <ThemeProvider theme={theme}>
+              <Button size="small" variant="contained" color="primary">
+                View More
+              </Button>
+            </ThemeProvider>
           </Link>
           {/* <Button size="small" variant="outlined">Add to Cart</Button> */}
         </CardActions>
