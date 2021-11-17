@@ -43,7 +43,6 @@ export class AllProducts extends React.Component {
             </div>
           </div>
         ) : (
-
         <>
           <ProductCarousel />
           <Container maxWidth="md" className="product-container">
