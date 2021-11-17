@@ -12,7 +12,16 @@ export default function GuestCart(props) {
   let guestCart = JSON.parse(window.localStorage.cart);
   console.log("are you in guest cart?", guestCart);
 
-  let localCart = localStorage.getItem("cart");
+  useEffect(() => {
+    console.log("removing item");
+    async function removeItem(productId) {
+      const data = await guestCart.filter((product) => {
+        product.productId !== productId;
+      });
+      setCart(JSON.parse(data));
+    }
+    removeItem();
+  });
 
   const editItem = (itemID, amount) => {
     let cartCopy = [...cart];
@@ -37,19 +46,6 @@ export default function GuestCart(props) {
 
     let cartString = JSON.stringify(cartCopy);
     localStorage.setItem("cart", cartString);
-  };
-
-  const removeItem = (productId) => {
-    console.log('removing item')
-    useEffect(() => {
-      async function init() {
-        const data = await guestCart.filter((product) => {
-          product.productId !== productId;
-        });
-        setCart(JSON.parse(data));
-      }
-      init();
-    });
   };
 
   let productNameMap = {};
@@ -103,7 +99,7 @@ export default function GuestCart(props) {
                         -
                       </Button>
                     }
-                    <Button onClick={() => this.removeItem(orderRow.productId)}>
+                    <Button onClick={() => removeItem(orderRow.productId)}>
                       Delete
                     </Button>
                   </ButtonGroup>

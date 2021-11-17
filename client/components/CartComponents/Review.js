@@ -14,7 +14,6 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
-import GuestCart from './GuestCart';
 
 export class Review extends React.Component {
   constructor(props) {
@@ -77,48 +76,8 @@ export class Review extends React.Component {
       });
     }
 
-    console.log('CART', cart);
-    // const CART = {
-    //   KEY: 'CART',
-    //   contents: [],
-    //   init() {
-    //     let _contents = localStorage.getItem(CART.KEY);
-    //     if (_contents) {
-    //       CART.contents = JSON.parse(_contents);
-    //       CART.sync();
-    //     } else if (cart.length > 1) {
-    //       CART.contents = cart[0].order_details;
-    //       console.log('CONTENT', CART.contents);
-    //       CART.sync();
-    //     } else {
-    //       CART.contents = [];
-    //       CART.sync();
-    //     }
-    //   },
-    //   async sync() {
-    //     let _cart = JSON.stringify(CART.contents);
-    //     await localStorage.setItem(CART.KEY, _cart);
-    //   },
-    //   increase(orderId, productId) {
-    //     CART.contents = CART.contents.map((item) => {
-    //       if (item.orderId === orderId && +item.productId === productId) {
-    //         item.quantity = item.quantity + 1;
-    //         return item;
-    //       }
-    //     });
-    //   },
-    //   decrease(orderId, productId) {
-    //     CART.contents = CART.contents.map((item) => {
-    //       if (item.orderId === orderId && +item.productId === productId) {
-    //         item.quantity = item.quantity - 1;
-    //         return item;
-    //       }
-    //     });
-    //   },
-    // };
-    console.log(cart)
     return (
-      this.props.auth.id ? <div className="loadingDiv">
+      <div className="loadingDiv">
         {this.loading ? (
           <p>loading</p>
         ) : (
@@ -225,7 +184,7 @@ export class Review extends React.Component {
             )}
           </div>
         )}
-      </div> : <GuestCart />
+      </div>
     )
   }
 }

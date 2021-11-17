@@ -9,13 +9,43 @@ import Container from "@mui/material/Container";
 import Box from '@mui/material/Box';
 import Grid from "@mui/material/Grid";
 import EditIcon from "@mui/icons-material/Edit";
+<<<<<<< HEAD
+=======
+import { Pagination } from "@mui/material";
+import { Typography } from "@mui/material";
+import { Stack } from "@mui/material";
+
+
+>>>>>>> d14e17e29a64618fb0bf47cc7019d5b118a6c1e8
 export class AllProducts extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {page: 1};
+  }
+
   componentDidMount() {
     this.props.fetchProducts();
   }
 
+  fetchPageProducts() {
+    //pagination
+    const numberPerPage = 9;
+    const trimStart = (this.state.page-1)*numberPerPage;
+    const trimEnd = trimStart + numberPerPage;
+    const pageProducts = this.props.allProducts.slice(trimStart, trimEnd);
+    console.log(this.page, trimStart, trimEnd, pageProducts)
+    return pageProducts;
+  }
+
   render() {
     const { allProducts, addProduct, is_admin } = this.props;
+    const handleChange = (event, value) => {
+      this.setState({page: value});
+    };
+    const pageProducts = this.fetchPageProducts();
+    const numPages = Math.ceil(allProducts.length/9);
+    console.log('ASDFASDFSDF' + numPages);
+
     return (
       <>
         {is_admin ? (
@@ -41,8 +71,8 @@ export class AllProducts extends React.Component {
             alignItems="center"
             direction="row"
           >
-            {allProducts &&
-              allProducts.map((product) => {
+            {pageProducts &&
+              pageProducts.map((product) => {
                 return (
                   <Grid item xs={8} md={4} key={product.id}>
                     <ProductCard
@@ -55,11 +85,21 @@ export class AllProducts extends React.Component {
                 );
               })}
           </Grid>
+
+          {/* //Pagination */}
+          <Stack spacing={2}>
+            <Typography>Page: {this.state.page} </Typography>
+            <Pagination count={numPages} page={this.state.page} onChange={handleChange} />
+          </Stack>
+
         </Container>
       </>
     );
   }
 }
+
+
+
 
 const mapState = ({ products, auth }) => ({
   allProducts: products.allProducts,
