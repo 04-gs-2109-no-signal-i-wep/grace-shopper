@@ -57,47 +57,49 @@ export class Review extends React.Component {
     this.props.deleteItemFromCart(order.orderId, order.productId);
   }
 
+  findProductId() {}
+
   render() {
     const { cart } = this.props;
 
-    const CART = {
-      KEY: 'CART',
-      contents: [],
-      init() {
-        let _contents = localStorage.getItem(CART.KEY);
-        if (_contents) {
-          CART.contents = JSON.parse(_contents);
-          CART.sync();
-        } else if (cart.length > 1) {
-          CART.contents = cart[0].order_details;
-          console.log('CONTENT', CART.contents);
-          CART.sync();
-        } else {
-          CART.contents = [];
-          CART.sync();
-        }
-      },
-      async sync() {
-        let _cart = JSON.stringify(CART.contents);
-        await localStorage.setItem(CART.KEY, _cart);
-      },
-      increase(orderId, productId) {
-        CART.contents = CART.contents.map((item) => {
-          if (item.orderId === orderId && +item.productId === productId) {
-            item.quantity = item.quantity + 1;
-            return item;
-          }
-        });
-      },
-      decrease(orderId, productId) {
-        CART.contents = CART.contents.map((item) => {
-          if (item.orderId === orderId && +item.productId === productId) {
-            item.quantity = item.quantity - 1;
-            return item;
-          }
-        });
-      },
-    };
+    // const CART = {
+    //   KEY: 'CART',
+    //   contents: [],
+    //   init() {
+    //     let _contents = localStorage.getItem(CART.KEY);
+    //     if (_contents) {
+    //       CART.contents = JSON.parse(_contents);
+    //       CART.sync();
+    //     } else if (cart.length > 1) {
+    //       CART.contents = cart[0].order_details;
+    //       console.log('CONTENT', CART.contents);
+    //       CART.sync();
+    //     } else {
+    //       CART.contents = [];
+    //       CART.sync();
+    //     }
+    //   },
+    //   async sync() {
+    //     let _cart = JSON.stringify(CART.contents);
+    //     await localStorage.setItem(CART.KEY, _cart);
+    //   },
+    //   increase(orderId, productId) {
+    //     CART.contents = CART.contents.map((item) => {
+    //       if (item.orderId === orderId && +item.productId === productId) {
+    //         item.quantity = item.quantity + 1;
+    //         return item;
+    //       }
+    //     });
+    //   },
+    //   decrease(orderId, productId) {
+    //     CART.contents = CART.contents.map((item) => {
+    //       if (item.orderId === orderId && +item.productId === productId) {
+    //         item.quantity = item.quantity - 1;
+    //         return item;
+    //       }
+    //     });
+    //   },
+    // };
 
     return (
       <div className="loadingDiv">
@@ -181,7 +183,7 @@ export class Review extends React.Component {
                       Shipping
                     </Typography>
                     <Typography gutterBottom>
-                      {this.props.auth.last_name}, {this.props.auth.first_name}
+                      {this.props.auth.first_name} {this.props.auth.last_name}
                     </Typography>
                     {/* <Typography gutterBottom>{addresses.join(', ')}</Typography> */}
                   </Grid>

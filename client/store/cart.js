@@ -114,7 +114,7 @@ export default function (state = [], action) {
       return [
         {
           ...state[0],
-          order_details: [state[0].order_details, ...action.itemAdded],
+          order_details: [...state[0].order_details, action.itemAdded],
         },
       ];
     case UPDATE_ITEM_QUANTITY:
