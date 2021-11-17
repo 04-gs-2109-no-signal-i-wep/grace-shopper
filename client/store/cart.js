@@ -57,11 +57,14 @@ export const fetchItemsInCart = (userId) => {
 };
 
 export const addItemToCart = (userId, productId) => {
+  console.log('USERID', userId);
+  console.log('PRODUCTID', productId);
   return async (dispatch) => {
     try {
       const { data: itemAdded } = await axios.put(
         `/api/orders/addToCart/${userId}/${productId}`
       );
+      console.log('ITEMADDED', itemAdded);
       dispatch(_addToCart(itemAdded));
     } catch (error) {
       console.log('An error occurred in the addItemToCart thunk: ', error);

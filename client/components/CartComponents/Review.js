@@ -26,7 +26,10 @@ export class Review extends React.Component {
     this.handleDelete = this.handleDelete.bind(this);
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+    const id = this.props.auth.id;
+    this.props.fetchItemsInCart(id);
+  }
 
   componentWillUnmount() {
     this.setState({
@@ -42,12 +45,12 @@ export class Review extends React.Component {
       });
     }
 
-    if (prevProps.cart.id !== this.props.cart.id) {
-      this.props.fetchItemsInCart(this.props.auth.id);
-      this.setState({
-        loading: false,
-      });
-    }
+    // if (prevProps.cart.id !== this.props.cart.id) {
+    //   this.props.fetchItemsInCart(this.props.auth.id);
+    //   this.setState({
+    //     loading: false,
+    //   });
+    // }
   }
 
   handleIncrement(orderId, productId, quantity) {
