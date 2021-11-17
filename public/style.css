@@ -81,6 +81,8 @@ nav a:hover {
 /* Show the dropdown menu on hover */
 .dropdown:hover .dropdown-content {
   display: block;
+  position: fixed;
+  z-index: 100;
 }
 
 a {
@@ -241,6 +243,7 @@ button:hover {
   height: 450px;
   background-repeat: no-repeat;
   background-size: cover;
+  margin-top: 50px;
 }
 
 .heroText {
