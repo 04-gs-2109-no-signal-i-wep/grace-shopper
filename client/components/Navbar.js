@@ -6,7 +6,7 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 
 const Navbar = ({ handleClick, isLoggedIn, isAdmin }) => (
-  <nav>
+  <nav className="full-navbar">
     <div className="mainNav">
       <Link to="/home">
         <h1>hearth</h1>

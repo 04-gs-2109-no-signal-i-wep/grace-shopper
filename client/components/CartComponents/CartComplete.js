@@ -53,7 +53,7 @@ function Checkout(props) {
 
   const handleSubmit = (id) => {
     props.checkoutCart(props.user.id);
-    // props.history.push('/products');
+    setActiveStep(activeStep + 1);
   };
 
   return (

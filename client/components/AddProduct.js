@@ -9,9 +9,9 @@ export class AddProduct extends React.Component {
     super(props);
     this.state = {
       name: "",
-      price: "",
+      price: 0,
       description: "",
-      image_url: 'https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1287&q=80',
+      image_url: "",
       featured: false,
       color: "",
       size: "",
@@ -29,9 +29,8 @@ export class AddProduct extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-
-    console.log('HERE IS STATE IN HAND:E SUBMIT',{...this.state})
     this.props.addProduct({ ...this.state });
+    this.props.history.push('/products');
   }
 
   render() {
@@ -50,7 +49,7 @@ export class AddProduct extends React.Component {
 
     return (
       <Container maxWidth="sm" className="left">
-          <h2>Add a Product</h2>
+          <h2>Add A Product</h2>
           <form onSubmit={handleSubmit}>
             <label htmlFor="name" className="add-prod-form-label">
               Product Name
@@ -124,11 +123,9 @@ export class AddProduct extends React.Component {
               onChange={handleChange}
               className="add-prod-form-input"
             />
-            <Link to={'/products'}>
-              <button type="submit" className="editBtn">
+              <button type="submit">
                 Add Product
               </button>
-            </Link>
             <Link to={'/products'}>
               <button type="button" className="editBtn">Cancel</button>
             </Link>
@@ -138,7 +135,7 @@ export class AddProduct extends React.Component {
   }
 }
 
-const mapDispatch = (dispatch) => ({
+const mapDispatch = (dispatch, history) => ({
   addProduct: (product) => dispatch(addProduct(product)),
 });
 
