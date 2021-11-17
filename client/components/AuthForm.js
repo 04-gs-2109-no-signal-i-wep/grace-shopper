@@ -17,6 +17,11 @@ const theme = createTheme({
   typography: {
     fontFamily: ['Work Sans'].join(','),
   },
+  palette: {
+    primary: {
+      main: "#5b7b7a",
+    },
+  }
 });
 
 const AuthForm = (props) => {
