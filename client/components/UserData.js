@@ -33,7 +33,7 @@ export class UserData extends React.Component {
 
       { field: 'col7', headerName: '', width: 80, renderCell: (userId) => {return <IconButton aria-label="delete" onClick={() => {
         this.props.deleteUser(userId.value);
-        alert("Delete user " + userId.value);
+        // alert("Delete user " + userId.value);
       }}><DeleteIcon /></IconButton>}}
 
     ];

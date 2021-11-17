@@ -41,7 +41,7 @@ export const deleteUser = (id, history) => {
   return async dispatch => {
     try {
       const {data: deleted} = await axios.delete(`/api/users/${id}`);
-      console.log(deleted)
+      console.log('adfdfdsfdf' + deleted)
       dispatch(_deleteUser(deleted));
       history.push(`/users`)
     } catch (e) {
@@ -62,7 +62,10 @@ export default function(state = initialState, action) {
         allUsers: action.payload,
       };
     case DELETE_USER:
-      return {...state}
+      return {
+        ...state,
+        allUsers: state.allUsers.filter((user) => user.id !== action.user.id),
+      };
     default:
       return state;
   }
