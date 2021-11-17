@@ -14,23 +14,24 @@ import CircularLoading from './CircularLoading';
 export class AllProducts extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      loading: true,
-    }
+    // this.state = {
+    //   loading: true,
+    // }
   }
   componentDidMount() {
     this.props.fetchProducts();
-    this.setState({ loading: false });
+    // this.setState({ loading: false });
   }
 
   render() {
     const { allProducts, addProduct, is_admin } = this.props;
-    const { loading } = this.state;
-    console.log('ARE WE LOADING?:', this.state);
-    console.log('WHAT IS CIRCULAR LOADING?', CircularLoading())
+    // const { loading } = this.state;
+    // console.log('ARE WE LOADING?:', this.state);
+    // console.log('WHAT IS CIRCULAR LOADING?', CircularLoading())
     return (
       <>
-      {loading ? CircularLoading() : (
+        {/* {loading ? CircularLoading() : */}
+          (
         is_admin ? (
           <div className="adminBar">
             <h5>Admin Control</h5>
@@ -70,7 +71,7 @@ export class AllProducts extends React.Component {
           </Container>
         </>
         )
-        )}
+        {/* )} */}
       </>
     );
   }

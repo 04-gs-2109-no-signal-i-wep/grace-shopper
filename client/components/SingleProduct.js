@@ -21,10 +21,31 @@ class SingleProduct extends React.Component {
   }
 
   addToCart(productId) {
+    console.log(this.props)
     const user = this.props.user;
     if (user.id) {
       // handles logged in status & id
       this.props.addItemToCart(user.id, productId, this.state.quantity);
+    } else {
+      if (!window.localStorage.cart) {
+        window.localStorage.cart = JSON.stringify([]);
+      }
+      let cart = JSON.parse(window.localStorage.cart)
+      let cartItem = cart.filter(item => {
+        +item.productId === productId
+      })[0];
+      if (cartItem) {
+        const index = cart.indexOf(cartItem);
+        cartItem.quantity += 1;
+        cart[index] = cartItem;
+      } else {
+        const newProduct = {
+          productId: productId,
+          quantity: 1
+        }
+        cart.push(newProduct)
+      }
+      window.localStorage.cart = JSON.stringify(cart);
     }
   }
 
