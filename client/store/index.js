@@ -15,8 +15,11 @@ const reducer = combineReducers({
   singleProduct,
   cart,
   featuredProducts,
-  users
+  users,
 });
+
+console.log('REDUCER CHECK', reducer);
+
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({ collapsed: true }))
 );

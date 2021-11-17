@@ -1,12 +1,12 @@
-import React from "react";
-import { connect } from "react-redux";
-import { Link } from "react-router-dom";
-import { fetchProduct, deleteProduct } from "../store/singleProduct";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import { addItemToCart } from "../store/cart";
+import React from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { fetchProduct, deleteProduct } from '../store/singleProduct';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { addItemToCart } from '../store/cart';
 
 class SingleProduct extends React.Component {
   constructor() {
@@ -26,27 +26,28 @@ class SingleProduct extends React.Component {
     if (user.id) {
       // handles logged in status & id
       this.props.addItemToCart(user.id, productId, this.state.quantity);
-    } else {
-      if (!window.localStorage.cart) {
-        window.localStorage.cart = JSON.stringify([]);
-      }
-      let cart = JSON.parse(window.localStorage.cart)
-      let cartItem = cart.filter(item => {
-        +item.productId === productId
-      })[0];
-      if (cartItem) {
-        const index = cart.indexOf(cartItem);
-        cartItem.quantity += 1;
-        cart[index] = cartItem;
-      } else {
-        const newProduct = {
-          productId: productId,
-          quantity: 1
-        }
-        cart.push(newProduct)
-      }
-      window.localStorage.cart = JSON.stringify(cart);
     }
+    // else {
+    //   if (!window.localStorage.cart) {
+    //     window.localStorage.cart = JSON.stringify([]);
+    //   }
+    //   let cart = JSON.parse(window.localStorage.cart)
+    //   let cartItem = cart.filter(item => {
+    //     +item.productId === productId
+    //   })[0];
+    //   if (cartItem) {
+    //     const index = cart.indexOf(cartItem);
+    //     cartItem.quantity += 1;
+    //     cart[index] = cartItem;
+    //   } else {
+    //     const newProduct = {
+    //       productId: productId,
+    //       quantity: 1
+    //     }
+    //     cart.push(newProduct)
+    //   }
+    //   window.localStorage.cart = JSON.stringify(cart);
+    // }
   }
 
   handleDelete() {
@@ -78,12 +79,12 @@ class SingleProduct extends React.Component {
                   </div>
                 </div>
               ) : (
-                ""
+                ''
               )}
               <div className="singleView">
                 <div>
                   <div className="back">
-                    <Link to={"/products"}>
+                    <Link to={'/products'}>
                       <ArrowBackIcon fontSize="12" /> Back to All
                     </Link>
                   </div>
