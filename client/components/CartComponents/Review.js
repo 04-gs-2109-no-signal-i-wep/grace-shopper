@@ -68,7 +68,15 @@ export class Review extends React.Component {
 
   render() {
     const { cart } = this.props;
+    let productNameMap = {};
+    if (cart.length > 0) {
+      cart[0].products.forEach((product) => {
+        productNameMap[product.id] = product.name;
+      });
+    }
 
+    console.log('CARTATTACK', cart);
+    console.log(productNameMap);
     // const CART = {
     //   KEY: 'CART',
     //   contents: [],
@@ -128,13 +136,13 @@ export class Review extends React.Component {
                   Order summary
                 </Typography>
                 <List disablePadding>
-                  {cart[0].order_details.map((orderRow, index) => (
+                  {cart[0].order_details.map((orderRow) => (
                     <ListItem
                       key={orderRow.orderId + orderRow.productId}
                       sx={{ py: 1, px: 0 }}
                     >
                       <ListItemText
-                        primary={cart[0].products[index].name}
+                        primary={productNameMap[orderRow.productId]}
                         secondary={
                           <ButtonGroup
                             size="small"
@@ -180,7 +188,7 @@ export class Review extends React.Component {
                   <ListItem sx={{ py: 1, px: 0 }}>
                     <ListItemText primary="Total" />
                     <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>
-                      {cart[0].order_total}
+                      ${cart[0].order_total}
                     </Typography>
                   </ListItem>
                 </List>
