@@ -28,11 +28,13 @@ const _updateItemQuantity = (itemAdjusted, totalPriceUpdated) => {
   };
 };
 
-const _deleteItemFromCart = (itemDeleted) => {
+const _deleteItemFromCart = (itemDeleted, totalPriceUpdated) => {
   console.log('ITEMDELETED', itemDeleted);
+  let order_total = totalPriceUpdated['order_total'];
   return {
     type: DELETE_ITEM_FROM_CART,
     itemDeleted,
+    order_total,
   };
 };
 
@@ -104,8 +106,10 @@ export const deleteItemFromCart = (orderId, productId) => {
       const { data: deletedItem } = await axios.delete(
         `api/orders/cart/deleteItem/${orderId}/${productId}`
       );
-      console.log('DELETED ITEM', deletedItem);
-      dispatch(_deleteItemFromCart(deletedItem));
+      const { data: totalPriceUpdated } = await axios.get(
+        `api/orders/cart/updateTotals/${orderId}`
+      );
+      dispatch(_deleteItemFromCart(deletedItem, totalPriceUpdated));
     } catch (error) {
       console.log('An error occurred in the deleteItemFromCart thunk: ', error);
     }
@@ -143,6 +147,7 @@ export default function (state = [], action) {
       return [
         {
           ...state[0],
+          order_total: action.order_total,
           order_details: state[0].order_details.filter(
             (item) => item.productId !== action.itemDeleted.productId
           ),
