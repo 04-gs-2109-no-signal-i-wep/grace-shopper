@@ -176,7 +176,7 @@ button:hover {
 }
 
 .editFormLabel,
-.add-prod-form-label {
+.add-prod-form-label,
 .back {
   margin: 15px 0 15px 0;
   text-transform: uppercase;

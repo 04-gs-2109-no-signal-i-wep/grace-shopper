@@ -6,8 +6,7 @@ import { Link } from 'react-router-dom';
 import ProductCard from "./ProductCard";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import EditIcon from '@mui/icons-material/Edit';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
 
 export class AllProducts extends React.Component {
   componentDidMount() {
@@ -18,12 +17,12 @@ export class AllProducts extends React.Component {
     const { allProducts, addProduct, is_admin } = this.props;
     return (
       <>
-      {is_admin ?  
+      {is_admin ?
         <div className="adminBar">
           <h5>Admin Control</h5>
           <div className="adminBar">
             <Link to={"addproduct"}>
-              <button className="adminButton"><EditIcon fontSize='12' /> Add a Product</button>
+              <button className="adminButton"><AddCircleIcon fontSize='12' /> Add a Product</button>
             </Link>
           </div>
         </div>
