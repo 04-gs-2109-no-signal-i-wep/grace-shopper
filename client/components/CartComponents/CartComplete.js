@@ -1,24 +1,37 @@
-import * as React from "react";
-import CssBaseline from "@mui/material/CssBaseline";
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Container from "@mui/material/Container";
-import Toolbar from "@mui/material/Toolbar";
-import Paper from "@mui/material/Paper";
-import Stepper from "@mui/material/Stepper";
-import Step from "@mui/material/Step";
-import StepLabel from "@mui/material/StepLabel";
-import Button from "@mui/material/Button";
-import Link from "@mui/material/Link";
-import Typography from "@mui/material/Typography";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-import AddressForm from "./AddressForm";
-import PaymentForm from "./PaymentForm";
-import Review from "./Review";
+import * as React from 'react';
+import CssBaseline from '@mui/material/CssBaseline';
+import AppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
+import Container from '@mui/material/Container';
+import Toolbar from '@mui/material/Toolbar';
+import Paper from '@mui/material/Paper';
+import Stepper from '@mui/material/Stepper';
+import Step from '@mui/material/Step';
+import StepLabel from '@mui/material/StepLabel';
+import Button from '@mui/material/Button';
+import Link from '@mui/material/Link';
+import Typography from '@mui/material/Typography';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import AddressForm from './AddressForm';
+import PaymentForm from './PaymentForm';
+import Review from './Review';
 import { connect } from 'react-redux';
 import { checkoutCart } from '../../store/cart';
 
-const steps = ["Review your order", "Shipping address", "Payment details"];
+function Copyright() {
+  return (
+    <Typography variant="body2" color="text.secondary" align="center">
+      {'Copyright © '}
+      <Link color="inherit" href="https://mui.com/">
+        Hearth
+      </Link>{' '}
+      {new Date().getFullYear()}
+      {'.'}
+    </Typography>
+  );
+}
+
+const steps = ['Review your order', 'Shipping address', 'Payment details'];
 
 function getStepContent(step) {
   switch (step) {
@@ -29,7 +42,7 @@ function getStepContent(step) {
     case 2:
       return <PaymentForm />;
     default:
-      throw new Error("Unknown step");
+      throw new Error('Unknown step');
   }
 }
 
@@ -38,7 +51,6 @@ const theme = createTheme({
     fontFamily: ['Work Sans'].join(','),
   },
 });
-
 
 function Checkout(props) {
   const [activeStep, setActiveStep] = React.useState(0);
@@ -64,7 +76,7 @@ function Checkout(props) {
         color="default"
         elevation={0}
         sx={{
-          position: "relative",
+          position: 'relative',
           borderBottom: (t) => `1px solid ${t.palette.divider}`,
         }}
       ></AppBar>
@@ -98,7 +110,7 @@ function Checkout(props) {
             ) : (
               <React.Fragment>
                 {getStepContent(activeStep)}
-                <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+                <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
                   {activeStep !== 0 && (
                     <Button onClick={handleBack} sx={{ mt: 3, ml: 1 }}>
                       Back
@@ -132,12 +144,12 @@ function Checkout(props) {
   );
 }
 
-const mapState = state => ({
-  user: state.auth
-})
+const mapState = (state) => ({
+  user: state.auth,
+});
 
-const mapDispatch = dispatch => ({
-  checkoutCart: (userId) => dispatch(checkoutCart(userId))
-})
+const mapDispatch = (dispatch) => ({
+  checkoutCart: (userId) => dispatch(checkoutCart(userId)),
+});
 
 export default connect(mapState, mapDispatch)(Checkout);
