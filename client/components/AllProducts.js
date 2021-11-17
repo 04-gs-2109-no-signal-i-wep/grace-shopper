@@ -8,8 +8,13 @@ import ProductCarousel from "./ProductCarousel";
 import Container from "@mui/material/Container";
 import Box from '@mui/material/Box';
 import Grid from "@mui/material/Grid";
+<<<<<<< HEAD
 import EditIcon from "@mui/icons-material/Edit";
 import CircularLoading from './CircularLoading';
+=======
+import AddCircleIcon from '@mui/icons-material/AddCircle';
+
+>>>>>>> 9180e6c62430b155e3723d08e7c4c2b909f0b87b
 export class AllProducts extends React.Component {
   constructor(props) {
     super(props);
@@ -29,6 +34,7 @@ export class AllProducts extends React.Component {
     console.log('WHAT IS CIRCULAR LOADING?', CircularLoading())
     return (
       <>
+<<<<<<< HEAD
       {loading ? CircularLoading() : (
         is_admin ? (
           <div className="adminBar">
@@ -40,6 +46,15 @@ export class AllProducts extends React.Component {
                 </button>
               </Link>
             </div>
+=======
+      {is_admin ?
+        <div className="adminBar">
+          <h5>Admin Control</h5>
+          <div className="adminBar">
+            <Link to={"addproduct"}>
+              <button className="adminButton"><AddCircleIcon fontSize='12' /> Add a Product</button>
+            </Link>
+>>>>>>> 9180e6c62430b155e3723d08e7c4c2b909f0b87b
           </div>
         ) : (
           
