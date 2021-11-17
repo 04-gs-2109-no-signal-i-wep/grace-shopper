@@ -20,31 +20,32 @@ const theme = createTheme({
 export default function ProductCard({ image, title, description, productId }) {
   return (
     <Card sx={{ maxWidth: 345 }}>
-      <CardActionArea>
-        <CardMedia className="prod-card-img" component="img" height="240" image={image} alt={title} />
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
-          {title.length >= 16
-              ? title.slice(0, 16) + '...'
-              : title}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            {description.length >= 30
-              ? description.slice(0, 30) + '...'
-              : description}
-          </Typography>
-        </CardContent>
+      <Link to={`/products/${productId}`}>
+        <CardActionArea>
+          <CardMedia className="prod-card-img" component="img" height="240" image={image} alt={title} />
+          <CardContent>
+            <Typography gutterBottom variant="h5" component="div">
+            {title.length >= 16
+                ? title.slice(0, 16) + '...'
+                : title}
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              {description.length >= 30
+                ? description.slice(0, 30) + '...'
+                : description}
+            </Typography>
+          </CardContent>
         </CardActionArea>
-        <CardActions>
-          <Link to={`/products/${productId}`}>
-            <ThemeProvider theme={theme}>
-              <Button size="small" variant="contained" color="primary">
-                View More
-              </Button>
-            </ThemeProvider>
-          </Link>
-          {/* <Button size="small" variant="outlined">Add to Cart</Button> */}
-        </CardActions>
+      </Link>
+      <CardActions>
+        <Link to={`/products/${productId}`}>
+          <ThemeProvider theme={theme}>
+            <Button size="small" variant="contained" color="primary">
+              View More
+            </Button>
+          </ThemeProvider>
+        </Link>
+      </CardActions>
     </Card>
   );
 }
