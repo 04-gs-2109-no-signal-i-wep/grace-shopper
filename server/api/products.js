@@ -2,6 +2,7 @@ const router = require('express').Router();
 const Product = require('../db/models/Product');
 const { requireToken, isAdmin } = require('./gatekeeper')
 
+
 // GET /api/products
 router.get('/', async (req, res, next) => {
   try {
