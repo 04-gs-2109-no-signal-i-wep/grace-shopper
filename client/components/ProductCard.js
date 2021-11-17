@@ -52,3 +52,9 @@ export default function ProductCard({ image, title, description, productId }) {
     </ThemeProvider>
   );
 }
+
+// const mapState = ({auth}) => ({
+//   is_admin: auth.is_admin
+// });
+
+// const mapDispatch 
