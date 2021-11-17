@@ -10,6 +10,9 @@ import { CardActionArea } from '@mui/material';
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 const theme = createTheme({
+  typography: {
+    fontFamily: ['Work Sans'].join(','),
+  },
   palette: {
     primary: {
       main: "#5b7b7a",
@@ -19,33 +22,33 @@ const theme = createTheme({
 
 export default function ProductCard({ image, title, description, productId }) {
   return (
-    <Card sx={{ maxWidth: 345 }}>
-      <Link to={`/products/${productId}`}>
-        <CardActionArea>
-          <CardMedia className="prod-card-img" component="img" height="240" image={image} alt={title} />
-          <CardContent>
-            <Typography gutterBottom variant="h5" component="div">
-            {title.length >= 16
-                ? title.slice(0, 16) + '...'
-                : title}
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              {description.length >= 30
-                ? description.slice(0, 30) + '...'
-                : description}
-            </Typography>
-          </CardContent>
-        </CardActionArea>
-      </Link>
-      <CardActions>
+    <ThemeProvider theme={theme}>
+      <Card sx={{ maxWidth: 345 }}>
         <Link to={`/products/${productId}`}>
-          <ThemeProvider theme={theme}>
+          <CardActionArea>
+            <CardMedia className="prod-card-img" component="img" height="250" image={image} alt={title} />
+            <CardContent>
+              <Typography gutterBottom variant="h5" component="div">
+              {title.length >= 16
+                  ? title.slice(0, 16) + '...'
+                  : title}
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                {description.length >= 25
+                  ? description.slice(0, 25) + '...'
+                  : description}
+              </Typography>
+            </CardContent>
+          </CardActionArea>
+        </Link>
+        <CardActions>
+          <Link to={`/products/${productId}`}>
             <Button size="small" variant="contained" color="primary">
               View More
             </Button>
-          </ThemeProvider>
-        </Link>
-      </CardActions>
-    </Card>
+          </Link>
+        </CardActions>
+      </Card>
+    </ThemeProvider>
   );
 }
