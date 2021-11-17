@@ -14,6 +14,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
+import GuestCart from './GuestCart';
 
 export class Review extends React.Component {
   constructor(props) {
@@ -74,7 +75,6 @@ export class Review extends React.Component {
     }
 
     console.log('CART', cart);
-    console.log(productNameMap);
     // const CART = {
     //   KEY: 'CART',
     //   contents: [],
@@ -113,22 +113,21 @@ export class Review extends React.Component {
     //     });
     //   },
     // };
-
+    console.log(cart)
     return (
-      <div className="loadingDiv">
-        {' '}
+      this.props.auth.id ? <div className="loadingDiv">
         {this.loading ? (
           <p>loading</p>
         ) : (
           <div className="cartReviewDiv">
             {cart.length === 0 ? (
-              <Typography variant="h6" gutterBottom>
-                <p></p>
-                {/* <Link to="/products">
-                  Your cart is empty. Check out our Products page to find your
-                  perfect room!
-                </Link> */}
-              </Typography>
+              ''
+              // <Typography variant="h6" gutterBottom>
+              //   <Link to="/products">
+              //     Your cart is empty. Check out our Products page to find your
+              //     perfect room!
+              //   </Link>
+              // </Typography>
             ) : (
               <React.Fragment>
                 <Typography variant="h6" gutterBottom>
@@ -223,8 +222,8 @@ export class Review extends React.Component {
             )}
           </div>
         )}
-      </div>
-    );
+      </div> : <GuestCart />
+    )
   }
 }
 
