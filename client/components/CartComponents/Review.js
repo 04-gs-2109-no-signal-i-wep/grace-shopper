@@ -41,6 +41,13 @@ export class Review extends React.Component {
         loading: false,
       });
     }
+
+    if (prevProps.cart.id !== this.props.cart.id) {
+      this.props.fetchItemsInCart(this.props.auth.id);
+      this.setState({
+        loading: false,
+      });
+    }
   }
 
   handleIncrement(orderId, productId, quantity) {
