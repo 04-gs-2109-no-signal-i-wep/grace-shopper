@@ -42,18 +42,18 @@ export default function ProductCard({ image, title, description, productId, isAd
                 <Typography variant="body2" color="text.secondary">
                   Quantity: {inventoryQuantity}
                 </Typography>
-              ) : ('')
+              ) : null
               }
             </CardContent>
+            <CardActions>
+              <Link to={`/products/${productId}`}>
+                <Button size="small" variant="contained" color="primary">
+                  View More
+                </Button>
+              </Link>
+            </CardActions>
           </CardActionArea>
         </Link>
-        <CardActions>
-          <Link to={`/products/${productId}`}>
-            <Button size="small" variant="contained" color="primary">
-              View More
-            </Button>
-          </Link>
-        </CardActions>
       </Card>
     </ThemeProvider>
   );

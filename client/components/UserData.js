@@ -10,7 +10,21 @@ import { DataGrid, GridRowsProp, GridColDef } from '@mui/x-data-grid';
 import { IconButton } from "@mui/material"
 import { Button } from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete';
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 
+const theme = createTheme({
+  typography: {
+    fontFamily: ['Work Sans'].join(','),
+  },
+  palette: {
+    primary: {
+      main: "#5b7b7a",
+    },
+    secondary: {
+      main: '#ceb5a7',
+    }
+  },
+});
 export class UserData extends React.Component {
   componentDidMount() {
     this.props.fetchUsers();
@@ -34,10 +48,9 @@ export class UserData extends React.Component {
       { field: 'col7', headerName: '', width: 80, renderCell: (userId) => {return <IconButton aria-label="delete" onClick={() => {
         this.props.deleteUser(userId.value);
         // alert("Delete user " + userId.value);
-      }}><DeleteIcon /></IconButton>}}
+      }}><DeleteIcon color="secondary" /></IconButton>}}
 
     ];
-
 
     const rows = allUsers.map((user) => ({
       id: user.id,
@@ -50,11 +63,12 @@ export class UserData extends React.Component {
       col7: user.id
     }));
 
-
     return (
-      <div style={{ height: 600, width: '100%' }}>
-        <DataGrid rows={rows} columns={columns}/>
-      </div>
+      <ThemeProvider theme={theme}>
+        <div style={{ height: 600, width: '100%' }}>
+          <DataGrid rows={rows} columns={columns}/>
+        </div>
+      </ThemeProvider>
 
     );
   }

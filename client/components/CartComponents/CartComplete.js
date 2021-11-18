@@ -50,6 +50,14 @@ const theme = createTheme({
   typography: {
     fontFamily: ['Work Sans'].join(','),
   },
+  palette: {
+    primary: {
+      main: '#ceb5a7',
+    },
+    secondary: {
+      main: "#5b7b7a",
+    }
+  },
 });
 
 function Checkout(props) {
@@ -74,7 +82,6 @@ function Checkout(props) {
       <CssBaseline />
       <AppBar
         position="absolute"
-        color="default"
         elevation={0}
         sx={{
           position: 'relative',
@@ -113,7 +120,7 @@ function Checkout(props) {
                 {getStepContent(activeStep)}
                 <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
                   {activeStep !== 0 && (
-                    <Button onClick={handleBack} sx={{ mt: 3, ml: 1 }}>
+                    <Button onClick={handleBack} sx={{ mt: 3, ml: 1 }} color="secondary">
                       Back
                     </Button>
                   )}
@@ -123,6 +130,7 @@ function Checkout(props) {
                       variant="contained"
                       onClick={handleSubmit}
                       sx={{ mt: 3, ml: 1 }}
+                      color="secondary"
                     >
                       Complete Order
                     </Button>
@@ -131,6 +139,7 @@ function Checkout(props) {
                       variant="contained"
                       onClick={handleNext}
                       sx={{ mt: 3, ml: 1 }}
+                      color="secondary"
                     >
                       Next
                     </Button>

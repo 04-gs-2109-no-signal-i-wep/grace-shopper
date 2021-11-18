@@ -8,9 +8,7 @@ import ProductCarousel from "./ProductCarousel";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import AddCircleIcon from '@mui/icons-material/AddCircle';
-import { Pagination } from "@mui/material";
-import { Typography } from "@mui/material";
-import { Stack } from "@mui/material";
+import { Pagination, Typography, Stack  } from "@mui/material";
 import CircularLoading from './CircularLoading';
 
 export class AllProducts extends React.Component {
@@ -23,13 +21,11 @@ export class AllProducts extends React.Component {
   }
 
   componentDidMount() {
-    console.log('COMPONENT DID MOUNT RUNNING')
     this.setLoading();
   }
 
   async setLoading() {
     try {
-      console.log('SET LOADING RUNNING')
       await this.props.fetchProducts();
       this.setState({
         loading: false,
@@ -50,17 +46,17 @@ export class AllProducts extends React.Component {
   }
 
   render() {
-    console.log('RENDERING')
     const { allProducts, addProduct, is_admin } = this.props;
+    const { loading } = this.state;
+
     const handleChange = (event, value) => {
       this.setState({page: value});
     };
+
     const pageProducts = this.fetchPageProducts();
     const numPages = Math.ceil(allProducts.length/9);
     console.log('ASDFASDFSDF' + numPages);
     
-    const { loading } = this.state;
-
     return (
       <>
         { loading ? CircularLoading() : (
@@ -76,9 +72,13 @@ export class AllProducts extends React.Component {
                 </Link>
               </div>
             </div>
-          ) : null }
-          <ProductCarousel />
+          ) : null 
+          }
+            <ProductCarousel />
           <Container maxWidth="md" className="product-container">
+            <div className="all-prod-body">
+              <h3>All Collections</h3>
+            </div>
             <Grid
               container
               spacing={2}
@@ -115,9 +115,6 @@ export class AllProducts extends React.Component {
     );
   }
 }
-
-
-
 
 const mapState = ({ products, auth }) => ({
   allProducts: products.allProducts,

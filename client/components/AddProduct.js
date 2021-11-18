@@ -135,7 +135,7 @@ export class AddProduct extends React.Component {
   }
 }
 
-const mapDispatch = (dispatch, history) => ({
+const mapDispatch = (dispatch, hi) => ({
   addProduct: (product) => dispatch(addProduct(product)),
 });
 
