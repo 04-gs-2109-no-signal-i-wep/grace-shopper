@@ -25,7 +25,6 @@ const _updateItemQuantity = (itemAdjusted, totalPriceUpdated) => {
 };
 
 const _deleteItemFromCart = (itemDeleted, totalPriceUpdated) => {
-  console.log('ITEMDELETED', itemDeleted);
   let order_total = totalPriceUpdated['order_total'];
   return {
     type: DELETE_ITEM_FROM_CART,
@@ -52,14 +51,11 @@ export const fetchItemsInCart = (userId) => {
 };
 
 export const addItemToCart = (userId, productId) => {
-  console.log('USERID', userId);
-  console.log('PRODUCTID', productId);
   return async (dispatch) => {
     try {
       const { data: itemAdded } = await axios.put(
         `/api/orders/addToCart/${userId}/${productId}`
       );
-      console.log('ITEMADDED', itemAdded);
       dispatch(_addToCart(itemAdded));
     } catch (error) {
       console.log('An error occurred in the addItemToCart thunk: ', error);
@@ -90,7 +86,6 @@ export const checkoutCart = (userId) => {
       const { data: newCart } = await axios.put(
         `/api/orders/cart/checkout/${userId}`
       );
-      console.log('THIS IS NEW CART', newCart);
       dispatch(setCart(newCart));
     } catch (error) {
       console.log('An error occurred in the checkoutCart thunk: ', error);
@@ -101,7 +96,6 @@ export const checkoutCart = (userId) => {
 export const deleteItemFromCart = (orderId, productId) => {
   return async (dispatch) => {
     try {
-      console.log('ORDERID', orderId, 'PRODUCTID', productId);
       const { data: deletedItem } = await axios.delete(
         `api/orders/cart/deleteItem/${orderId}/${productId}`
       );
@@ -141,7 +135,6 @@ export default function (state = [], action) {
         },
       ];
     case DELETE_ITEM_FROM_CART:
-      console.log('STATE', state[0].order_details);
       return [
         {
           ...state[0],
