@@ -11,15 +11,32 @@ import AddCircleIcon from '@mui/icons-material/AddCircle';
 import { Pagination } from "@mui/material";
 import { Typography } from "@mui/material";
 import { Stack } from "@mui/material";
+import CircularLoading from './CircularLoading';
 
 export class AllProducts extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {page: 1};
+    this.state = {
+      page: 1,
+      loading: true
+    };
   }
 
   componentDidMount() {
-    this.props.fetchProducts();
+    console.log('COMPONENT DID MOUNT RUNNING')
+    this.setLoading();
+  }
+
+  async setLoading() {
+    try {
+      console.log('SETLOADING RUNNING')
+      await this.props.fetchProducts();
+      this.setState({
+        loading: false,
+      })
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   fetchPageProducts() {
@@ -33,6 +50,7 @@ export class AllProducts extends React.Component {
   }
 
   render() {
+    console.log('RENDERING')
     const { allProducts, addProduct, is_admin } = this.props;
     const handleChange = (event, value) => {
       this.setState({page: value});
@@ -40,56 +58,59 @@ export class AllProducts extends React.Component {
     const pageProducts = this.fetchPageProducts();
     const numPages = Math.ceil(allProducts.length/9);
     console.log('ASDFASDFSDF' + numPages);
+    
+    const { loading } = this.state;
 
     return (
       <>
-        {is_admin ? (
-          <div className="adminBar">
-            <h5>Admin Control</h5>
+        { loading ? CircularLoading() : (
+          <>
+          {is_admin ? (
             <div className="adminBar">
-              <Link to={"addproduct"}>
-                <button className="adminButton">
-                  <AddCircleIcon fontSize="12" /> Add a Product
-                </button>
-              </Link>
+              <h5>Admin Control</h5>
+              <div className="adminBar">
+                <Link to={"addproduct"}>
+                  <button className="adminButton">
+                    <AddCircleIcon fontSize="12" /> Add a Product
+                  </button>
+                </Link>
+              </div>
             </div>
-          </div>
-        ) : (
-          ""
-        )}
-        <ProductCarousel />
-        <Container maxWidth="md" className="product-container">
-          <Grid
-            container
-            spacing={2}
-            justifyContent="center"
-            alignItems="center"
-            direction="row"
-          >
-            {pageProducts &&
-              pageProducts.map((product) => {
-                return (
-                  <Grid item xs={8} md={4} key={product.id}>
-                    <ProductCard
-                      image={product.image_url}
-                      title={product.name}
-                      description={product.description}
-                      productId={product.id}
-                      isAdmin={is_admin}
-                      inventoryQuantity={product.inventory_quantity}
-                    />
-                  </Grid>
-                );
-              })}
-          </Grid>
-
-          {/* //Pagination */}
-          <Stack spacing={2}>
-            <Typography>Page: {this.state.page} </Typography>
-            <Pagination count={numPages} page={this.state.page} onChange={handleChange} />
-          </Stack>
-
-        </Container>
+          ) : ("")}
+          <ProductCarousel />
+          <Container maxWidth="md" className="product-container">
+            <Grid
+              container
+              spacing={2}
+              justifyContent="center"
+              alignItems="center"
+              direction="row"
+            >
+              {pageProducts &&
+                pageProducts.map((product) => {
+                  return (
+                    <Grid item xs={8} md={4} key={product.id}>
+                      <ProductCard
+                        image={product.image_url}
+                        title={product.name}
+                        description={product.description}
+                        productId={product.id}
+                        isAdmin={is_admin}
+                        inventoryQuantity={product.inventory_quantity}
+                      />
+                    </Grid>
+                  );
+                })}
+            </Grid>
+            {/* //Pagination */}
+            <Stack spacing={2}>
+              <Typography>Page: {this.state.page} </Typography>
+              <Pagination count={numPages} page={this.state.page} onChange={handleChange} />
+            </Stack>
+          </Container>
+          </>
+          )
+        }
       </>
     );
   }

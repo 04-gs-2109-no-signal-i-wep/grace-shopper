@@ -351,6 +351,11 @@ a:visited {
   text-align: center;
 }
 
+.circular-loading {
+  z-index: 999;
+  position: absolute;
+}
+
 h3 {
   font-family: 'Work Sans', sans-serif;
   color: #000;

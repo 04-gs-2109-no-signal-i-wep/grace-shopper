@@ -4,9 +4,13 @@ import Box from '@mui/material/Box';
 
 export default function CircularLoading() {
   return (
-    <Box sx={{ display: 'flex' }}>
+    <>
+    {console.log('circular progress running')}
+    <Box className="circular-loading" sx={{ display: 'flex' }}>
+      
       <CircularProgress />
     </Box>
+    </>
   );
 }
 
