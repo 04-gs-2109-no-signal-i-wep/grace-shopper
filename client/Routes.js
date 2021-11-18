@@ -20,7 +20,6 @@ class Routes extends Component {
   }
 
   render() {
-    const { isAdmin } = this.props;
     return (
       <Switch>
         <Route path="/home" component={Home} />
