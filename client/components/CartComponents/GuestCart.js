@@ -26,10 +26,21 @@ class GuestCart extends React.Component {
     }
   }
 
-  async setCartToState(cart) {
+  setCartToState(cart) {
     this.setState({
       products: cart,
     });
+  }
+
+  async removeItem(cart) {
+    guestCart = guestCart.filter((cartItem) => {
+      return +cartItem.productId !== product.productId;
+    });
+    guestCart = JSON.stringify(guestCart);
+    this.setCartToState(guestCart);
+
+    await window.localStorage.removeItem(cart);
+    window.localStorage.cart = JSON.stringify([]);
   }
 
   render() {
@@ -44,6 +55,7 @@ class GuestCart extends React.Component {
     // }, 0);
 
     console.log("are you in guest cart?", guestCart);
+    console.log("current state", this.state);
 
     return (
       <div className="cartReviewDiv">
@@ -62,26 +74,47 @@ class GuestCart extends React.Component {
                       aria-label="small outlined button group"
                     >
                       <Button
-                        onClick={() =>
-                          this.handleIncrement(
-                            product.orderId,
-                            product.productId,
-                            product.quantity
-                          )
-                        }
+                        onClick={() => {
+                          if (product.quantity <= 1) {
+                            return;
+                          }
+                          const _product = guestCart.filter((prod) => {
+                            return +prod.productId === product.id;
+                          })[0];
+                          const index = guestCart.indexOf(_product);
+                          product.quantity += 1;
+                          product.price += product.price;
+                          guestCart[index] = _product;
+                          window.localStorage.cart = JSON.stringify(guestCart);
+                          this.setCartToState(guestCart);
+                        }}
                       >
                         +
                       </Button>
                       {<Button disabled>{product.quantity}</Button>}
                       {
                         <Button
-                          onClick={() =>
-                            this.handleDecrement(
-                              product.orderId,
-                              product.productId,
-                              product.quantity
-                            )
-                          }
+                          onClick={() => {
+                            if (product.quantity <= 1) {
+                              return;
+                            }
+                            const _product = guestCart.filter((prod) => {
+                              return +prod.productId === product.id;
+                            })[0];
+                            const index = guestCart.indexOf(_product);
+                            product.quantity -= 1;
+                            product.price -= product.price;
+                            if (product.quantity === 0) {
+                              guestCart = guestCart.filter((prodd) => {
+                                return +prodd.productId !== product.id;
+                              });
+                            } else {
+                              guestCart[index] = _product;
+                            }
+                            window.localStorage.cart =
+                              JSON.stringify(guestCart);
+                            this.setCartToState(guestCart);
+                          }}
                         >
                           -
                         </Button>
