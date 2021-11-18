@@ -7,6 +7,9 @@ const Order_Detail = db.define('order_detail', {
   quantity: {
     type: Sequelize.INTEGER,
     allowNull: true,
+    validate: {
+      min: 0,
+    },
   },
   total_price: {
     type: Sequelize.INTEGER,
