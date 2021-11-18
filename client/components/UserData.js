@@ -6,7 +6,6 @@ import { DataGrid, GridRowsProp, GridColDef } from "@mui/x-data-grid";
 import { IconButton } from "@mui/material";
 import { Button } from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete';
-import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 const theme = createTheme({
   typography: {
