@@ -5,8 +5,6 @@ import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import Button from "@mui/material/Button";
 import ButtonGroup from "@mui/material/ButtonGroup";
-import { fetchProduct } from "../../store/singleProduct";
-import { connect } from "react-redux";
 
 class GuestCart extends React.Component {
   constructor(props) {
@@ -28,19 +26,9 @@ class GuestCart extends React.Component {
 
   setCartToState(cart) {
     this.setState({
-      products: cart,
+      products: cart
     });
-  }
 
-  async removeItem(cart) {
-    guestCart = guestCart.filter((cartItem) => {
-      return +cartItem.productId !== product.productId;
-    });
-    guestCart = JSON.stringify(guestCart);
-    this.setCartToState(guestCart);
-
-    await window.localStorage.removeItem(cart);
-    window.localStorage.cart = JSON.stringify([]);
   }
 
   render() {
@@ -49,13 +37,16 @@ class GuestCart extends React.Component {
     }
     let guestCart = JSON.parse(window.localStorage.cart);
     const productsInCart = this.state.products;
-    const total = productsInCart.reduce((acc, product) => {
-      acc += product.price * product.quantity;
-      return acc;
+    console.log('productsInCart', productsInCart)
+
+    const total = productsInCart.reduce((subtotal, product) => {
+      subtotal += (product.price * product.quantity);
+      console.log(subtotal)
+      return subtotal;
     }, 0);
 
     console.log("are you in guest cart?", guestCart);
-    console.log("current state", this.state);
+    console.log("current state", productsInCart);
 
     return (
       <div className="cartReviewDiv">
@@ -108,11 +99,13 @@ class GuestCart extends React.Component {
                   }
                   <Button
                     onClick={() => {
-                      guestCart = guestCart.filter((cartItem) => {
-                        return +cartItem.productId !== product.productId;
+                      window.localStorage.removeItem('cart');
+                      let cartState = productsInCart.filter((cartItem) => {
+                        return cartItem.productId !== product.productId;
                       });
-                      guestCart = JSON.stringify(guestCart);
-                      this.setCartToState(guestCart);
+                      let newCart = JSON.stringify(cartState);
+                      window.localStorage.setItem('cart', newCart)
+                      this.setCartToState(cartState);
                     }}
                   >
                     Delete
@@ -133,11 +126,5 @@ class GuestCart extends React.Component {
     );
   }
 }
-
-// const mapDispatchToProps = (dispatch) => ({
-//   fetchProduct: (productId) => dispatch(fetchProduct(productId)),
-// });
-
-// export default connect(null, mapDispatchToProps)(GuestCart);
 
 export default GuestCart;
