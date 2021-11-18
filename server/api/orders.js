@@ -34,16 +34,12 @@ router.get('/cart/:userId', async (req, res, next) => {
 router.put('/addToCart/:userId/:productId', async (req, res, next) => {
   try {
     const userId = req.params.userId;
-    const productId = req.params.productId; // is this just equal to the product's ID ? or is this giving us the whole product?
+    const productId = req.params.productId;
     let quantity = 1;
-    console.log('USERID', userId);
-    console.log('PRODUCTID', productId);
-    console.log('HERE IS REQ.BODY', req.body);
-    // this is the quantity that our user wants WHY ISN"T QUANTITY WORKING HERE ????
+    //we assume quantity is 1 ; this will increment quantity of the item in the cart by 1 each time a user clicks the add to cart button
 
-    //get the user's cart
+    //get the user's cart and the product they want
     let cart = await Order.findCart(userId);
-
     let product = await Product.findByPk(productId);
 
     //check if Order_Detail includes a row where userId and cartID match current order

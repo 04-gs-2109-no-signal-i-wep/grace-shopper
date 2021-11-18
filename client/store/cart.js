@@ -5,8 +5,6 @@ const SET_CART = 'SET_CART';
 const ADD_TO_CART = 'ADD_TO_CART';
 const UPDATE_ITEM_QUANTITY = 'UPDATE_ITEM_QUANTITY';
 const DELETE_ITEM_FROM_CART = 'DELETE_ITEM';
-//make a delete item from cart
-//need a way to mark a cart as complete -- check JPFP for this
 
 //ACTION CREATORS
 export const setCart = (itemsInCart) => ({
@@ -18,8 +16,6 @@ const _addToCart = (itemAdded) => ({
   itemAdded,
 });
 const _updateItemQuantity = (itemAdjusted, totalPriceUpdated) => {
-  console.log('THIS IS ITEM ADJUSTED', itemAdjusted);
-  console.log('THIS IS WITH NEW TOTAL', totalPriceUpdated['order_total']);
   let order_total = totalPriceUpdated['order_total'];
   return {
     type: UPDATE_ITEM_QUANTITY,
@@ -40,7 +36,6 @@ const _deleteItemFromCart = (itemDeleted, totalPriceUpdated) => {
 
 //THUNKS
 
-//make an edge case where the cart is empty
 export const fetchItemsInCart = (userId) => {
   return async (dispatch) => {
     try {
