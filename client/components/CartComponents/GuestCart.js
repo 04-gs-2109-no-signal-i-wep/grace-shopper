@@ -49,10 +49,10 @@ class GuestCart extends React.Component {
     }
     let guestCart = JSON.parse(window.localStorage.cart);
     const productsInCart = this.state.products;
-    // const total = productsInCart.reduce((acc, product) => {
-    //   acc += product.price * product.quantity;
-    //   return acc;
-    // }, 0);
+    const total = productsInCart.reduce((acc, product) => {
+      acc += product.price * product.quantity;
+      return acc;
+    }, 0);
 
     console.log("are you in guest cart?", guestCart);
     console.log("current state", this.state);
@@ -66,81 +66,65 @@ class GuestCart extends React.Component {
           <List disablePadding>
             {guestCart.map((product) => (
               <ListItem key={product.productId} sx={{ py: 1, px: 0 }}>
-                <ListItemText
-                  primary={product.name}
-                  secondary={
-                    <ButtonGroup
-                      size="small"
-                      aria-label="small outlined button group"
-                    >
-                      <Button
-                        onClick={() => {
-                          if (product.quantity <= 1) {
-                            return;
-                          }
-                          const _product = guestCart.filter((prod) => {
-                            return +prod.productId === product.id;
-                          })[0];
-                          const index = guestCart.indexOf(_product);
-                          product.quantity += 1;
-                          product.price += product.price;
-                          guestCart[index] = _product;
+                <ListItemText primary={product.name} />
+                <ButtonGroup
+                  size="small"
+                  aria-label="small outlined button group"
+                >
+                  <Button
+                    onClick={() => {
+                      if (product.quantity >= 1) {
+                        const _product = guestCart.filter((prod) => {
+                          return +prod.productId === product.id;
+                        })[0];
+                        const index = guestCart.indexOf(_product);
+                        product.quantity += 1;
+                        guestCart[index] = _product;
+                        window.localStorage.cart = JSON.stringify(guestCart);
+                        this.setCartToState(guestCart);
+                      }
+                      return;
+                    }}
+                  >
+                    +
+                  </Button>
+                  {<Button disabled>{product.quantity}</Button>}
+                  {
+                    <Button
+                      onClick={() => {
+                        if (product.quantity === 1) {
+                          product.quantity = 1;
+                          product.price = product.price;
+                        } else if (product.quantity > 1) {
+                          product.quantity -= 1;
                           window.localStorage.cart = JSON.stringify(guestCart);
                           this.setCartToState(guestCart);
-                        }}
-                      >
-                        +
-                      </Button>
-                      {<Button disabled>{product.quantity}</Button>}
-                      {
-                        <Button
-                          onClick={() => {
-                            if (product.quantity <= 1) {
-                              return;
-                            }
-                            const _product = guestCart.filter((prod) => {
-                              return +prod.productId === product.id;
-                            })[0];
-                            const index = guestCart.indexOf(_product);
-                            product.quantity -= 1;
-                            product.price -= product.price;
-                            if (product.quantity === 0) {
-                              guestCart = guestCart.filter((prodd) => {
-                                return +prodd.productId !== product.id;
-                              });
-                            } else {
-                              guestCart[index] = _product;
-                            }
-                            window.localStorage.cart =
-                              JSON.stringify(guestCart);
-                            this.setCartToState(guestCart);
-                          }}
-                        >
-                          -
-                        </Button>
-                      }
-                      <Button
-                        onClick={() => {
-                          guestCart = guestCart.filter((cartItem) => {
-                            return +cartItem.productId !== product.productId;
-                          });
-                          guestCart = JSON.stringify(guestCart);
-                          this.setCartToState(guestCart);
-                        }}
-                      >
-                        Delete
-                      </Button>
-                    </ButtonGroup>
+                        }
+                        return;
+                      }}
+                    >
+                      -
+                    </Button>
                   }
-                />
-                <Typography variant="body2">${product.price}</Typography>
+                  <Button
+                    onClick={() => {
+                      guestCart = guestCart.filter((cartItem) => {
+                        return +cartItem.productId !== product.productId;
+                      });
+                      guestCart = JSON.stringify(guestCart);
+                      this.setCartToState(guestCart);
+                    }}
+                  >
+                    Delete
+                  </Button>
+                </ButtonGroup>
               </ListItem>
             ))}
 
             <ListItem sx={{ py: 1, px: 0 }}>
               <ListItemText primary="Total" />
               <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>
-                {/* ${total.toFixed(2)} */}
+                ${total.toFixed(2)}
               </Typography>
             </ListItem>
           </List>
