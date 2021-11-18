@@ -20,9 +20,15 @@ const steps = ["Review your order", "Shipping address", "Payment details"];
 
 const theme = createTheme({
   typography: {
-    fontFamily: ["Work Sans"].join(","),
+    fontFamily: ['Work Sans'].join(','),
   },
+  palette: {
+    primary: {
+      main: "#5b7b7a",
+    },
+  }
 });
+
 
 function Checkout(props) {
   function getStepContent(step) {
