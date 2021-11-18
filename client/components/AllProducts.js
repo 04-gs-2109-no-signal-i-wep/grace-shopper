@@ -6,13 +6,11 @@ import { Link } from "react-router-dom";
 import ProductCard from "./ProductCard";
 import ProductCarousel from "./ProductCarousel";
 import Container from "@mui/material/Container";
-import Box from '@mui/material/Box';
 import Grid from "@mui/material/Grid";
-import EditIcon from "@mui/icons-material/Edit";
 import { Pagination } from "@mui/material";
 import { Typography } from "@mui/material";
 import { Stack } from "@mui/material";
-
+import AddCircleIcon from '@mui/icons-material/AddCircle';
 
 export class AllProducts extends React.Component {
   constructor(props) {
@@ -30,7 +28,6 @@ export class AllProducts extends React.Component {
     const trimStart = (this.state.page-1)*numberPerPage;
     const trimEnd = trimStart + numberPerPage;
     const pageProducts = this.props.allProducts.slice(trimStart, trimEnd);
-    console.log(this.page, trimStart, trimEnd, pageProducts)
     return pageProducts;
   }
 
@@ -41,7 +38,6 @@ export class AllProducts extends React.Component {
     };
     const pageProducts = this.fetchPageProducts();
     const numPages = Math.ceil(allProducts.length/9);
-    console.log('ASDFASDFSDF' + numPages);
 
     return (
       <>
@@ -51,7 +47,7 @@ export class AllProducts extends React.Component {
             <div className="adminBar">
               <Link to={"addproduct"}>
                 <button className="adminButton">
-                  <EditIcon fontSize="12" /> Add a Product
+                  <AddCircleIcon fontSize="12" /> Add a Product
                 </button>
               </Link>
             </div>
@@ -85,7 +81,7 @@ export class AllProducts extends React.Component {
 
           {/* //Pagination */}
           <Stack spacing={2}>
-            <Typography>Page: {this.state.page} </Typography>
+            <br />
             <Pagination count={numPages} page={this.state.page} onChange={handleChange} />
           </Stack>
 

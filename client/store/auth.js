@@ -24,8 +24,6 @@ export const me = () => async (dispatch) => {
         authorization: token,
       },
     });
-    console.log('this is res.data', res.data);
-    // history.push('/home');
     return dispatch(setAuth(res.data));
   }
 };
@@ -73,7 +71,6 @@ export const logout = () => {
 export default function (state = {}, action) {
   switch (action.type) {
     case SET_AUTH:
-      console.log('this is action.auth', action.auth);
       return action.auth;
     default:
       return state;

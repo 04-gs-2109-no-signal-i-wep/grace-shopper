@@ -20,11 +20,35 @@ class SingleProduct extends React.Component {
     this.props.fetchProduct(this.props.match.params.productId);
   }
 
-  addToCart(productId) {
+  addToCart(id) {
     const user = this.props.user;
     if (user.id) {
       // handles logged in status & id
-      this.props.addItemToCart(user.id, productId, this.state.quantity);
+      this.props.addItemToCart(user.id, id, this.state.quantity);
+    }
+    else {
+      if (!window.localStorage.cart) window.localStorage.cart = JSON.stringify([]);
+
+      let cart = JSON.parse(window.localStorage.cart);
+
+      let cartItem = cart.filter(
+        (item) => +item.productId === id
+      )[0];
+
+      if (cartItem) {
+        const index = cart.indexOf(cartItem);
+        cartItem.quantity += 1;
+        cart[index] = cartItem;
+      } else {
+        const newProduct = {
+          productId: id,
+          quantity: 1,
+          name: this.props.product.name,
+          price: this.props.product.price
+        }
+        cart.push(newProduct)
+      }
+      window.localStorage.cart = JSON.stringify(cart);
     }
   }
 

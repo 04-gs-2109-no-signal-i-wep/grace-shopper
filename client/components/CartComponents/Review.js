@@ -76,62 +76,20 @@ export class Review extends React.Component {
       });
     }
 
-    console.log('CART', cart);
-    console.log(productNameMap);
-    // const CART = {
-    //   KEY: 'CART',
-    //   contents: [],
-    //   init() {
-    //     let _contents = localStorage.getItem(CART.KEY);
-    //     if (_contents) {
-    //       CART.contents = JSON.parse(_contents);
-    //       CART.sync();
-    //     } else if (cart.length > 1) {
-    //       CART.contents = cart[0].order_details;
-    //       console.log('CONTENT', CART.contents);
-    //       CART.sync();
-    //     } else {
-    //       CART.contents = [];
-    //       CART.sync();
-    //     }
-    //   },
-    //   async sync() {
-    //     let _cart = JSON.stringify(CART.contents);
-    //     await localStorage.setItem(CART.KEY, _cart);
-    //   },
-    //   increase(orderId, productId) {
-    //     CART.contents = CART.contents.map((item) => {
-    //       if (item.orderId === orderId && +item.productId === productId) {
-    //         item.quantity = item.quantity + 1;
-    //         return item;
-    //       }
-    //     });
-    //   },
-    //   decrease(orderId, productId) {
-    //     CART.contents = CART.contents.map((item) => {
-    //       if (item.orderId === orderId && +item.productId === productId) {
-    //         item.quantity = item.quantity - 1;
-    //         return item;
-    //       }
-    //     });
-    //   },
-    // };
-
     return (
       <div className="loadingDiv">
-        {' '}
         {this.loading ? (
           <p>loading</p>
         ) : (
           <div className="cartReviewDiv">
             {cart.length === 0 ? (
-              <Typography variant="h6" gutterBottom>
-                <p></p>
-                {/* <Link to="/products">
-                  Your cart is empty. Check out our Products page to find your
-                  perfect room!
-                </Link> */}
-              </Typography>
+              ''
+              // <Typography variant="h6" gutterBottom>
+              //   <Link to="/products">
+              //     Your cart is empty. Check out our Products page to find your
+              //     perfect room!
+              //   </Link>
+              // </Typography>
             ) : (
               <React.Fragment>
                 <Typography variant="h6" gutterBottom>
@@ -227,7 +185,7 @@ export class Review extends React.Component {
           </div>
         )}
       </div>
-    );
+    )
   }
 }
 
