@@ -29,7 +29,7 @@ export class AllProducts extends React.Component {
 
   async setLoading() {
     try {
-      console.log('SETLOADING RUNNING')
+      console.log('SET LOADING RUNNING')
       await this.props.fetchProducts();
       this.setState({
         loading: false,
@@ -76,7 +76,7 @@ export class AllProducts extends React.Component {
                 </Link>
               </div>
             </div>
-          ) : ("")}
+          ) : null }
           <ProductCarousel />
           <Container maxWidth="md" className="product-container">
             <Grid

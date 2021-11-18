@@ -7,18 +7,32 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { addItemToCart } from '../store/cart';
-
+import CircularLoading from './CircularLoading';
 class SingleProduct extends React.Component {
   constructor() {
     super();
-    this.state = {};
+    this.state = {
+      loading: true,
+    };
     this.addToCart = this.addToCart.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
   }
 
   componentDidMount() {
-    this.props.fetchProduct(this.props.match.params.productId);
+    this.setLoading();
   }
+
+  async setLoading() {
+    try {
+      console.log('SET LOADING RUNNING')
+      await this.props.fetchProduct(this.props.match.params.productId);
+      this.setState({
+        loading: false,
+      })
+    } catch (error) {
+      console.error(error)
+    }
+  }  
 
   addToCart(productId) {
     const user = this.props.user;
@@ -34,10 +48,13 @@ class SingleProduct extends React.Component {
 
   render() {
     const product = this.props.product;
+    
     return (
       <>
-        {product ? (
+        { this.state.loading ? CircularLoading() : (
           <>
+        {/* {product ? (
+          <> */}
             <main>
               {this.props.is_admin ? (
                 <div className="adminBar">
@@ -56,9 +73,9 @@ class SingleProduct extends React.Component {
                     </button>
                   </div>
                 </div>
-              ) : (
-                ''
-              )}
+              ) : 
+                null
+              }
               <div className="singleView">
                 <div>
                   <div className="back">
@@ -88,9 +105,11 @@ class SingleProduct extends React.Component {
               </div>
             </main>
           </>
-        ) : (
-          'Loading products...'
-        )}
+        // ) : (
+        //   'Loading products...'
+        // )}
+          )
+        }
       </>
     );
   }

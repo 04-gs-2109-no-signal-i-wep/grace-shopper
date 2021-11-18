@@ -7,7 +7,6 @@ export default function CircularLoading() {
     <>
     {console.log('circular progress running')}
     <Box className="circular-loading" sx={{ display: 'flex' }}>
-      
       <CircularProgress />
     </Box>
     </>
