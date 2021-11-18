@@ -1,11 +1,11 @@
-import React from "react";
-import { connect } from "react-redux";
-import { fetchUsers, deleteUser } from "../store/users";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { DataGrid, GridRowsProp, GridColDef } from "@mui/x-data-grid";
-import { IconButton } from "@mui/material";
-import { Button } from "@mui/material";
+import React from 'react';
+import { connect } from 'react-redux';
+import { fetchUsers, deleteUser } from '../store/users';
+import { DataGrid, GridRowsProp, GridColDef } from '@mui/x-data-grid';
+import { IconButton } from '@mui/material';
+import { Button } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 const theme = createTheme({
   typography: {
@@ -13,11 +13,11 @@ const theme = createTheme({
   },
   palette: {
     primary: {
-      main: "#5b7b7a",
+      main: '#5b7b7a',
     },
     secondary: {
       main: '#ceb5a7',
-    }
+    },
   },
 });
 export class UserData extends React.Component {
@@ -29,15 +29,15 @@ export class UserData extends React.Component {
     const { allUsers } = this.props;
 
     const columns = [
-      { field: "col1", headerName: "ID", width: 50 },
-      { field: "col2", headerName: "First Name", width: 150 },
-      { field: "col3", headerName: "Last Name", width: 150 },
-      { field: "col4", headerName: "Email", width: 200 },
-      { field: "col5", headerName: "Admin Status", width: 150 },
+      { field: 'col1', headerName: 'ID', width: 50 },
+      { field: 'col2', headerName: 'First Name', width: 150 },
+      { field: 'col3', headerName: 'Last Name', width: 150 },
+      { field: 'col4', headerName: 'Email', width: 200 },
+      { field: 'col5', headerName: 'Admin Status', width: 150 },
 
       {
-        field: "col6",
-        headerName: "",
+        field: 'col6',
+        headerName: '',
         width: 100,
         renderCell: (userId) => {
           return (
@@ -45,7 +45,7 @@ export class UserData extends React.Component {
               variant="outlined"
               size="small"
               onClick={() => {
-                alert("Edit user " + userId.value);
+                alert('Edit user ' + userId.value);
               }}
             >
               Edit
@@ -55,8 +55,8 @@ export class UserData extends React.Component {
       },
 
       {
-        field: "col7",
-        headerName: "",
+        field: 'col7',
+        headerName: '',
         width: 80,
         renderCell: (userId) => {
           return (
@@ -80,14 +80,14 @@ export class UserData extends React.Component {
       col2: user.first_name,
       col3: user.last_name,
       col4: user.email_address,
-      col5: user.is_admin ? "Admin" : "Not Admin",
+      col5: user.is_admin ? 'Admin' : 'Not Admin',
       col6: user.id,
       col7: user.id,
     }));
 
     return (
       <ThemeProvider theme={theme}>
-        <div style={{ height: '90vh', width: "100%" }}>
+        <div style={{ height: '90vh', width: '100%' }}>
           <DataGrid rows={rows} columns={columns} />
         </div>
       </ThemeProvider>
