@@ -19,12 +19,12 @@ const theme = createTheme({
   },
   palette: {
     primary: {
-      main: "#5b7b7a",
+      main: '#5b7b7a',
     },
     secondary: {
       main: '#ceb5a7',
-    }
-  }
+    },
+  },
 });
 
 const AuthForm = (props) => {
@@ -32,21 +32,20 @@ const AuthForm = (props) => {
 
   return (
     <ThemeProvider theme={theme}>
-      <Container component="main" maxWidth="xs" >
+      <Container component="main" maxWidth="xs">
         <Box
           sx={{
             marginTop: 8,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            justifyContent: 'center'
-
+            justifyContent: 'center',
           }}
         >
           <Avatar sx={{ m: 1, bgcolor: '#ceb5a7' }}>
             <LockOutlinedIcon />
           </Avatar>
-          <Typography component="h1" variant="h5" >
+          <Typography component="h1" variant="h5">
             {displayName}
           </Typography>
           {displayName === 'Login' ? (

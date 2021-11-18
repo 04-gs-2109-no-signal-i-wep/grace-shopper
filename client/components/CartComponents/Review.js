@@ -156,7 +156,7 @@ export class Review extends React.Component {
                 <Grid container spacing={2}>
                   <Grid item xs={12} sm={6}>
                     <Typography variant="h6" gutterBottom sx={{ mt: 2 }}>
-                      Shipping
+                      Shipping To:
                     </Typography>
                     <Typography gutterBottom>
                       {this.props.auth.first_name} {this.props.auth.last_name}
@@ -164,9 +164,11 @@ export class Review extends React.Component {
                     {/* <Typography gutterBottom>{addresses.join(', ')}</Typography> */}
                   </Grid>
                   <Grid item container direction="column" xs={12} sm={6}>
-                    <Typography variant="h6" gutterBottom sx={{ mt: 2 }}>
-                      Payment details
-                    </Typography>
+                    <Typography
+                      variant="h6"
+                      gutterBottom
+                      sx={{ mt: 2 }}
+                    ></Typography>
                     {/* <Grid container>
                   {payments.map((payment) => (
                     <React.Fragment key={payment.name}>
