@@ -53,18 +53,16 @@ class SingleProduct extends React.Component {
       <>
         { this.state.loading ? CircularLoading() : (
           <>
-        {/* {product ? (
-          <> */}
             <main>
               {this.props.is_admin ? (
                 <div className="adminBar">
                   <h5>Admin Control</h5>
                   <div className="adminBar">
-                    <a href={`/products/${product.id}/edit`}>
+                    <Link to={`/products/${product.id}/edit`}>
                       <button className="adminButton">
                         <EditIcon fontSize="12" /> Edit
                       </button>
-                    </a>
+                    </Link>
                     <button
                       className="adminButton"
                       onClick={() => this.props.deleteProduct(product.id)}
@@ -105,9 +103,6 @@ class SingleProduct extends React.Component {
               </div>
             </main>
           </>
-        // ) : (
-        //   'Loading products...'
-        // )}
           )
         }
       </>

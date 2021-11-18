@@ -89,7 +89,7 @@ export class AllProducts extends React.Component {
               {pageProducts &&
                 pageProducts.map((product) => {
                   return (
-                    <Grid item xs={8} md={4} key={product.id}>
+                    <Grid className="all-prod-card-cont" item xs={8} md={4} key={product.id}>
                       <ProductCard
                         image={product.image_url}
                         title={product.name}
@@ -103,7 +103,7 @@ export class AllProducts extends React.Component {
                 })}
             </Grid>
             {/* //Pagination */}
-            <Stack spacing={2}>
+            <Stack className="all-prod-page-nums" spacing={2}>
               <Typography>Page: {this.state.page} </Typography>
               <Pagination count={numPages} page={this.state.page} onChange={handleChange} />
             </Stack>

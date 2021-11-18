@@ -20,9 +20,9 @@ const Navbar = ({ handleClick, isLoggedIn, isAdmin }) => (
           <Link to="/cart">
             <ShoppingCartIcon fontSize="small" />
           </Link>
-          <a href="#" onClick={handleClick}>
+          <Link to="#" onClick={handleClick}>
             Log Out
-          </a>
+          </Link>
           {isAdmin ? (<Link to = "/users">Users</Link>) : ("")}
         </div>
       ) : (
