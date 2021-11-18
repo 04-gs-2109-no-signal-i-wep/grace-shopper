@@ -90,6 +90,7 @@ export const checkoutCart = (userId) => {
       const { data: newCart } = await axios.put(
         `/api/orders/cart/checkout/${userId}`
       );
+      console.log('THIS IS NEW CART', newCart);
       dispatch(setCart(newCart));
     } catch (error) {
       console.log('An error occurred in the checkoutCart thunk: ', error);

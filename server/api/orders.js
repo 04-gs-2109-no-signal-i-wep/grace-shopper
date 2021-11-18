@@ -25,6 +25,8 @@ router.get('/cart/:userId', async (req, res, next) => {
     cartContents[0].dataValues.order_total = order_total;
     cartContents[0].dataValues.total_quantity = total_quantity;
     cart.save();
+    console.log('THE WHOLE CART', cart);
+    console.log('THE CONTENTS OF THE CART', cartContents);
     res.send(cartContents);
   } catch (error) {
     next(error);
@@ -127,8 +129,10 @@ router.put('/cart/checkout/:userId', async (req, res, next) => {
 
     // Create new order
     const user = await User.findOne({ where: { id: userId } });
-    await Order.createCart(userId, user);
-    res.json(cart);
+    let newCart = await Order.createCart(userId, user);
+    let cartContents = await Order.findCartContents(newCart.dataValues.id);
+    console.log('THIS IS NEW CART', newCart);
+    res.json(cartContents);
   } catch (error) {
     next(error);
   }
