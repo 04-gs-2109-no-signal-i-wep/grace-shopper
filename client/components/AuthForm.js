@@ -19,9 +19,9 @@ const theme = createTheme({
   },
   palette: {
     primary: {
-      main: "#5b7b7a",
+      main: '#5b7b7a',
     },
-  }
+  },
 });
 
 const AuthForm = (props) => {
