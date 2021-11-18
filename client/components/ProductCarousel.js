@@ -3,15 +3,20 @@ import { connect } from "react-redux";
 import { fetchFeaturedProducts } from "../store/featuredProducts";
 import Carousel from "react-material-ui-carousel";
 import { Link } from "react-router-dom";
-import { Paper } from "@mui/material";
-import { Button } from "@mui/material";
+import { Button, Paper } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 const theme = createTheme({
+  typography: {
+    fontFamily: ['Work Sans'].join(','),
+  },
   palette: {
     primary: {
       main: "#5b7b7a",
     },
+    secondary: {
+      main: '#ceb5a7',
+    }
   },
 });
 class ProductCarousel extends React.Component {

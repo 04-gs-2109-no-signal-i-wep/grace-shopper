@@ -21,6 +21,9 @@ const theme = createTheme({
     primary: {
       main: '#5b7b7a',
     },
+    secondary: {
+      main: '#ceb5a7',
+    },
   },
 });
 
@@ -36,6 +39,7 @@ const AuthForm = (props) => {
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
+            justifyContent: 'center',
           }}
         >
           <Avatar sx={{ m: 1, bgcolor: '#ceb5a7' }}>
@@ -51,6 +55,7 @@ const AuthForm = (props) => {
               name={name}
               noValidate
               sx={{ mt: 1 }}
+              p={2}
             >
               <TextField
                 margin="normal"
