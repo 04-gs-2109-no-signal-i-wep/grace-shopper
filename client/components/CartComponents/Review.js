@@ -14,6 +14,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
+import CircularLoading from '../CircularLoading';
 
 export class Review extends React.Component {
   constructor(props) {
@@ -79,7 +80,7 @@ export class Review extends React.Component {
     return (
       <div className="loadingDiv">
         {this.loading ? (
-          <p>loading</p>
+          CircularLoading()
         ) : (
           <div className="cartReviewDiv">
             {cart.length === 0 ? (

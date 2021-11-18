@@ -9,10 +9,8 @@ export class AddProduct extends React.Component {
     super(props);
     this.state = {
       name: "",
-      price: 0,
+      price: "",
       description: "",
-      image_url: "",
-      featured: false,
       color: "",
       size: "",
       inventory_quantity: ""
@@ -78,24 +76,6 @@ export class AddProduct extends React.Component {
               onChange={handleChange}
               className="add-prod-form-input"
             />
-            <label htmlFor="image-url" className="add-prod-form-label">
-              Image Url
-            </label>
-            <input
-              name="image-url"
-              value={image_url}
-              onChange={handleChange}
-              className="add-prod-form-input"
-            />
-            <label htmlFor="image-url" className="add-prod-form-label">
-              Featured
-            </label>
-            <input
-              name="featured"
-              value={featured}
-              onChange={handleChange}
-              className="add-prod-form-input"
-            />
             <label htmlFor="name" className="add-prod-form-label">
               Color
             </label>
@@ -135,7 +115,7 @@ export class AddProduct extends React.Component {
   }
 }
 
-const mapDispatch = (dispatch, history) => ({
+const mapDispatch = (dispatch, hi) => ({
   addProduct: (product) => dispatch(addProduct(product)),
 });
 

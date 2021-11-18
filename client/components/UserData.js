@@ -5,19 +5,22 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { DataGrid, GridRowsProp, GridColDef } from "@mui/x-data-grid";
 import { IconButton } from "@mui/material";
 import { Button } from "@mui/material";
-import DeleteIcon from "@mui/icons-material/Delete";
+import DeleteIcon from '@mui/icons-material/Delete';
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 const theme = createTheme({
   typography: {
-    fontFamily: ["Work Sans"].join(","),
+    fontFamily: ['Work Sans'].join(','),
   },
   palette: {
     primary: {
       main: "#5b7b7a",
     },
+    secondary: {
+      main: '#ceb5a7',
+    }
   },
 });
-
 export class UserData extends React.Component {
   componentDidMount() {
     this.props.fetchUsers();

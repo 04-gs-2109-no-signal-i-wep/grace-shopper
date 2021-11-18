@@ -20,7 +20,7 @@ const theme = createTheme({
   },
 });
 
-export default function ProductCard({ image, title, description, productId }) {
+export default function ProductCard({ image, title, description, productId, isAdmin, inventoryQuantity}) {
   return (
     <ThemeProvider theme={theme}>
       <Card sx={{ maxWidth: 345 }}>
@@ -38,17 +38,29 @@ export default function ProductCard({ image, title, description, productId }) {
                   ? description.slice(0, 25) + '...'
                   : description}
               </Typography>
+              {isAdmin ? (
+                <Typography variant="body2" color="text.secondary">
+                  Quantity: {inventoryQuantity}
+                </Typography>
+              ) : null
+              }
             </CardContent>
+            <CardActions>
+              <Link to={`/products/${productId}`}>
+                <Button size="small" variant="contained" color="primary">
+                  View More
+                </Button>
+              </Link>
+            </CardActions>
           </CardActionArea>
         </Link>
-        <CardActions>
-          <Link to={`/products/${productId}`}>
-            <Button size="small" variant="contained" color="primary">
-              View More
-            </Button>
-          </Link>
-        </CardActions>
       </Card>
     </ThemeProvider>
   );
 }
+
+// const mapState = ({auth}) => ({
+//   is_admin: auth.is_admin
+// });
+
+// const mapDispatch 
