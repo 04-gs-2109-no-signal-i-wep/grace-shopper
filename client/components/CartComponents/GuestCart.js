@@ -37,16 +37,11 @@ class GuestCart extends React.Component {
     }
     let guestCart = JSON.parse(window.localStorage.cart);
     const productsInCart = this.state.products;
-    console.log('productsInCart', productsInCart)
 
     const total = productsInCart.reduce((subtotal, product) => {
       subtotal += (product.price * product.quantity);
-      console.log(subtotal)
       return subtotal;
     }, 0);
-
-    console.log("are you in guest cart?", guestCart);
-    console.log("current state", productsInCart);
 
     return (
       <div className="cartReviewDiv">
@@ -113,6 +108,7 @@ class GuestCart extends React.Component {
                 </ButtonGroup>
               </ListItem>
             ))}
+            <hr />
 
             <ListItem sx={{ py: 1, px: 0 }}>
               <ListItemText primary="Total" />

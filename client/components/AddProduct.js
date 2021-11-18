@@ -123,7 +123,7 @@ export class AddProduct extends React.Component {
               onChange={handleChange}
               className="add-prod-form-input"
             />
-              <button type="submit">
+              <button type="submit" className="editBtn">
                 Add Product
               </button>
             <Link to={'/products'}>

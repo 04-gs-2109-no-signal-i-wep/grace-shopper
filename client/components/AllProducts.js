@@ -81,7 +81,7 @@ export class AllProducts extends React.Component {
 
           {/* //Pagination */}
           <Stack spacing={2}>
-            <Typography>Page: {this.state.page} </Typography>
+            <br />
             <Pagination count={numPages} page={this.state.page} onChange={handleChange} />
           </Stack>
 
