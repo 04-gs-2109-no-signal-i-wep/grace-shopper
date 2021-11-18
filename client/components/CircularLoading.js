@@ -17,7 +17,6 @@ const theme = createTheme({
 export default function CircularLoading() {
   return (
     <>
-    {console.log('circular progress running')}
     <ThemeProvider theme={theme}>
       <Box className="circular-loading" sx={{ display: 'flex' }}>
         <CircularProgress color="primary"/>

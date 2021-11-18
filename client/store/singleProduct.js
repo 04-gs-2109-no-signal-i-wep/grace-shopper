@@ -63,7 +63,6 @@ export const addProduct = (product, history) => {
   return async (dispatch) => {
     try {
       const { data } = await axios.post('/api/products', product);
-      console.log('HERE IS THE PRODUCT DATA!', data);
       dispatch(_addProduct(data));
     } catch (e) {
       console.log('Error adding product!', e);
@@ -81,7 +80,6 @@ export const deleteProduct = (id, history) => {
             authorization: token,
           }
         });
-        console.log(deleted)
         dispatch(_deleteProduct(deleted));
         history.push(`/products`)
       } else {

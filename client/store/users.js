@@ -41,7 +41,6 @@ export const deleteUser = (id, history) => {
   return async dispatch => {
     try {
       const {data: deleted} = await axios.delete(`/api/users/${id}`);
-      console.log('adfdfdsfdf' + deleted)
       dispatch(_deleteUser(deleted));
       history.push(`/users`)
     } catch (e) {
