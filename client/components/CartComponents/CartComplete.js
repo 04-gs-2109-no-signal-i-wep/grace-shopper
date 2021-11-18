@@ -1,15 +1,12 @@
 import * as React from "react";
 import CssBaseline from "@mui/material/CssBaseline";
-import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
-import Toolbar from "@mui/material/Toolbar";
 import Paper from "@mui/material/Paper";
 import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
 import Button from "@mui/material/Button";
-import Link from "@mui/material/Link";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import AddressForm from "./AddressForm";
@@ -31,7 +28,7 @@ function Checkout(props) {
   function getStepContent(step) {
     switch (step) {
       case 0:
-        return !props.user.id ? <GuestCart /> : <Review />;
+        return props.user.id ? <Review /> : <GuestCart />;
       case 1:
         return <AddressForm />;
       case 2:
@@ -44,7 +41,11 @@ function Checkout(props) {
   const [activeStep, setActiveStep] = React.useState(0);
 
   const handleNext = () => {
-    setActiveStep(activeStep + 1);
+    if (props.user.id) {
+      setActiveStep(activeStep + 1);
+    } else {
+      alert("Please sign in to Checkout!");
+    }
   };
 
   const handleBack = () => {
@@ -55,6 +56,8 @@ function Checkout(props) {
     props.checkoutCart(props.user.id);
     setActiveStep(activeStep + 1);
   };
+
+  const userId = props.user.id;
 
   return (
     <ThemeProvider theme={theme}>
@@ -110,7 +113,7 @@ function Checkout(props) {
                       onClick={handleNext}
                       sx={{ mt: 3, ml: 1 }}
                     >
-                      Next
+                      {userId ? 'Next' : 'Sign in to Checkout'}
                     </Button>
                   )}
                 </Box>

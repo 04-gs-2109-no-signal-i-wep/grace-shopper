@@ -5,118 +5,122 @@ import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import Button from "@mui/material/Button";
 import ButtonGroup from "@mui/material/ButtonGroup";
-import { useState, useEffect } from "react";
+import { fetchProduct } from "../../store/singleProduct";
+import { connect } from "react-redux";
 
-export default function GuestCart(props) {
-  let [cart, setCart] = useState([]);
-  let guestCart = JSON.parse(window.localStorage.cart);
-  console.log("are you in guest cart?", guestCart);
+class GuestCart extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      products: [],
+    };
+    this.setCartToState = this.setCartToState.bind(this);
+  }
 
-  useEffect(() => {
-    console.log("removing item");
-    async function removeItem(productId) {
-      const data = await guestCart.filter((product) => {
-        product.productId !== productId;
-      });
-      setCart(JSON.parse(data));
+  async componentDidMount() {
+    const cart = JSON.parse(window.localStorage.cart);
+    try {
+      this.setCartToState(cart);
+    } catch (error) {
+      console.error(error);
     }
-    removeItem();
-  });
+  }
 
-  const editItem = (itemID, amount) => {
-    let cartCopy = [...cart];
-
-    //find if item exists, just in case
-    let existentItem = cartCopy.find((item) => item.ID == itemID);
-
-    //if it doesnt exist simply return
-    if (!existentItem) return;
-
-    //continue and update quantity
-    existentItem.quantity += amount;
-
-    //validate result
-    if (existentItem.quantity <= 0) {
-      //remove item  by filtering it from cart array
-      cartCopy = cartCopy.filter((item) => item.ID != itemID);
-    }
-
-    //again, update state and localState
-    setCart(cartCopy);
-
-    let cartString = JSON.stringify(cartCopy);
-    localStorage.setItem("cart", cartString);
-  };
-
-  let productNameMap = {};
-  if (guestCart.length > 0) {
-    guestCart.forEach((product) => {
-      productNameMap[product.productId] = product.name;
+  async setCartToState(cart) {
+    this.setState({
+      products: cart,
     });
   }
 
-  return (
-    <div className="cartReviewDiv">
-      <React.Fragment>
-        <Typography variant="h6" gutterBottom>
-          Order summary
-        </Typography>
-        <List disablePadding>
-          {guestCart.map((orderRow) => (
-            <ListItem
-              key={orderRow.orderId + orderRow.productId}
-              sx={{ py: 1, px: 0 }}
-            >
-              <ListItemText
-                primary={productNameMap[orderRow.productId]}
-                secondary={
-                  <ButtonGroup
-                    size="small"
-                    aria-label="small outlined button group"
-                  >
-                    <Button
-                      onClick={() =>
-                        this.handleIncrement(
-                          orderRow.orderId,
-                          orderRow.productId,
-                          orderRow.quantity
-                        )
-                      }
+  render() {
+    if (!window.localStorage.cart) {
+      window.localStorage.cart = JSON.stringify([]);
+    }
+    let guestCart = JSON.parse(window.localStorage.cart);
+    const productsInCart = this.state.products;
+    // const total = productsInCart.reduce((acc, product) => {
+    //   acc += product.price * product.quantity;
+    //   return acc;
+    // }, 0);
+
+    console.log("are you in guest cart?", guestCart);
+
+    return (
+      <div className="cartReviewDiv">
+        <React.Fragment>
+          <Typography variant="h6" gutterBottom>
+            Order summary
+          </Typography>
+          <List disablePadding>
+            {guestCart.map((product) => (
+              <ListItem key={product.productId} sx={{ py: 1, px: 0 }}>
+                <ListItemText
+                  primary={product.name}
+                  secondary={
+                    <ButtonGroup
+                      size="small"
+                      aria-label="small outlined button group"
                     >
-                      +
-                    </Button>
-                    {<Button disabled>{orderRow.quantity}</Button>}
-                    {
                       <Button
                         onClick={() =>
-                          this.handleDecrement(
-                            orderRow.orderId,
-                            orderRow.productId,
-                            orderRow.quantity
+                          this.handleIncrement(
+                            product.orderId,
+                            product.productId,
+                            product.quantity
                           )
                         }
                       >
-                        -
+                        +
                       </Button>
-                    }
-                    <Button onClick={() => removeItem(orderRow.productId)}>
-                      Delete
-                    </Button>
-                  </ButtonGroup>
-                }
-              />
-              <Typography variant="body2">${orderRow.price}</Typography>
-            </ListItem>
-          ))}
+                      {<Button disabled>{product.quantity}</Button>}
+                      {
+                        <Button
+                          onClick={() =>
+                            this.handleDecrement(
+                              product.orderId,
+                              product.productId,
+                              product.quantity
+                            )
+                          }
+                        >
+                          -
+                        </Button>
+                      }
+                      <Button
+                        onClick={() => {
+                          guestCart = guestCart.filter((cartItem) => {
+                            return +cartItem.productId !== product.productId;
+                          });
+                          guestCart = JSON.stringify(guestCart);
+                          this.setCartToState(guestCart);
+                        }}
+                      >
+                        Delete
+                      </Button>
+                    </ButtonGroup>
+                  }
+                />
+                <Typography variant="body2">${product.price}</Typography>
+              </ListItem>
+            ))}
 
-          <ListItem sx={{ py: 1, px: 0 }}>
-            <ListItemText primary="Total" />
-            <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>
-              {/* ${cart[0].order_total} */}
-            </Typography>
-          </ListItem>
-        </List>
-      </React.Fragment>
-    </div>
-  );
+            <ListItem sx={{ py: 1, px: 0 }}>
+              <ListItemText primary="Total" />
+              <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>
+                {/* ${total.toFixed(2)} */}
+              </Typography>
+            </ListItem>
+          </List>
+        </React.Fragment>
+      </div>
+    );
+  }
 }
+
+// const mapDispatchToProps = (dispatch) => ({
+//   fetchProduct: (productId) => dispatch(fetchProduct(productId)),
+// });
+
+// export default connect(null, mapDispatchToProps)(GuestCart);
+
+export default GuestCart;

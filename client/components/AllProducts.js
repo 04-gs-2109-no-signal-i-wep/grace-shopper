@@ -6,11 +6,11 @@ import { Link } from "react-router-dom";
 import ProductCard from "./ProductCard";
 import ProductCarousel from "./ProductCarousel";
 import Container from "@mui/material/Container";
-import Box from '@mui/material/Box';
 import Grid from "@mui/material/Grid";
 import { Pagination } from "@mui/material";
 import { Typography } from "@mui/material";
 import { Stack } from "@mui/material";
+import AddCircleIcon from '@mui/icons-material/AddCircle';
 
 export class AllProducts extends React.Component {
   constructor(props) {
@@ -47,7 +47,7 @@ export class AllProducts extends React.Component {
             <div className="adminBar">
               <Link to={"addproduct"}>
                 <button className="adminButton">
-                  <EditIcon fontSize="12" /> Add a Product
+                  <AddCircleIcon fontSize="12" /> Add a Product
                 </button>
               </Link>
             </div>
