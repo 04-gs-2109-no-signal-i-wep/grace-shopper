@@ -41,7 +41,6 @@ export class AllProducts extends React.Component {
     const trimStart = (this.state.page-1)*numberPerPage;
     const trimEnd = trimStart + numberPerPage;
     const pageProducts = this.props.allProducts.slice(trimStart, trimEnd);
-    console.log(this.page, trimStart, trimEnd, pageProducts)
     return pageProducts;
   }
 
@@ -55,22 +54,18 @@ export class AllProducts extends React.Component {
 
     const pageProducts = this.fetchPageProducts();
     const numPages = Math.ceil(allProducts.length/9);
-    console.log('ASDFASDFSDF' + numPages);
-    
+
     return (
       <>
         { loading ? CircularLoading() : (
           <>
           {is_admin ? (
             <div className="adminBar">
-              <h5>Admin Control</h5>
-              <div className="adminBar">
                 <Link to={"addproduct"}>
                   <button className="adminButton">
                     <AddCircleIcon fontSize="12" /> Add a Product
                   </button>
                 </Link>
-              </div>
             </div>
           ) : null 
           }

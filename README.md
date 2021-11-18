@@ -11,6 +11,8 @@ Download Hearth into your local drive:
 - `npm run seed`
 - `npm run start:dev`
 
+<a href="https://blushing-sidewalk-9cc.notion.site/Hearth-Documentation-a5c7b81616494ac1af0678204d40b170">Hearth Documentation</a> on Notion
+
 ## Heroku
 
 Experience Hearth deployed:

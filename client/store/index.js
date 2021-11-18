@@ -18,8 +18,6 @@ const reducer = combineReducers({
   users,
 });
 
-console.log('REDUCER CHECK', reducer);
-
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({ collapsed: true }))
 );
