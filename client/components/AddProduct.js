@@ -47,7 +47,7 @@ export class AddProduct extends React.Component {
 
     return (
       <Container maxWidth="sm" className="left">
-          <h2>Add A Product</h2>
+          <h2>Add a Product</h2>
           <form onSubmit={handleSubmit}>
             <label htmlFor="name" className="add-prod-form-label">
               Product Name

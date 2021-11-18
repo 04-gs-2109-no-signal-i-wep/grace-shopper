@@ -15,7 +15,6 @@ const requireToken = async (req, res, next) => {
 };
 
 const isAdmin = (req, res, next) => {
-  console.log(req.data)
   if (!req.user.is_admin) {
     return res.status(403).send("You shall not pass!");
   } else {

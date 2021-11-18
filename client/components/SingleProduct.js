@@ -24,7 +24,6 @@ class SingleProduct extends React.Component {
 
   async setLoading() {
     try {
-      console.log('SET LOADING RUNNING')
       await this.props.fetchProduct(this.props.match.params.productId);
       this.setState({
         loading: false,
